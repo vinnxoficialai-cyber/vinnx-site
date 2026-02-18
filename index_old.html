@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Gen AI Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        // Suppress Tailwind CDN production warning (dev-only usage)
+        const _warn = console.warn;
+        console.warn = (...args) => {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+            _warn.apply(console, args);
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        background: '#050505',
+                        surface: '#0A0A0A',
+                        primary: '#22C55E',
+                        'primary-glow': 'rgba(34, 197, 94, 0.4)',
+                        border: 'rgba(255, 255, 255, 0.08)',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #22C55E;
+            --primary-glow: rgba(34, 197, 94, 0.4);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #050505;
+            color: white;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ======================================================
+           AMBIENT BACKGROUND
+        ====================================================== */
+        .ambient-light-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+        .glow-1 {
+            top: -20%; left: 40%; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, rgba(34,197,94,0.12) 0%, rgba(0,0,0,0) 70%);
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+        .glow-1.active { opacity: 1; }
+
+        /* ======================================================
+           NAVIGATION — starts hidden, slides in
+        ====================================================== */
+        nav {
+            position: fixed;
+            top: 0; width: 100%; z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            max-width: 1280px;
+            margin: 0 auto;
+            left: 50%; transform: translateX(-50%) translateY(-100%);
+            backdrop-filter: blur(12px);
+            background: rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            opacity: 0;
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.7s ease;
+        }
+        nav.nav-in {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Mobile nav adjustments */
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 16px;
+            }
+        }
+
+        /* ======================================================
+           TITLE — word-by-word reveal
+        ====================================================== */
+        .title-word {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(24px);
+            transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        filter 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+            white-space: pre;
+            color: rgba(255,255,255,0.75);
+        }
+        .title-word.word-in {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+        /* "secure, optimized" — bright white with subtle glow */
+        .title-word.highlight {
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255,255,255,0.25);
+        }
+
+        /* ======================================================
+           GENERIC REVEAL
+        ====================================================== */
+        .reveal {
+            opacity: 0;
+            filter: blur(8px);
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        filter 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal.in {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+        /* CTA button — pure fade, no blur/shift, very gradual */
+        .reveal-cta {
+            opacity: 0;
+            transition: opacity 2.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal-cta.in {
+            opacity: 1;
+        }
+
+        /* ======================================================
+           FAN CARDS
+        ====================================================== */
+        .fan-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+            height: 450px;
+            width: 100%;
+            max-width: 100%;
+            perspective: 1200px;
+        }
+
+        .bento-card {
+            background: linear-gradient(165deg, rgba(30,30,30,0.4) 0%, rgba(10,10,10,0.6) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6);
+            width: 320px;
+            height: 380px;
+            position: absolute;
+            overflow: hidden;
+            will-change: transform, opacity;
+            /* transition handles hover & scroll interpolation */
+            transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+                        opacity 0.9s ease,
+                        box-shadow 0.4s ease;
+        }
+
+        /* ---- INITIAL (off-screen below) ---- */
+        .card-left, .card-center, .card-right {
+            opacity: 0;
+            transform: translateY(180px) scale(0.88);
+        }
+
+        /* ---- RESTING positions after intro ---- */
+        .card-left.card-in {
+            opacity: 1;
+            z-index: 10;
+            transform: translateX(-240px) translateY(20px) rotate(-8deg);
+            background: linear-gradient(165deg, rgba(20,20,20,0.9) 0%, rgba(5,5,5,0.95) 100%);
+        }
+        .card-center.card-in {
+            opacity: 1;
+            z-index: 30;
+            transform: translateX(0) translateY(0) scale(1.1);
+            border-color: rgba(34, 197, 94, 0.2);
+            box-shadow: 0 30px 60px -15px rgba(0,0,0,0.8), 0 0 0 1px rgba(34, 197, 94, 0.1);
+            background: #0f0f11;
+        }
+        .card-right.card-in {
+            opacity: 1;
+            z-index: 10;
+            transform: translateX(240px) translateY(20px) rotate(8deg);
+            background: linear-gradient(165deg, rgba(20,20,20,0.9) 0%, rgba(5,5,5,0.95) 100%);
+        }
+
+        /* ---- HOVER (desktop only) ---- */
+        @media (min-width: 1024px) {
+            .fan-container:not(.scroll-spread):hover .card-left.card-in {
+                transform: translateX(-260px) translateY(10px) rotate(-12deg);
+            }
+            .fan-container:not(.scroll-spread):hover .card-right.card-in {
+                transform: translateX(260px) translateY(10px) rotate(12deg);
+            }
+            .fan-container:not(.scroll-spread):hover .card-center.card-in {
+                transform: translateX(0) translateY(-10px) scale(1.12);
+                box-shadow: 0 40px 80px -20px rgba(0,0,0,0.9), 0 0 0 1px rgba(34, 197, 94, 0.2), 0 0 40px rgba(34,197,94,0.06);
+            }
+        }
+
+        /* ---- SCROLL SPREAD — applied by JS ---- */
+        .fan-container.scroll-spread .card-left.card-in {
+            transform: translateX(calc(-240px - var(--spread, 0px))) translateY(20px) rotate(calc(-8deg - var(--spread-rot, 0deg)));
+        }
+        .fan-container.scroll-spread .card-right.card-in {
+            transform: translateX(calc(240px + var(--spread, 0px))) translateY(20px) rotate(calc(8deg + var(--spread-rot, 0deg)));
+        }
+        .fan-container.scroll-spread .card-center.card-in {
+            transform: translateX(0) translateY(calc(var(--spread-y, 0px))) scale(1.1);
+        }
+
+        /* ---- MOBILE ---- */
+        @media (max-width: 1023px) {
+            .fan-container {
+                height: 380px;
+                transform: scale(0.92);
+                transform-origin: top center;
+                margin-top: -20px;
+                margin-bottom: -10px;
+            }
+            .bento-card {
+                width: 300px;
+                height: 360px;
+            }
+            .card-left.card-in  { 
+                transform: translateX(-90px) translateY(40px) rotate(-14deg) scale(0.90); 
+            }
+            .card-right.card-in { 
+                transform: translateX(90px) translateY(40px) rotate(14deg) scale(0.90); 
+            }
+            .card-center.card-in { 
+                transform: translateX(0) translateY(0) scale(1.05); 
+                z-index: 20; 
+            }
+            /* Mobile scroll spread - valores menores para melhor UX */
+            .fan-container.scroll-spread .card-left.card-in {
+                transform: translateX(calc(-90px - var(--spread, 0px))) translateY(40px) rotate(calc(-14deg - var(--spread-rot, 0deg))) scale(0.90);
+            }
+            .fan-container.scroll-spread .card-right.card-in {
+                transform: translateX(calc(90px + var(--spread, 0px))) translateY(40px) rotate(calc(14deg + var(--spread-rot, 0deg))) scale(0.90);
+            }
+            .fan-container.scroll-spread .card-center.card-in {
+                transform: translateX(0) translateY(calc(var(--spread-y, 0px))) scale(1.05);
+            }
+        }
+
+        /* Extra small mobile adjustments */
+        @media (max-width: 480px) {
+            .fan-container {
+                transform: scale(0.85);
+                margin-top: -25px;
+            }
+            .bento-card {
+                width: 290px;
+                height: 350px;
+            }
+        }
+
+        /* ======================================================
+           INNER CARD ELEMENTS
+        ====================================================== */
+        .bar-chart-col {
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .bar-fill {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: #3f3f46;
+            transition: height 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            height: 0;
+        }
+        .bar-fill.highlight {
+            background: linear-gradient(to top, #22c55e, #86efac);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+        }
+        .globe-gradient {
+            background: radial-gradient(circle at center 120%, rgba(34,197,94,0.15) 0%, transparent 60%);
+            width: 100%; height: 150px;
+            position: absolute; bottom: -50px; left: 0;
+            border-radius: 50% 50% 0 0;
+            border-top: 1px solid rgba(34,197,94,0.3);
+        }
+
+        /* Mobile card content adjustments */
+        @media (max-width: 1023px) {
+            /* Center card - Analytics */
+            .bento-card .p-6 {
+                padding: 1.25rem !important;
+            }
+            .bento-card h3 {
+                font-size: 1rem !important;
+            }
+            .bento-card .text-3xl {
+                font-size: 1.75rem !important;
+                line-height: 2rem !important;
+            }
+            .bento-card .text-xs {
+                font-size: 0.7rem !important;
+            }
+            /* Evitar quebra de "This Year" */
+            .bento-card .text-xs.text-gray-500 {
+                white-space: nowrap;
+                font-size: 0.65rem !important;
+            }
+            /* Badge de porcentagem */
+            .bento-card .space-x-1\.5 {
+                padding: 0.35rem 0.5rem !important;
+            }
+            .bento-card .font-mono {
+                font-size: 0.75rem !important;
+            }
+            /* Header flex adjustment */
+            .bento-card .mb-8.flex {
+                margin-bottom: 1.25rem !important;
+                gap: 0.5rem !important;
+            }
+            /* Bar chart adjustments */
+            .bar-chart-col.h-32 {
+                height: 7rem !important;
+            }
+            .bento-card .space-x-3 {
+                gap: 0.5rem !important;
+            }
+            /* Left card adjustments */
+            .card-left .space-y-1 {
+                margin-bottom: 1.5rem !important;
+            }
+            .card-left .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            .card-left .h-10 {
+                height: 2.25rem !important;
+            }
+            .card-left .w-4,
+            .card-left .h-4 {
+                width: 0.9rem !important;
+                height: 0.9rem !important;
+            }
+            .card-left .text-sm {
+                font-size: 0.8rem !important;
+            }
+            .card-left .space-x-3 {
+                gap: 0.6rem !important;
+            }
+            /* Right card adjustments */
+            .card-right h3 {
+                font-size: 0.8rem !important;
+                line-height: 1.4 !important;
+            }
+            .card-right ul {
+                margin-top: 0.5rem !important;
+            }
+            .card-right .space-y-3 {
+                gap: 0.6rem !important;
+            }
+            .card-right .text-xs {
+                font-size: 0.7rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bento-card .p-6 {
+                padding: 1rem !important;
+            }
+            .bento-card .mb-8 {
+                margin-bottom: 1rem !important;
+            }
+            .bar-chart-col.h-32 {
+                height: 6rem !important;
+            }
+            .bento-card .space-x-3 {
+                gap: 0.4rem !important;
+            }
+            .bento-card .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            .card-left .text-3xl {
+                font-size: 1.35rem !important;
+            }
+        }
+
+        /* ======================================================
+           TRANSACTION FLOW ANIMATION
+        ====================================================== */
+        .tx-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 120px 16px 160px;
+            position: relative;
+            overflow: hidden;
+        }
+        .tx-section::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px; height: 400px;
+            background: radial-gradient(ellipse, rgba(34,197,94,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .tx-header {
+            text-align: center;
+            margin-bottom: 64px;
+            z-index: 2;
+            padding: 0 20px;
+        }
+        .tx-header h2 {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        .tx-header p {
+            color: rgba(255,255,255,0.35);
+            font-size: 15px;
+            max-width: 340px;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+        .tx-stack {
+            position: relative;
+            width: min(360px, 90vw);
+            height: 220px;
+            perspective: 1200px;
+        }
+        .tx-card {
+            position: absolute;
+            left: 50%; top: 50%;
+            width: min(340px, 88vw);
+            height: 72px;
+            margin-left: min(-170px, -44vw);
+            margin-top: -36px;
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            padding: 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            will-change: transform, opacity, filter;
+            transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+                        filter 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.65s ease;
+        }
+
+        /* Mobile tx-card adjustments */
+        @media (max-width: 480px) {
+            .tx-card {
+                height: 68px;
+                padding: 0 14px;
+            }
+            .tx-icon {
+                width: 38px !important;
+                height: 38px !important;
+            }
+            .tx-name {
+                font-size: 13px !important;
+            }
+            .tx-amount {
+                font-size: 15px !important;
+            }
+        }
+
+        .tx-card[data-pos="exit"] {
+            transform: translateY(-90px) scale(0.82);
+            opacity: 0;
+            filter: blur(3px);
+            z-index: 0;
+            transition: transform 0.65s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease, filter 0.65s ease;
+        }
+        .tx-card[data-pos="top"] {
+            transform: translateY(-58px) scale(0.9);
+            opacity: 0.38;
+            filter: blur(0.5px) brightness(0.55);
+            z-index: 2;
+        }
+        .tx-card[data-pos="center"] {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            filter: none;
+            z-index: 10;
+            background: #1e1e1e;
+            border-color: rgba(255,255,255,0.12);
+            box-shadow: 0 24px 48px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+        }
+        .tx-card[data-pos="bottom"] {
+            transform: translateY(58px) scale(0.9);
+            opacity: 0.38;
+            filter: blur(0.5px) brightness(0.55);
+            z-index: 2;
+        }
+        .tx-card[data-pos="buffer"] {
+            transform: translateY(90px) scale(0.82);
+            opacity: 0;
+            filter: blur(3px);
+            z-index: 0;
+        }
+        .tx-card.no-transition { transition: none !important; }
+        .tx-card-left { display: flex; align-items: center; gap: 14px; }
+        .tx-icon {
+            width: 42px; height: 42px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .tx-icon svg { width: 18px; height: 18px; stroke-width: 2.2; }
+        .tx-meta { display: flex; flex-direction: column; gap: 2px; }
+        .tx-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: rgba(255,255,255,0.3); font-weight: 500; }
+        .tx-name  { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); }
+        .tx-amount { font-size: 16px; font-weight: 500; letter-spacing: -0.4px; color: rgba(255,255,255,0.85); }
+        .tx-green  .tx-icon { background: rgba(74,222,128,0.12);  color: #4ade80; }
+        .tx-yellow .tx-icon { background: rgba(250,204,21,0.12);   color: #facc15; }
+        .tx-red    .tx-icon { background: rgba(248,113,113,0.12);  color: #f87171; }
+        .tx-purple .tx-icon { background: rgba(168,85,247,0.15);   color: #a855f7; }
+        .tx-pink   .tx-icon { background: rgba(244,114,182,0.15);  color: #f472b6; }
+        .tx-cyan   .tx-icon { background: rgba(34,211,238,0.12);   color: #22d3ee; }
+        .tx-orange .tx-icon { background: rgba(251,146,60,0.13);   color: #fb923c; }
+
+        /* ======================================================
+           LOGO STRIP (section below)
+        ====================================================== */
+        .logo-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px 48px;
+            padding: 32px 0;
+        }
+        .logo-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.25);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .logo-item:hover { color: rgba(255,255,255,0.5); }
+
+        @media (max-width: 480px) {
+            .logo-strip {
+                gap: 16px 32px;
+            }
+            .logo-item {
+                font-size: 13px;
+            }
+        }
+
+        /* ======================================================
+           SECTION BELOW HERO
+        ====================================================== */
+        .section-divider {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start selection:bg-primary selection:text-black">
+
+    <!-- AMBIENT -->
+    <div class="ambient-light-container">
+        <div class="glow-blob glow-1" id="ambientGlow"></div>
+    </div>
+
+    <!-- NAV -->
+    <nav id="mainNav">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
+            <div class="w-4 h-4 bg-white rotate-45"></div>
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm text-gray-400 font-medium">
+            <a href="#" class="hover:text-white transition-colors">Solution</a>
+            <a href="#" class="hover:text-white transition-colors">AI</a>
+            <a href="#" class="hover:text-white transition-colors">Features</a>
+            <a href="#" class="hover:text-white transition-colors">Security</a>
+            <a href="#" class="hover:text-white transition-colors">Developers</a>
+            <a href="#" class="hover:text-white transition-colors">Pricing</a>
+        </div>
+        <button class="text-sm font-medium text-white px-5 py-2 rounded-full border border-white/10 hover:bg-white/10 transition">Get Started</button>
+    </nav>
+
+    <main class="w-full max-w-7xl mt-28 md:mt-36 flex flex-col items-center z-10">
+
+        <!-- HERO SECTION -->
+        <section class="text-center flex flex-col items-center max-w-4xl px-4 mb-16 md:mb-28 relative z-20">
+
+            <!-- Badge -->
+            <div class="reveal mb-8 inline-flex items-center space-x-2 border border-primary/20 bg-primary/5 rounded-full px-4 py-1.5" id="heroBadge">
+                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                <span class="text-xs font-medium text-green-400 tracking-wide uppercase">Transparent process & Measurable results</span>
+            </div>
+
+            <!-- Title — split into words for stagger -->
+            <h1 id="heroTitle" class="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.15] mb-8 px-4" aria-label="Next-gen AI platform for secure, optimized payments">
+                <!-- JS will inject word spans here -->
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="reveal text-base md:text-xl text-gray-400 max-w-2xl leading-relaxed mb-10 px-4" id="heroSubtitle">
+                An intelligent fintech platform that analyzes every transaction, prevents fraud, and boosts your conversion — automatically.
+            </p>
+
+            <!-- CTA -->
+            <div class="reveal-cta" id="heroCta">
+                <button class="px-7 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:scale-105 active:scale-95 transition-transform shadow-[0_0_30px_-10px_rgba(255,255,255,0.25)]">
+                    Request a Demo
+                </button>
+            </div>
+        </section>
+
+        <!-- CARDS SECTION -->
+        <section class="w-full px-4 pb-16 flex justify-center overflow-visible" id="cardsSection">
+            <div class="fan-container" id="fanContainer">
+
+                <!-- LEFT CARD -->
+                <div class="bento-card card-left" id="cardLeft">
+                    <div class="p-6 flex flex-col h-full">
+                        <div class="w-full h-10 bg-white/5 rounded-lg border border-white/5 flex items-center px-3 mb-6">
+                            <svg class="w-4 h-4 text-gray-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            <div class="h-2 w-24 bg-gray-700/50 rounded-full"></div>
+                        </div>
+                        <div class="space-y-1 mb-8">
+                            <div class="text-xs text-gray-400">Total received this month</div>
+                            <div class="text-3xl font-medium text-white tracking-tight">$53,256.00</div>
+                            <div class="inline-flex items-center text-xs text-black font-bold bg-green-500 px-2 py-0.5 rounded-full mt-2">
+                                +10.9% since last month
+                            </div>
+                        </div>
+                        <div class="mt-auto space-y-4">
+                            <div class="text-xs text-gray-500 uppercase tracking-wider">Quick menu</div>
+                            <div class="flex items-center space-x-3 text-sm text-gray-300 hover:text-white transition-colors cursor-pointer">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                <span>Reports</span>
+                                <span class="text-xs bg-yellow-500/20 text-yellow-500 px-1.5 rounded">4</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-sm text-gray-300 hover:text-white transition-colors cursor-pointer">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                                <span>Transactions</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-sm text-gray-300 hover:text-white transition-colors cursor-pointer">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                                <span>Cards</span>
+                                <span class="text-xs bg-white/10 text-gray-400 px-1.5 rounded">3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER CARD -->
+                <div class="bento-card card-center" id="cardCenter">
+                    <div class="p-6 flex flex-col h-full relative">
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <h3 class="text-lg font-medium text-white">Analytics</h3>
+                                    <span class="text-xs text-gray-500 bg-white/5 border border-white/5 rounded px-1.5 py-0.5">This Year ▾</span>
+                                </div>
+                                <div class="text-3xl font-bold mt-1">6,900</div>
+                                <div class="text-xs text-gray-500">Successful transactions</div>
+                            </div>
+                            <div class="flex items-center space-x-1.5 text-green-400 bg-green-500/10 px-2 py-1 rounded border border-green-500/20">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                                <span class="font-mono text-sm font-semibold">18.36%</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 flex items-end space-x-3 pb-2">
+                            <div class="flex-1 flex flex-col items-center gap-2"><div class="bar-chart-col h-32"><div class="bar-fill" data-height="40"></div></div><span class="text-[10px] text-gray-600">JAN</span></div>
+                            <div class="flex-1 flex flex-col items-center gap-2"><div class="bar-chart-col h-32"><div class="bar-fill" data-height="30"></div></div><span class="text-[10px] text-gray-600">FEB</span></div>
+                            <div class="flex-1 flex flex-col items-center gap-2"><div class="bar-chart-col h-32"><div class="bar-fill" data-height="55"></div></div><span class="text-[10px] text-gray-600">MAR</span></div>
+                            <div class="flex-1 flex flex-col items-center gap-2"><div class="bar-chart-col h-32 bg-white/10 ring-1 ring-green-500/30"><div class="bar-fill highlight" data-height="85"></div></div><span class="text-[10px] text-green-500 font-bold">APR</span></div>
+                            <div class="flex-1 flex flex-col items-center gap-2"><div class="bar-chart-col h-32"><div class="bar-fill" data-height="45"></div></div><span class="text-[10px] text-gray-600">MAY</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT CARD -->
+                <div class="bento-card card-right" id="cardRight">
+                    <div class="p-6 relative h-full flex flex-col overflow-hidden">
+                        <div class="mb-6 relative z-10">
+                            <h3 class="text-sm font-medium text-gray-300 leading-relaxed mb-4">
+                                Automated, controlled payments<br>
+                                <span class="text-gray-500">— faster, safer, and built for growth.</span>
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-center text-xs text-gray-400">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 shadow-[0_0_8px_rgba(34,197,94,0.8)] flex-shrink-0"></span>
+                                    Fraud Protection
+                                </li>
+                                <li class="flex items-center text-xs text-gray-400">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 shadow-[0_0_8px_rgba(34,197,94,0.8)] flex-shrink-0"></span>
+                                    Ongoing Support
+                                </li>
+                                <li class="flex items-center text-xs text-gray-400">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 shadow-[0_0_8px_rgba(34,197,94,0.8)] flex-shrink-0"></span>
+                                    Global Cooperation
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="globe-gradient"></div>
+                        <div class="absolute bottom-10 right-12 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_15px_4px_rgba(34,197,94,1)] z-20 animate-pulse"></div>
+                        <svg class="absolute bottom-10 right-12 w-32 h-32 stroke-green-500/30 fill-none pointer-events-none" viewBox="0 0 100 100" style="transform: translate(-100%, 0)">
+                            <path d="M100,100 Q50,50 0,80" stroke-width="1" stroke-dasharray="4 4"/>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION BELOW: Logo strip + second heading -->
+        <section class="w-full flex flex-col items-center px-4 pb-40">
+            <div class="section-divider mb-16 reveal" id="divider1"></div>
+
+            <div class="logo-strip reveal mb-16" id="logoStrip">
+                <!-- Logos -->
+                <div class="logo-item">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="rgba(255,255,255,0.15)"/></svg>
+                    Imagine AI
+                </div>
+                <div class="logo-item">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(255,255,255,0.15)"/></svg>
+                    Notion
+                </div>
+                <div class="logo-item">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 22,20 2,20" fill="rgba(255,255,255,0.15)"/></svg>
+                    Bolt
+                </div>
+                <div class="logo-item">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 7C3 5.34 4.34 4 6 4h12c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H6c-1.66 0-3-1.34-3-3V7z" fill="rgba(255,255,255,0.15)"/></svg>
+                    Shopify
+                </div>
+                <div class="logo-item">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="rgba(255,255,255,0.15)"/></svg>
+                    PayPal
+                </div>
+                <div class="logo-item">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(255,255,255,0.15)"/></svg>
+                    HubSpot
+                </div>
+                <div class="logo-item">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 2,22 22,22" fill="rgba(255,255,255,0.15)"/></svg>
+                    Atlas
+                </div>
+            </div>
+
+            <div class="section-divider mb-16 reveal" id="divider2"></div>
+
+            <div class="text-center max-w-2xl reveal" id="section2Text">
+                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight text-white mb-4">
+                    Intelligence that makes<br>every transaction smarter
+                </h2>
+                <p class="text-gray-400 text-base md:text-lg leading-relaxed">
+                    Our AI continuously learns from millions of payment data points — helping your business prevent risks, optimize performance, and increase revenue without manual effort.
+                </p>
+            </div>
+        </section>
+
+        <!-- TRANSACTION FLOW SECTION -->
+        <section class="tx-section reveal" id="txSection">
+            <div class="tx-header">
+                <h2>Faster cash flow</h2>
+                <p>Payouts within 24 hours and instant settlements for verified merchants keep liquidity stable.</p>
+            </div>
+            <div class="tx-stack" id="txStack">
+                <!-- Cards injected by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+    (function() {
+        'use strict';
+
+        /* ============================================================
+           1. SPLIT TITLE INTO WORD SPANS
+        ============================================================ */
+        const titleEl = document.getElementById('heroTitle');
+        const titleLines = [
+            ['Next-gen', ' AI ', 'platform'],
+            ['for ', 'secure,', ' optimized', ' payments']
+        ];
+
+        let allWordSpans = [];
+
+        titleLines.forEach((line) => {
+            const lineDiv = document.createElement('div');
+            lineDiv.style.display = 'block';
+            lineDiv.style.lineHeight = 'inherit';
+
+            line.forEach(word => {
+                const span = document.createElement('span');
+                span.classList.add('title-word');
+                const trimmed = word.trim();
+                // "secure," and "optimized" are the bright/glowing words
+                if (trimmed === 'secure,' || trimmed === 'optimized') {
+                    span.classList.add('highlight');
+                }
+                span.textContent = word;
+                lineDiv.appendChild(span);
+                allWordSpans.push(span);
+            });
+
+            titleEl.appendChild(lineDiv);
+        });
+
+        /* ============================================================
+           2. MASTER ANIMATION TIMELINE
+           Using setTimeout chains to create the precise sequence.
+        ============================================================ */
+
+        // Stagger between words (ms)
+        const WORD_STAGGER = 130;
+        // When to start each phase (ms after page load)
+        const T = {
+            titleStart:   400,   // words begin appearing
+            navIn:        1600,  // nav slides in
+            badgeIn:      2000,  // badge — cards also begin here
+            cardCenterIn: 2100,  // center card starts rising WITH badge
+            subtitleIn:   2500,  // subtitle
+            cardSidesIn:  2700,  // side cards rise as subtitle is settling
+            barsIn:       3000,  // bar chart fills
+            ctaIn:        3400,  // button fades in last, very gently
+            ambientIn:    1200,  // ambient glow
+        };
+
+        // Total words duration
+        const totalWordDuration = allWordSpans.length * WORD_STAGGER;
+
+        // Step 1: Title words, one by one
+        allWordSpans.forEach((span, i) => {
+            setTimeout(() => {
+                span.classList.add('word-in');
+            }, T.titleStart + i * WORD_STAGGER);
+        });
+
+        // Step 2: Navigation slides down
+        setTimeout(() => {
+            document.getElementById('mainNav').classList.add('nav-in');
+        }, T.navIn);
+
+        // Step 3: Badge & center card (together)
+        setTimeout(() => {
+            document.getElementById('heroBadge').classList.add('in');
+            document.getElementById('cardCenter').classList.add('card-in');
+        }, T.badgeIn);
+
+        // Step 4: Subtitle
+        setTimeout(() => {
+            document.getElementById('heroSubtitle').classList.add('in');
+        }, T.subtitleIn);
+
+        // Step 5: Side cards
+        setTimeout(() => {
+            document.getElementById('cardLeft').classList.add('card-in');
+            document.getElementById('cardRight').classList.add('card-in');
+        }, T.cardSidesIn);
+
+        // Step 6: Bar chart fills
+        setTimeout(() => {
+            document.querySelectorAll('.bar-fill').forEach(el => {
+                const targetHeight = parseInt(el.getAttribute('data-height'));
+                el.style.height = targetHeight + '%';
+            });
+        }, T.barsIn);
+
+        // Step 7: CTA button
+        setTimeout(() => {
+            document.getElementById('heroCta').classList.add('in');
+        }, T.ctaIn);
+
+        // Ambient glow
+        setTimeout(() => {
+            document.getElementById('ambientGlow').classList.add('active');
+        }, T.ambientIn);
+
+        /* ============================================================
+           3. FAN CARD SCROLL SPREAD
+        ============================================================ */
+        const fanContainer = document.getElementById('fanContainer');
+        const cardsSection = document.getElementById('cardsSection');
+        let cardsVisible = false;
+        let ticking = false;
+
+        // IntersectionObserver: only animate scroll spread when cards section is visible
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) cardsVisible = true;
+            });
+        }, { threshold: 0 });
+        sectionObserver.observe(cardsSection);
+
+        function handleScroll() {
+            const scrollY = window.scrollY;
+            const windowH = window.innerHeight;
+            const isMobile = window.innerWidth < 1024;
+
+            // Mobile: começa mais cedo e com valores menores para melhor adaptação
+            // Desktop: começa em 100px para trigger mais natural
+            const scrollStart = isMobile ? 50 : 100;  // Mobile começa em 50px
+            const scrollEnd = isMobile ? windowH * 0.5 : windowH * 0.7;  // Mobile termina antes
+            const progress = Math.max(0, Math.min(1, (scrollY - scrollStart) / (scrollEnd - scrollStart)));
+
+            if (progress > 0) {
+                fanContainer.classList.add('scroll-spread');
+                // Mobile: valores reduzidos (60% dos valores desktop) para melhor proporção
+                const spreadMultiplier = isMobile ? 0.6 : 1;
+                const spread = progress * 120 * spreadMultiplier;     // px extra separation
+                const rot   = progress * 5 * spreadMultiplier;        // deg extra rotation
+                const yUp   = progress * -15 * spreadMultiplier;      // center card moves up slightly
+
+                fanContainer.style.setProperty('--spread', spread + 'px');
+                fanContainer.style.setProperty('--spread-rot', rot + 'deg');
+                fanContainer.style.setProperty('--spread-y', yUp + 'px');
+            } else {
+                fanContainer.classList.remove('scroll-spread');
+                fanContainer.style.removeProperty('--spread');
+                fanContainer.style.removeProperty('--spread-rot');
+                fanContainer.style.removeProperty('--spread-y');
+            }
+
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(handleScroll);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        /* ============================================================
+           4. INTERSECTION OBSERVER — below-fold reveals
+        ============================================================ */
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });  // Threshold reduzido de 0.15 para 0.1 para triggerar antes no mobile
+
+        // These are the elements below the hero (logo strip, dividers, section text)
+        ['divider1', 'logoStrip', 'divider2', 'section2Text', 'txSection'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) revealObserver.observe(el);
+        });
+
+        /* ============================================================
+           5. TRANSACTION FLOW ANIMATION
+        ============================================================ */
+        (function initTxAnimation() {
+            // Paleta diversificada — cores nunca se repetem em sequência
+            const transactions = [
+                { name: 'Marcos Vinicius', amount: '+R$95,00',  label: 'PIX RECEBIDO', style: 'tx-cyan',   icon: 'pix'    },
+                { name: 'Paulo Lyra',      amount: '+R$50,00',  label: 'VENDA FEITA',  style: 'tx-green',  icon: 'dollar' },
+                { name: 'Gleyse Kelly',    amount: '+R$78,00',  label: 'NOVO PEDIDO',  style: 'tx-orange', icon: 'store'  },
+                { name: 'Elon Musk',       amount: '+R$50,00',  label: 'PIX RECEBIDO', style: 'tx-purple', icon: 'nubank' },
+                { name: 'Mysael Santos',   amount: '+R$120,00', label: 'NOVA VENDA',   style: 'tx-pink',   icon: 'bag'    },
+            ];
+
+            const svgIcons = {
+                // Pix — path oficial do logo Banco Central
+                pix: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor">
+                    <path d="M342.7 336c-13.9 0-27.1-5.4-36.9-15.3l-67.4-67.4c-5-5-13-5-18 0l-67.7 67.7c-9.9 9.9-23 15.3-36.9 15.3h-13l85.4 85.4c20.3 20.3 53.2 20.3 73.5 0l85.7-85.7h-4.7zM116 176c13.9 0 27.1 5.4 36.9 15.3l67.7 67.7c5 5 13 5 18 0l67.4-67.4c9.9-9.9 23-15.3 36.9-15.3h4.7l-85.7-85.7c-20.3-20.3-53.2-20.3-73.5 0L103 176h13zM424.8 204.4l-55.4-55.4c1.5 3.5 2.3 7.4 2.3 11.5v18.5c0 9.9-3.9 19.4-10.8 26.4l-67.4 67.4c-9.3 9.3-21.6 14.4-34.7 14.4s-25.4-5.1-34.7-14.4l-67.7-67.7c-6.9-6.9-16.4-10.8-26.4-10.8H112c-4.1 0-8-.8-11.5-2.3l-55.4 55.4c-20.3 20.3-20.3 53.2 0 73.5l55.4 55.4c-1.5-3.5-2.3-7.4-2.3-11.5v-18.5c0-9.9 3.9-19.4 10.8-26.4l67.7-67.7c9.3-9.3 21.6-14.4 34.7-14.4 13.1 0 25.4 5.1 34.7 14.4l67.4 67.4c6.9 6.9 16.4 10.8 26.4 10.8h18.5c4.1 0 8 .8 11.5 2.3l55.4-55.4c20.3-20.3 20.3-53.2-.1-73.5z"/>
+                </svg>`,
+
+                // $ — Lucide DollarSign (paths limpos)
+                dollar: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>`,
+
+                // Store — Lucide Store
+                store: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 7l4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/>
+                    <path d="M4 22V12m16 10V12M2 7h20M7 22v-5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v5"/>
+                </svg>`,
+
+                // Nubank — wordmark "N" diagonal, idêntico ao app
+                nubank: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 19V5l12 14V5"/>
+                </svg>`,
+
+                // Shopping Bag — Lucide ShoppingBag
+                bag: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>`,
+            };
+
+            const stack = document.getElementById('txStack');
+            if (!stack) return;
+
+            const POSITIONS = ['exit', 'top', 'center', 'bottom', 'buffer'];
+            const ALL_STYLES = ['tx-cyan','tx-green','tx-orange','tx-purple','tx-pink','tx-yellow','tx-red'];
+
+            function renderContent(el, t) {
+                el.classList.remove(...ALL_STYLES);
+                el.classList.add(t.style);
+                el.innerHTML = `
+                    <div class="tx-card-left">
+                        <div class="tx-icon">${svgIcons[t.icon]}</div>
+                        <div class="tx-meta">
+                            <span class="tx-label">${t.label}</span>
+                            <span class="tx-name">${t.name}</span>
+                        </div>
+                    </div>
+                    <div class="tx-amount">${t.amount}</div>`;
+            }
+
+            // Create exactly 5 card elements — one per position
+            let txDataIndex = 0; // tracks which transaction is next in queue
+            const cardEls = POSITIONS.map((pos, i) => {
+                const el = document.createElement('div');
+                el.className = 'tx-card';
+                el.setAttribute('data-pos', pos);
+                renderContent(el, transactions[txDataIndex % transactions.length]);
+                txDataIndex++;
+                stack.appendChild(el);
+                return el;
+            });
+
+            function cycleCards() {
+                cardEls.forEach(el => {
+                    const cur = el.getAttribute('data-pos');
+                    const curIdx = POSITIONS.indexOf(cur);
+                    const nextIdx = (curIdx - 1 + POSITIONS.length) % POSITIONS.length;
+                    const nextPos = POSITIONS[nextIdx];
+
+                    if (nextPos === 'buffer') {
+                        // This card just left 'exit' — teleport to buffer instantly
+                        // and inject fresh transaction data so it's ready when it
+                        // scrolls back up to 'bottom' → 'center'
+                        el.classList.add('no-transition');
+                        renderContent(el, transactions[txDataIndex % transactions.length]);
+                        txDataIndex++;
+                        el.setAttribute('data-pos', 'buffer');
+                        // Force reflow to apply teleport before re-enabling transitions
+                        el.getBoundingClientRect();
+                        el.classList.remove('no-transition');
+                    } else {
+                        el.setAttribute('data-pos', nextPos);
+                    }
+                });
+            }
+
+            // Only animate when section is visible
+            let txInterval = null;
+            const txObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !txInterval) {
+                        txInterval = setInterval(cycleCards, 1900);
+                    } else if (!entry.isIntersecting && txInterval) {
+                        clearInterval(txInterval);
+                        txInterval = null;
+                    }
+                });
+            }, { threshold: 0.2 });  // Threshold reduzido para triggerar antes
+
+            txObserver.observe(stack);
+        })();
+
+    })();
+    </script>
+</body>
+</html>

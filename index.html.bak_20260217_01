@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VINNX — Plataforma AI de Pagamentos</title>
+    <meta name="description"
+        content="Plataforma fintech inteligente que analisa cada transação, previne fraudes e aumenta sua conversão — automaticamente.">
+    <link rel="icon" type="image/png" href="/logo-verde.png">
+    <link rel="stylesheet" href="/src/styles/variables.css">
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/animations.css">
+    <link rel="stylesheet" href="/src/styles/components.css">
+    <link rel="stylesheet" href="/src/styles/hero.css">
+    <link rel="stylesheet" href="/src/styles/sections.css">
+    <link rel="stylesheet" href="/src/styles/responsive.css">
+</head>
+
+<body>
+
+    <!-- AMBIENT GLOW -->
+    <div class="ambient-light-container">
+        <div class="glow-blob glow-1" id="ambientGlow"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="mainNav">
+        <a href="/" class="navbar-brand">
+            <img src="/logo-branca.png" alt="VINNX" class="navbar-logo">
+            <span class="navbar-name">VINNX</span>
+        </a>
+
+        <div class="navbar-links">
+            <a href="#solution">Soluções</a>
+            <a href="#ai">Inteligência</a>
+            <a href="#features">Recursos</a>
+            <a href="#security">Segurança</a>
+            <a href="#pricing">Preços</a>
+        </div>
+
+        <button class="navbar-cta">Começar Agora</button>
+
+        <!-- Hamburger (mobile) -->
+        <div class="navbar-hamburger" id="navHamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="navbar-mobile-menu" id="navMobileMenu">
+        <button class="navbar-mobile-close" id="navMobileClose">&times;</button>
+        <a href="#solution">Soluções</a>
+        <a href="#ai">Inteligência</a>
+        <a href="#features">Recursos</a>
+        <a href="#security">Segurança</a>
+        <a href="#pricing">Preços</a>
+        <button class="btn-primary" style="margin-top: 16px;">Começar Agora</button>
+    </div>
+
+    <!-- MAIN -->
+    <main
+        style="width: 100%; max-width: var(--max-width); margin: 9rem auto 0; display: flex; flex-direction: column; align-items: center; z-index: 10; position: relative;">
+
+        <!-- HERO SECTION -->
+        <section class="hero" id="heroSection">
+
+            <!-- Badge -->
+            <div class="hero-badge reveal" id="heroBadge">
+                <span class="hero-badge-dot animate-pulse"></span>
+                <span class="hero-badge-text">Tecnologia sob medida &amp; Resultados reais</span>
+            </div>
+
+            <!-- Title (words injected by JS) -->
+            <h1 id="heroTitle" class="hero-title" aria-label="Sistemas com IA para escalar sua empresa"></h1>
+
+
+            <!-- Subtitle -->
+            <p class="hero-subtitle reveal" id="heroSubtitle">
+                Criamos aplicativos, plataformas e ferramentas inteligentes que
+                transformam a operação da sua empresa e multiplicam seus resultados.
+            </p>
+
+            <!-- CTA -->
+            <div class="reveal-cta" id="heroCta">
+                <button class="btn-primary hero-cta">Fale com a VINNX</button>
+            </div>
+        </section>
+
+        <!-- CARDS SECTION -->
+        <section style="width: 100%; padding: 0 16px 64px; display: flex; justify-content: center; overflow: visible;"
+            id="cardsSection">
+            <div class="fan-container" id="fanContainer">
+
+                <!-- LEFT CARD — Painel de Receita -->
+                <div class="bento-card card-left" id="cardLeft">
+                    <div class="bento-card-inner">
+                        <!-- Header -->
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <div
+                                style="font-size: 0.65rem; color: var(--color-gray-500); text-transform: uppercase; letter-spacing: 0.08em;">
+                                Painel de Receita</div>
+                            <div
+                                style="font-size: 0.6rem; color: var(--color-primary); background: var(--color-primary-10); padding: 2px 8px; border-radius: 9999px;">
+                                Ao vivo</div>
+                        </div>
+
+                        <!-- Revenue Number -->
+                        <div style="margin-bottom: 0.75rem;" class="revenue-block">
+                            <div style="font-size: 0.65rem; color: var(--color-gray-400);">Faturamento Mensal</div>
+                            <div data-countup="revenue"
+                                style="font-size: 1.5rem; font-weight: 600; color: white; letter-spacing: -0.02em;">R$
+                                0</div>
+                            <div class="growth-badge"
+                                style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; color: #4ade80; font-weight: 600; margin-top: 4px;">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="3">
+                                    <path d="M7 17l5-5 5 5M7 7l5-5 5 5" />
+                                </svg>
+                                +32.4% vs mês anterior
+                            </div>
+                        </div>
+
+                        <!-- Mini Chart Bars -->
+                        <div
+                            style="display: flex; align-items: flex-end; gap: 3px; height: 48px; margin-bottom: 0.75rem;">
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.15); border-radius: 3px 3px 0 0; height: 35%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.15); border-radius: 3px 3px 0 0; height: 45%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.2); border-radius: 3px 3px 0 0; height: 52%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.2); border-radius: 3px 3px 0 0; height: 48%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.25); border-radius: 3px 3px 0 0; height: 60%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.3); border-radius: 3px 3px 0 0; height: 72%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.35); border-radius: 3px 3px 0 0; height: 65%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.4); border-radius: 3px 3px 0 0; height: 78%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.5); border-radius: 3px 3px 0 0; height: 85%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: linear-gradient(to top, #22c55e, #4ade80); border-radius: 3px 3px 0 0; height: 100%; box-shadow: 0 0 12px rgba(34,197,94,0.4);">
+                            </div>
+                        </div>
+
+                        <!-- KPI Row -->
+                        <div style="display: flex; gap: 8px; margin-top: auto;">
+                            <div class="kpi-item"
+                                style="flex: 1; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; text-align: center;">
+                                <div data-countup="vendas" style="font-size: 0.95rem; font-weight: 600; color: white;">0
+                                </div>
+                                <div style="font-size: 0.55rem; color: var(--color-gray-500);">Vendas</div>
+                            </div>
+                            <div class="kpi-item"
+                                style="flex: 1; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; text-align: center;">
+                                <div data-countup="aprovacao"
+                                    style="font-size: 0.95rem; font-weight: 600; color: #4ade80;">0%</div>
+                                <div style="font-size: 0.55rem; color: var(--color-gray-500);">Aprovação</div>
+                            </div>
+                            <div class="kpi-item"
+                                style="flex: 1; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; text-align: center;">
+                                <div data-countup="ticket" style="font-size: 0.95rem; font-weight: 600; color: white;">
+                                    R$ 0</div>
+                                <div style="font-size: 0.55rem; color: var(--color-gray-500);">Ticket Médio</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER CARD — 3D Logo -->
+                <div class="bento-card card-center" id="cardCenter">
+                    <div class="bento-card-inner card-3d-inner">
+                        <div class="card-3d-header">
+                            <span class="card-3d-badge">
+                                <span class="card-3d-badge-dot"></span>
+                                VINNX
+                            </span>
+                        </div>
+                        <div class="card-3d-model-wrap">
+                            <div class="card-3d-glow"></div>
+                            <div class="card-3d-shadow"></div>
+                            <div id="logo3dCanvas" class="card-3d-canvas"></div>
+                        </div>
+                        <div class="card-3d-footer">
+                            <span>Soluções com IA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT CARD — App do Cliente -->
+                <div class="bento-card card-right" id="cardRight">
+                    <div class="bento-card-inner" style="position: relative; overflow: hidden;">
+                        <!-- App Preview Header -->
+                        <div style="position: relative; z-index: 10;">
+                            <div class="app-header"
+                                style="display: flex; align-items: center; gap: 6px; margin-bottom: 0.75rem;">
+                                <div
+                                    style="width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(135deg, #22c55e, #064e3b); display: flex; align-items: center; justify-content: center;">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <span style="font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.8);">App do
+                                    Cliente</span>
+                                <span class="online-dot"
+                                    style="font-size: 0.55rem; color: var(--color-primary); margin-left: auto;">●
+                                    Online</span>
+                            </div>
+
+                            <h3
+                                style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.6); line-height: 1.5; margin-bottom: 0.75rem;">
+                                Aplicativo desenvolvido<br>
+                                <span style="color: rgba(255,255,255,0.85); font-weight: 600;">com IA integrada pela
+                                    VINNX</span>
+                            </h3>
+
+                            <!-- App Metrics -->
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div class="metric-row"
+                                    style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(255,255,255,0.04); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                            stroke="var(--color-gray-400)" stroke-width="2">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                            <circle cx="9" cy="7" r="4" />
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                        </svg>
+                                        <span style="font-size: 0.6rem; color: var(--color-gray-400);">Usuários
+                                            Ativos</span>
+                                    </div>
+                                    <span data-countup="usuarios"
+                                        style="font-size: 0.7rem; font-weight: 600; color: white;">0</span>
+                                </div>
+                                <div class="metric-row"
+                                    style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(255,255,255,0.04); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4ade80"
+                                            stroke-width="2">
+                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                        </svg>
+                                        <span style="font-size: 0.6rem; color: var(--color-gray-400);">Receita /
+                                            Mês</span>
+                                    </div>
+                                    <span data-countup="receita"
+                                        style="font-size: 0.7rem; font-weight: 600; color: #4ade80;">R$ 0</span>
+                                </div>
+                                <div class="metric-row"
+                                    style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(255,255,255,0.04); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                            stroke="var(--color-gray-400)" stroke-width="2">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                            <polyline points="22 4 12 14.01 9 11.01" />
+                                        </svg>
+                                        <span style="font-size: 0.6rem; color: var(--color-gray-400);">Conversão</span>
+                                    </div>
+                                    <span data-countup="conversao"
+                                        style="font-size: 0.7rem; font-weight: 600; color: white;">0%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Decorative glow -->
+                        <div class="globe-gradient"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- LOGO STRIP + SECTION TEXT -->
+        <section
+            style="width: 100%; display: flex; flex-direction: column; align-items: center; padding: 0 16px 160px;">
+            <div class="section-divider reveal" id="divider1"></div>
+
+            <div class="logo-strip reveal" id="logoStrip" style="margin: 64px 0;">
+                <div class="logo-item">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" fill="rgba(255,255,255,0.15)" />
+                    </svg>
+                    Imagine AI
+                </div>
+                <div class="logo-item">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(255,255,255,0.15)" />
+                    </svg>
+                    Notion
+                </div>
+                <div class="logo-item">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12,2 22,20 2,20" fill="rgba(255,255,255,0.15)" />
+                    </svg>
+                    Bolt
+                </div>
+                <div class="logo-item">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M3 7C3 5.34 4.34 4 6 4h12c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H6c-1.66 0-3-1.34-3-3V7z"
+                            fill="rgba(255,255,255,0.15)" />
+                    </svg>
+                    Shopify
+                </div>
+                <div class="logo-item">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" fill="rgba(255,255,255,0.15)" />
+                    </svg>
+                    PayPal
+                </div>
+                <div class="logo-item">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(255,255,255,0.15)" />
+                    </svg>
+                    HubSpot
+                </div>
+                <div class="logo-item">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12,2 2,22 22,22" fill="rgba(255,255,255,0.15)" />
+                    </svg>
+                    Atlas
+                </div>
+            </div>
+
+            <div class="section-divider reveal" id="divider2"></div>
+
+            <div class="section-text section-heading-block reveal" id="section2Text" style="margin-top: 64px;">
+                <h2>Intelligence that makes<br>every transaction <span class="title-accent">smarter</span></h2>
+                <p>Our AI continuously learns from millions of payment data points — helping your business prevent
+                    risks, optimize performance, and increase revenue without manual effort.</p>
+            </div>
+        </section>
+
+        <!-- TRANSACTION FLOW SECTION -->
+        <section class="tx-section reveal" id="txSection">
+            <div class="tx-layout">
+                <!-- LEFT: Text content -->
+                <div class="tx-text-side">
+                    <div
+                        style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.15); border-radius: 9999px; margin-bottom: 1.25rem;">
+                        <div style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e;"></div>
+                        <span
+                            style="font-size: 0.65rem; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;">Fluxo
+                            Financeiro</span>
+                    </div>
+
+                    <h2
+                        style="font-size: clamp(22px, 3.5vw, 34px); font-weight: 600; letter-spacing: -0.03em; color: var(--color-text); margin-bottom: 12px; line-height: 1.2;">
+                        Cada transação<br>no seu <span style="color: #4ade80;">controle</span>
+                    </h2>
+
+                    <p
+                        style="color: var(--color-text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 1.5rem; max-width: 360px;">
+                        Acompanhe vendas, recebimentos e pagamentos em tempo real. Nossas ferramentas automatizam o
+                        financeiro para que você foque no crescimento.
+                    </p>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div
+                                style="width: 28px; height: 28px; border-radius: 8px; background: rgba(34,197,94,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80"
+                                    stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                            </div>
+                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">Notificações instantâneas de
+                                cada venda</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div
+                                style="width: 28px; height: 28px; border-radius: 8px; background: rgba(34,197,94,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80"
+                                    stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                            </div>
+                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">Conciliação financeira
+                                automatizada</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div
+                                style="width: 28px; height: 28px; border-radius: 8px; background: rgba(34,197,94,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <path d="M3 9h18M9 21V9" />
+                                </svg>
+                            </div>
+                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">Relatórios inteligentes em
+                                tempo real</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Animation -->
+                <div class="tx-anim-side">
+                    <div class="tx-stack" id="txStack">
+                        <!-- Cards injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLUTION SECTION -->
+        <section class="offer-section reveal" id="solution">
+            <div class="offer-shell">
+                <div class="offer-header">
+                    <span class="offer-kicker">Solucoes</span>
+                    <h2>Criacao de produto digital com foco em receita</h2>
+                    <p>Estruturamos sua oferta, desenhamos a experiencia e colocamos o produto no ar com automacoes e IA
+                        para ganhar velocidade sem perder qualidade.</p>
+                </div>
+
+                <div class="offer-grid">
+                    <article class="offer-card">
+                        <h3>Estrategia e posicionamento</h3>
+                        <p>Definimos proposta de valor, jornada e estrutura comercial para reduzir retrabalho e acelerar
+                            validacao.</p>
+                    </article>
+                    <article class="offer-card">
+                        <h3>Design orientado a conversao</h3>
+                        <p>Criamos interfaces claras, com narrativa de venda, prova social e fluxo pensado para gerar
+                            acao.</p>
+                    </article>
+                    <article class="offer-card">
+                        <h3>Desenvolvimento e escala</h3>
+                        <p>Entregamos site, app ou plataforma com integracoes, painel de dados e base pronta para
+                            crescimento.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI SECTION -->
+        <section class="ai-section reveal" id="ai">
+            <div class="ai-shell">
+                <div class="ai-left">
+                    <span class="offer-kicker">Inteligencia</span>
+                    <h2>IA aplicada no produto e na operacao</h2>
+                    <p>Usamos IA para automatizar partes repetitivas e liberar seu time para decisao estrategica.</p>
+                </div>
+                <div class="ai-right">
+                    <div class="ai-item">
+                        <h3>Atendimento assistido</h3>
+                        <p>Fluxos de suporte e pre-venda com contexto de negocio e historico de cliente.</p>
+                    </div>
+                    <div class="ai-item">
+                        <h3>Conteudo e criacao acelerada</h3>
+                        <p>Geracao de texto, variacoes de campanha e otimizacao de paginas sem perder identidade.</p>
+                    </div>
+                    <div class="ai-item">
+                        <h3>Leitura de dados em tempo real</h3>
+                        <p>Alertas e insights automaticos para decidir rapido sobre vendas, midia e produto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section class="feature-section reveal" id="features">
+            <div class="feature-shell">
+                <div class="offer-header feature-header">
+                    <span class="offer-kicker">Recursos</span>
+                    <h2>Tudo que voce precisa para lancar e evoluir</h2>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <h3>Landing pages de alta conversao</h3>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Automacoes de CRM e funil</h3>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Painel de indicadores com IA</h3>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Integracao com pagamentos</h3>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Copy comercial orientada a resultado</h3>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Suporte tecnico continuo</h3>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECURITY SECTION -->
+        <section class="security-section reveal" id="security">
+            <div class="security-shell">
+                <div class="security-content">
+                    <span class="offer-kicker">Seguranca</span>
+                    <h2>Base tecnica robusta para operar com confianca</h2>
+                    <p>Aplicamos boas praticas de seguranca, monitoramento e controle de acesso para reduzir risco
+                        operacional e proteger dados sensiveis.</p>
+                </div>
+                <div class="security-metrics">
+                    <div class="security-metric">
+                        <strong>99.9%</strong>
+                        <span>Disponibilidade alvo</span>
+                    </div>
+                    <div class="security-metric">
+                        <strong>24/7</strong>
+                        <span>Monitoramento continuo</span>
+                    </div>
+                    <div class="security-metric">
+                        <strong>LGPD</strong>
+                        <span>Boas praticas de privacidade</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section class="pricing-section reveal" id="pricing">
+            <div class="pricing-shell">
+                <div class="offer-header pricing-header">
+                    <span class="offer-kicker">Planos</span>
+                    <h2>Modelos flexiveis para cada etapa da sua empresa</h2>
+                    <p>Comece rapido, evolua com previsibilidade e mantenha suporte estrategico durante todo o ciclo.</p>
+                </div>
+                <div class="pricing-grid">
+                    <article class="pricing-card">
+                        <h3>Start</h3>
+                        <p class="pricing-value">R$ 4.900<span>/mes</span></p>
+                        <ul>
+                            <li>Landing page + automacoes basicas</li>
+                            <li>Setup de analytics e CRM</li>
+                            <li>1 sprint de melhoria por mes</li>
+                        </ul>
+                        <button class="btn-primary">Quero comecar</button>
+                    </article>
+                    <article class="pricing-card pricing-card-highlight">
+                        <h3>Growth</h3>
+                        <p class="pricing-value">R$ 9.900<span>/mes</span></p>
+                        <ul>
+                            <li>Produto completo com IA aplicada</li>
+                            <li>Integracoes de vendas e pagamentos</li>
+                            <li>2 sprints de evolucao por mes</li>
+                        </ul>
+                        <button class="btn-primary">Falar com especialista</button>
+                    </article>
+                    <article class="pricing-card">
+                        <h3>Scale</h3>
+                        <p class="pricing-value">Sob medida</p>
+                        <ul>
+                            <li>Arquitetura dedicada e squad estendido</li>
+                            <li>Roadmap trimestral orientado a KPI</li>
+                            <li>Suporte prioritario e consultoria continua</li>
+                        </ul>
+                        <button class="btn-primary">Montar proposta</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="footer-brand-logo">
+                    <img src="/logo-verde.png" alt="VINNX">
+                    <span>VINNX</span>
+                </div>
+                <p>Intelligent fintech platform that analyzes, protects, and optimizes every transaction —
+                    automatically.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Product</h4>
+                <a href="#">Features</a>
+                <a href="#">AI Engine</a>
+                <a href="#">Security</a>
+                <a href="#">Pricing</a>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <a href="#">Documentation</a>
+                <a href="#">API Reference</a>
+                <a href="#">Support</a>
+                <a href="#">Status</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 VINNX. All rights reserved.</span>
+            <div class="footer-socials">
+                <a href="#" aria-label="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="GitHub">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vite entry point -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
+
+

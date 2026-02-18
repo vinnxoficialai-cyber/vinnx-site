@@ -1,0 +1,243 @@
+/* =============================================
+   Animations — Keyframes & Reveal Classes
+   ============================================= */
+
+/* Ambient Background Glow */
+.ambient-light-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.glow-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+}
+
+.glow-1 {
+    top: -20%;
+    left: 40%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.glow-1.active {
+    opacity: 1;
+}
+
+/* Title word-by-word reveal */
+.title-word {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(24px);
+    transition: opacity 0.9s var(--ease-smooth),
+        filter 0.9s var(--ease-smooth),
+        transform 0.9s var(--ease-smooth);
+    white-space: pre;
+    color: var(--color-text-75);
+}
+
+.title-word.word-in {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+}
+
+.title-word.highlight {
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+}
+
+/* Generic reveal — blur + slide-up */
+.reveal {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(20px);
+    transition: opacity 0.8s var(--ease-smooth),
+        filter 0.8s var(--ease-smooth),
+        transform 0.8s var(--ease-smooth);
+}
+
+.reveal.in {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+}
+
+/* CTA — pure fade, no blur */
+.reveal-cta {
+    opacity: 0;
+    transition: opacity 2.4s var(--ease-standard);
+}
+
+.reveal-cta.in {
+    opacity: 1;
+}
+
+/* Pulse animation for dots */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* =============================================
+   Card Content Animations — Triggered after card-in
+   ============================================= */
+
+/* --- Left Card: Chart bars grow up --- */
+@keyframes barGrow {
+    from {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+.card-left .chart-bar {
+    transform-origin: bottom;
+    transform: scaleY(0);
+    opacity: 0;
+}
+
+.card-left.card-animated .chart-bar {
+    animation: barGrow 0.8s var(--ease-out) forwards;
+}
+
+/* --- Left Card: Revenue number countUp --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+        filter: blur(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.card-left .revenue-block {
+    opacity: 0;
+}
+
+.card-left.card-animated .revenue-block {
+    animation: fadeInUp 0.9s var(--ease-smooth) forwards;
+}
+
+/* --- Left Card: Growth badge --- */
+@keyframes slideInBadge {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.card-left .growth-badge {
+    opacity: 0;
+}
+
+.card-left.card-animated .growth-badge {
+    animation: slideInBadge 0.6s var(--ease-smooth) forwards;
+}
+
+/* --- Left Card: KPI items --- */
+@keyframes kpiFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card-left .kpi-item {
+    opacity: 0;
+}
+
+.card-left.card-animated .kpi-item {
+    animation: kpiFadeIn 0.7s var(--ease-smooth) forwards;
+}
+
+/* --- Right Card: Metric rows slide in --- */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.card-right .metric-row {
+    opacity: 0;
+}
+
+.card-right.card-animated .metric-row {
+    animation: slideInRight 0.7s var(--ease-smooth) forwards;
+}
+
+/* --- Right Card: App header fade in --- */
+.card-right .app-header {
+    opacity: 0;
+}
+
+.card-right.card-animated .app-header {
+    animation: fadeInUp 0.8s var(--ease-smooth) forwards;
+}
+
+/* --- Online dot pulse glow --- */
+@keyframes onlinePulse {
+
+    0%,
+    100% {
+        text-shadow: 0 0 4px rgba(34, 197, 94, 0.8);
+        opacity: 1;
+    }
+
+    50% {
+        text-shadow: 0 0 10px rgba(34, 197, 94, 1);
+        opacity: 0.7;
+    }
+}
+
+.online-dot {
+    animation: onlinePulse 2s ease-in-out infinite;
+}

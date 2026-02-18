@@ -1,0 +1,378 @@
+/* =============================================
+   Hero Section Styles
+   ============================================= */
+
+.hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+    margin-bottom: 0;
+    position: relative;
+    z-index: 20;
+}
+
+.hero-cta {
+    padding: 14px 36px !important;
+    font-size: var(--font-size-base) !important;
+}
+
+/* Badge */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    border: 1px solid var(--color-primary-20);
+    background: var(--color-primary-05);
+    border-radius: var(--radius-full);
+    padding: 6px 16px;
+    margin-bottom: var(--space-8);
+}
+
+.hero-badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-primary);
+}
+
+.hero-badge-text {
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Title */
+.hero-title {
+    font-size: var(--font-size-4xl);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: var(--space-6);
+    padding: 0 var(--space-4);
+}
+
+.hero-title-line {
+    display: block;
+    line-height: inherit;
+}
+
+/* =============================================
+   Center Card — 3D Logo Showcase
+   ============================================= */
+.card-3d-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: var(--space-5) var(--space-6) var(--space-6);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-3d-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+}
+
+.card-3d-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: var(--radius-full);
+    padding: 4px 14px;
+}
+
+.card-3d-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+    animation: pulse 2s infinite;
+}
+
+/* 3D Model wrapper */
+.card-3d-model-wrap {
+    position: relative;
+    width: 105px;
+    height: 105px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Three.js canvas container */
+.card-3d-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.card-3d-canvas canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Fallback PNG if Three.js fails */
+.card-3d-logo-fallback {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 18px rgba(34, 197, 94, 0.4));
+}
+
+/* Green radial glow behind the logo */
+.card-3d-glow {
+    position: absolute;
+    width: 140%;
+    height: 140%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            rgba(34, 197, 94, 0.15) 0%,
+            rgba(34, 197, 94, 0.06) 35%,
+            transparent 70%);
+    pointer-events: none;
+    animation: glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+/* Floor shadow — ellipse at the bottom */
+.card-3d-shadow {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 20px;
+    background: radial-gradient(ellipse,
+            rgba(34, 197, 94, 0.2) 0%,
+            rgba(34, 197, 94, 0.05) 50%,
+            transparent 80%);
+    border-radius: 50%;
+    filter: blur(6px);
+    pointer-events: none;
+}
+
+/* Footer tagline */
+.card-3d-footer {
+    z-index: 2;
+}
+
+.card-3d-footer span {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-gray-500);
+}
+
+/* Subtitle */
+.hero-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-400);
+    max-width: var(--max-width-text);
+    line-height: 1.6;
+    margin-bottom: var(--space-10);
+    padding: 0 var(--space-4);
+}
+
+/* =============================================
+   Fan Cards
+   ============================================= */
+.fan-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    height: 340px;
+    width: 100%;
+    max-width: 100%;
+    perspective: 1200px;
+}
+
+.bento-card {
+    background: linear-gradient(165deg, rgba(30, 30, 30, 0.4) 0%, rgba(10, 10, 10, 0.6) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+    width: 240px;
+    height: 285px;
+    position: absolute;
+    overflow: hidden;
+    will-change: transform, opacity, filter;
+    transform-style: preserve-3d;
+    transition: transform 0.95s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.85s ease,
+        filter 0.75s ease,
+        box-shadow 0.4s ease;
+    contain: layout style paint;
+}
+
+.bento-card-inner {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Initial state (off-screen) */
+.card-left,
+.card-center,
+.card-right {
+    opacity: 0;
+    transform: translateY(180px) scale(0.88);
+}
+
+.bento-card.fan-animate-start {
+    opacity: 0 !important;
+    filter: blur(10px);
+    transform: translateY(220px) scale(0.78) rotateX(14deg) !important;
+}
+
+/* Resting positions */
+.card-left.card-in {
+    opacity: 1;
+    z-index: 10;
+    transform: translateX(-180px) translateY(15px) rotate(-8deg);
+    background: linear-gradient(165deg, rgba(20, 20, 20, 0.9) 0%, rgba(5, 5, 5, 0.95) 100%);
+    filter: blur(0);
+}
+
+.card-center.card-in {
+    opacity: 1;
+    z-index: 30;
+    transform: translateX(0) translateY(0) scale(1.1);
+    border-color: var(--color-primary-20);
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--color-primary-10);
+    background: #0f0f11;
+    filter: blur(0);
+}
+
+.card-right.card-in {
+    opacity: 1;
+    z-index: 10;
+    transform: translateX(180px) translateY(15px) rotate(8deg);
+    background: linear-gradient(165deg, rgba(20, 20, 20, 0.9) 0%, rgba(5, 5, 5, 0.95) 100%);
+    filter: blur(0);
+}
+
+/* Hover (desktop only) */
+@media (min-width: 1024px) {
+    .fan-container:not(.scroll-spread):hover .card-left.card-in {
+        transform: translateX(-195px) translateY(8px) rotate(-12deg);
+    }
+
+    .fan-container:not(.scroll-spread):hover .card-right.card-in {
+        transform: translateX(195px) translateY(8px) rotate(12deg);
+    }
+
+    .fan-container:not(.scroll-spread):hover .card-center.card-in {
+        transform: translateX(0) translateY(-10px) scale(1.12);
+        box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.9), 0 0 0 1px var(--color-primary-20), 0 0 40px rgba(34, 197, 94, 0.06);
+    }
+}
+
+/* Scroll spread (driven by JS CSS vars) */
+.fan-container.scroll-spread .bento-card {
+    transition: box-shadow 0.4s ease;
+}
+
+.fan-container.scroll-spread .card-left.card-in {
+    transform: translateX(calc(-180px - var(--spread, 0px))) translateY(15px) rotate(calc(-8deg - var(--spread-rot, 0deg)));
+}
+
+.fan-container.scroll-spread .card-right.card-in {
+    transform: translateX(calc(180px + var(--spread, 0px))) translateY(15px) rotate(calc(8deg + var(--spread-rot, 0deg)));
+}
+
+.fan-container.scroll-spread .card-center.card-in {
+    transform: translateX(0) translateY(calc(var(--spread-y, 0px))) scale(1.1);
+}
+
+@media (max-width: 1023px) {
+    .bento-card {
+        transition: transform 0.72s cubic-bezier(0.22, 1.32, 0.4, 1),
+            opacity 0.55s ease,
+            filter 0.6s ease,
+            box-shadow 0.35s ease;
+    }
+
+    .bento-card.fan-animate-start {
+        filter: blur(6px);
+        transform: translateY(150px) scale(0.88) !important;
+    }
+}
+
+/* Bar chart inside cards */
+.bar-chart-col {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    height: 8rem;
+}
+
+.bar-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #3f3f46;
+    transition: height 1.5s var(--ease-smooth);
+    height: 0;
+}
+
+.bar-fill.highlight {
+    background: linear-gradient(to top, #22c55e, #86efac);
+    box-shadow: 0 0 20px var(--color-primary-glow);
+}
+
+/* Globe gradient on right card */
+.globe-gradient {
+    background: radial-gradient(circle at center 120%, rgba(34, 197, 94, 0.15) 0%, transparent 60%);
+    width: 100%;
+    height: 150px;
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    border-radius: 50% 50% 0 0;
+    border-top: 1px solid rgba(34, 197, 94, 0.3);
+}

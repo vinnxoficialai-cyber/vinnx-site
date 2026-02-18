@@ -1,0 +1,1335 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VINNX - Plataforma AI de Pagamentos</title>
+    <meta name="description"
+        content="Plataforma fintech inteligente que analisa cada transação, previne fraudes e aumenta sua conversão - automaticamente.">
+    <link rel="icon" type="image/png" href="/logo-verde.png">
+    <link rel="stylesheet" href="/src/styles/variables.css">
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/animations.css">
+    <link rel="stylesheet" href="/src/styles/components.css">
+    <link rel="stylesheet" href="/src/styles/hero.css">
+    <link rel="stylesheet" href="/src/styles/sections.css">
+    <link rel="stylesheet" href="/src/styles/responsive.css">
+</head>
+
+<body>
+
+    <!-- AMBIENT GLOW -->
+    <div class="ambient-light-container">
+        <div class="glow-blob glow-1" id="ambientGlow"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="mainNav">
+        <a href="/" class="navbar-brand">
+            <img src="/logo-branca.png" alt="VINNX" class="navbar-logo">
+            <span class="navbar-name">VINNX</span>
+        </a>
+
+        <div class="navbar-links">
+            <a href="#solution">Soluções</a>
+            <a href="#ai">Inteligência</a>
+            <a href="#features">Recursos</a>
+            <a href="#security">Segurança</a>
+            <a href="#pricing">Preços</a>
+        </div>
+
+        <button class="navbar-cta">Começar Agora</button>
+
+        <!-- Hamburger (mobile) -->
+        <div class="navbar-hamburger" id="navHamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="navbar-mobile-menu" id="navMobileMenu">
+        <button class="navbar-mobile-close" id="navMobileClose">&times;</button>
+        <a href="#solution">Soluções</a>
+        <a href="#ai">Inteligência</a>
+        <a href="#features">Recursos</a>
+        <a href="#security">Segurança</a>
+        <a href="#pricing">Preços</a>
+        <button class="btn-primary" style="margin-top: 16px;">Começar Agora</button>
+    </div>
+
+    <!-- MAIN -->
+    <main
+        style="width: 100%; max-width: var(--max-width); margin: 9rem auto 0; display: flex; flex-direction: column; align-items: center; z-index: 10; position: relative;">
+
+        <!-- HERO SECTION -->
+        <section class="hero" id="heroSection">
+
+            <!-- Badge -->
+            <div class="hero-badge reveal" id="heroBadge">
+                <span class="hero-badge-dot animate-pulse"></span>
+                <span class="hero-badge-text">Tecnologia sob medida &amp; Resultados reais</span>
+            </div>
+
+            <!-- Title (words injected by JS) -->
+            <h1 id="heroTitle" class="hero-title" aria-label="Sistemas com IA para escalar sua empresa"></h1>
+
+
+            <!-- Subtitle -->
+            <p class="hero-subtitle reveal" id="heroSubtitle">
+                Criamos aplicativos, plataformas e ferramentas inteligentes que
+                transformam a operação da sua empresa e multiplicam seus resultados.
+            </p>
+
+            <!-- CTA -->
+            <div class="reveal-cta" id="heroCta">
+                <button class="btn-primary hero-cta">Fale com a VINNX</button>
+            </div>
+        </section>
+
+        <!-- CARDS SECTION -->
+        <section style="width: 100%; padding: 0 16px 64px; display: flex; justify-content: center; overflow: visible;"
+            id="cardsSection">
+            <div class="fan-container" id="fanContainer">
+
+                <!-- LEFT CARD - Painel de Receita -->
+                <div class="bento-card card-left" id="cardLeft">
+                    <div class="bento-card-inner">
+                        <!-- Header -->
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <div
+                                style="font-size: 0.65rem; color: var(--color-gray-500); text-transform: uppercase; letter-spacing: 0.08em;">
+                                Painel de Receita</div>
+                            <div
+                                style="font-size: 0.6rem; color: var(--color-primary); background: var(--color-primary-10); padding: 2px 8px; border-radius: 9999px;">
+                                Ao vivo</div>
+                        </div>
+
+                        <!-- Revenue Number -->
+                        <div style="margin-bottom: 0.75rem;" class="revenue-block">
+                            <div style="font-size: 0.65rem; color: var(--color-gray-400);">Faturamento Mensal</div>
+                            <div data-countup="revenue"
+                                style="font-size: 1.5rem; font-weight: 600; color: white; letter-spacing: -0.02em;">R$
+                                0</div>
+                            <div class="growth-badge"
+                                style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; color: #4ade80; font-weight: 600; margin-top: 4px;">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="3">
+                                    <path d="M7 17l5-5 5 5M7 7l5-5 5 5" />
+                                </svg>
+                                +32.4% vs mês anterior
+                            </div>
+                        </div>
+
+                        <!-- Mini Chart Bars -->
+                        <div
+                            style="display: flex; align-items: flex-end; gap: 3px; height: 48px; margin-bottom: 0.75rem;">
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.15); border-radius: 3px 3px 0 0; height: 35%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.15); border-radius: 3px 3px 0 0; height: 45%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.2); border-radius: 3px 3px 0 0; height: 52%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.2); border-radius: 3px 3px 0 0; height: 48%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.25); border-radius: 3px 3px 0 0; height: 60%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.3); border-radius: 3px 3px 0 0; height: 72%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.35); border-radius: 3px 3px 0 0; height: 65%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.4); border-radius: 3px 3px 0 0; height: 78%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: rgba(34,197,94,0.5); border-radius: 3px 3px 0 0; height: 85%;">
+                            </div>
+                            <div class="chart-bar"
+                                style="flex:1; background: linear-gradient(to top, #22c55e, #4ade80); border-radius: 3px 3px 0 0; height: 100%; box-shadow: 0 0 12px rgba(34,197,94,0.4);">
+                            </div>
+                        </div>
+
+                        <!-- KPI Row -->
+                        <div style="display: flex; gap: 8px; margin-top: auto;">
+                            <div class="kpi-item"
+                                style="flex: 1; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; text-align: center;">
+                                <div data-countup="vendas" style="font-size: 0.95rem; font-weight: 600; color: white;">0
+                                </div>
+                                <div style="font-size: 0.55rem; color: var(--color-gray-500);">Vendas</div>
+                            </div>
+                            <div class="kpi-item"
+                                style="flex: 1; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; text-align: center;">
+                                <div data-countup="aprovacao"
+                                    style="font-size: 0.95rem; font-weight: 600; color: #4ade80;">0%</div>
+                                <div style="font-size: 0.55rem; color: var(--color-gray-500);">Aprovação</div>
+                            </div>
+                            <div class="kpi-item"
+                                style="flex: 1; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; text-align: center;">
+                                <div data-countup="ticket" style="font-size: 0.95rem; font-weight: 600; color: white;">
+                                    R$ 0</div>
+                                <div style="font-size: 0.55rem; color: var(--color-gray-500);">Ticket Médio</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER CARD - 3D Logo -->
+                <div class="bento-card card-center" id="cardCenter">
+                    <div class="bento-card-inner card-3d-inner">
+                        <div class="card-3d-header">
+                            <span class="card-3d-badge">
+                                <span class="card-3d-badge-dot"></span>
+                                VINNX
+                            </span>
+                        </div>
+                        <div class="card-3d-model-wrap">
+                            <div class="card-3d-glow"></div>
+                            <div class="card-3d-shadow"></div>
+                            <div id="logo3dCanvas" class="card-3d-canvas"></div>
+                        </div>
+                        <div class="card-3d-footer">
+                            <span>Soluções com IA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT CARD - App do Cliente -->
+                <div class="bento-card card-right" id="cardRight">
+                    <div class="bento-card-inner" style="position: relative; overflow: hidden;">
+                        <!-- App Preview Header -->
+                        <div style="position: relative; z-index: 10;">
+                            <div class="app-header"
+                                style="display: flex; align-items: center; gap: 6px; margin-bottom: 0.75rem;">
+                                <div
+                                    style="width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(135deg, #22c55e, #064e3b); display: flex; align-items: center; justify-content: center;">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <span style="font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.8);">App do
+                                    Cliente</span>
+                                <span class="online-dot"
+                                    style="font-size: 0.55rem; color: var(--color-primary); margin-left: auto;">&#9679;
+                                    Online</span>
+                            </div>
+
+                            <h3
+                                style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.6); line-height: 1.5; margin-bottom: 0.75rem;">
+                                Aplicativo desenvolvido<br>
+                                <span style="color: rgba(255,255,255,0.85); font-weight: 600;">com IA integrada pela
+                                    VINNX</span>
+                            </h3>
+
+                            <!-- App Metrics -->
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div class="metric-row"
+                                    style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(255,255,255,0.04); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                            stroke="var(--color-gray-400)" stroke-width="2">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                            <circle cx="9" cy="7" r="4" />
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                        </svg>
+                                        <span style="font-size: 0.6rem; color: var(--color-gray-400);">Usuários
+                                            Ativos</span>
+                                    </div>
+                                    <span data-countup="usuarios"
+                                        style="font-size: 0.7rem; font-weight: 600; color: white;">0</span>
+                                </div>
+                                <div class="metric-row"
+                                    style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(255,255,255,0.04); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4ade80"
+                                            stroke-width="2">
+                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                        </svg>
+                                        <span style="font-size: 0.6rem; color: var(--color-gray-400);">Receita /
+                                            Mês</span>
+                                    </div>
+                                    <span data-countup="receita"
+                                        style="font-size: 0.7rem; font-weight: 600; color: #4ade80;">R$ 0</span>
+                                </div>
+                                <div class="metric-row"
+                                    style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(255,255,255,0.04); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                            stroke="var(--color-gray-400)" stroke-width="2">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                            <polyline points="22 4 12 14.01 9 11.01" />
+                                        </svg>
+                                        <span style="font-size: 0.6rem; color: var(--color-gray-400);">Conversão</span>
+                                    </div>
+                                    <span data-countup="conversao"
+                                        style="font-size: 0.7rem; font-weight: 600; color: white;">0%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Decorative glow -->
+                        <div class="globe-gradient"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- STATS + TECH MARQUEE -->
+        <section class="stats-showcase reveal" id="statsShowcase">
+            <div class="stats-showcase-inner">
+                <!-- Stats Bar -->
+                <div class="stats-bar" id="statsBar">
+                    <div class="stat-item">
+                        <strong class="stat-number" data-target="150">0</strong>
+                        <span class="stat-suffix">+</span>
+                        <span class="stat-label">Projetos Entregues</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <strong class="stat-number" data-target="98">0</strong>
+                        <span class="stat-suffix">%</span>
+                        <span class="stat-label">Satisfação dos Clientes</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <strong class="stat-number" data-target="3.5" data-decimal="true">0</strong>
+                        <span class="stat-suffix">x</span>
+                        <span class="stat-label">Média de ROI</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <strong class="stat-number-static">24/7</strong>
+                        <span class="stat-label">Suporte Disponível</span>
+                    </div>
+                </div>
+
+                <!-- Tech Marquee -->
+                <div class="marquee-wrap" id="logoStrip">
+                    <div class="marquee-track">
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <circle cx="12" cy="12" r="3" />
+                                <path
+                                    d="M12 1a1 1 0 0 1 0 2 7 7 0 0 1 0 14 1 1 0 0 1 0 2 9 9 0 0 0 0-18zM12 5a1 1 0 0 1 0 2 3 3 0 0 0 0 6 1 1 0 0 1 0 2 5 5 0 0 1 0-10z"
+                                    opacity=".3" />
+                            </svg> React</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M12 2L2 19.5h4l6-11 6 11h4L12 2z" opacity=".4" />
+                            </svg> Node.js</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM17 14v3h-3v3h3v-3h3v-3h-3z"
+                                    opacity=".4" />
+                            </svg> Firebase</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <circle cx="12" cy="12" r="9" opacity=".3" />
+                                <path d="M12 6v12" stroke="currentColor" stroke-width="2" />
+                            </svg> Supabase</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <rect x="3" y="8" width="18" height="8" rx="2" opacity=".4" />
+                            </svg> Stripe</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <circle cx="12" cy="12" r="8" opacity=".3" />
+                                <circle cx="12" cy="12" r="4" opacity=".2" />
+                            </svg> OpenAI</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <polygon points="12,2 22,20 2,20" opacity=".4" />
+                            </svg> Vercel</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <polygon points="12,4 20,20 4,20" opacity=".3" />
+                                <polygon points="12,8 17,18 7,18" opacity=".2" />
+                            </svg> Cloudflare</div>
+                    </div>
+                    <div class="marquee-track" aria-hidden="true">
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <circle cx="12" cy="12" r="3" />
+                                <path
+                                    d="M12 1a1 1 0 0 1 0 2 7 7 0 0 1 0 14 1 1 0 0 1 0 2 9 9 0 0 0 0-18zM12 5a1 1 0 0 1 0 2 3 3 0 0 0 0 6 1 1 0 0 1 0 2 5 5 0 0 1 0-10z"
+                                    opacity=".3" />
+                            </svg> React</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M12 2L2 19.5h4l6-11 6 11h4L12 2z" opacity=".4" />
+                            </svg> Node.js</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM17 14v3h-3v3h3v-3h3v-3h-3z"
+                                    opacity=".4" />
+                            </svg> Firebase</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <circle cx="12" cy="12" r="9" opacity=".3" />
+                                <path d="M12 6v12" stroke="currentColor" stroke-width="2" />
+                            </svg> Supabase</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <rect x="3" y="8" width="18" height="8" rx="2" opacity=".4" />
+                            </svg> Stripe</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <circle cx="12" cy="12" r="8" opacity=".3" />
+                                <circle cx="12" cy="12" r="4" opacity=".2" />
+                            </svg> OpenAI</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <polygon points="12,2 22,20 2,20" opacity=".4" />
+                            </svg> Vercel</div>
+                        <div class="marquee-item"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <polygon points="12,4 20,20 4,20" opacity=".3" />
+                                <polygon points="12,8 17,18 7,18" opacity=".2" />
+                            </svg> Cloudflare</div>
+                    </div>
+                </div>
+
+                <!-- Large Heading -->
+                <div class="stats-heading">
+                    <div class="stats-heading-glow"></div>
+                    <h2>Inteligência que torna<br>cada transação mais <span class="title-accent">eficiente</span></h2>
+                    <p>Somos especialistas em transformar desafios em oportunidades através da tecnologia. Nossa IA
+                        aprende continuamente com dados de milhares de operações — ajudando sua empresa a prevenir
+                        riscos, otimizar performance e aumentar receita.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRANSACTION FLOW SECTION -->
+        <section class="tx-section reveal" id="txSection">
+            <div class="tx-layout">
+                <!-- LEFT: Text content -->
+                <div class="tx-text-side">
+                    <div class="section-heading-block section-heading-left">
+                        <span class="offer-kicker">
+                            <span class="offer-kicker-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 16l4-4 3 3 6-6" />
+                                    <path d="M15 9h5v5" />
+                                </svg>
+                            </span>
+                            <span>Fluxo Financeiro</span>
+                        </span>
+                        <h2 class="tx-title">Cada transação<br>no seu <span class="title-accent">controle</span></h2>
+                        <p class="tx-lead">
+                            Acompanhe vendas, recebimentos e pagamentos em tempo real. Nossas ferramentas automatizam o
+                            financeiro para que você foque no crescimento.
+                        </p>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div
+                                style="width: 28px; height: 28px; border-radius: 8px; background: rgba(34,197,94,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80"
+                                    stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                            </div>
+                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">Notificações instantâneas de
+                                cada venda</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div
+                                style="width: 28px; height: 28px; border-radius: 8px; background: rgba(34,197,94,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80"
+                                    stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                            </div>
+                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">Conciliação financeira
+                                automatizada</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div
+                                style="width: 28px; height: 28px; border-radius: 8px; background: rgba(34,197,94,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <path d="M3 9h18M9 21V9" />
+                                </svg>
+                            </div>
+                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">Relatórios inteligentes em
+                                tempo real</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Animation -->
+                <div class="tx-anim-side">
+                    <div class="tx-stack" id="txStack">
+                        <!-- Cards injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section class="offer-section reveal" id="solution">
+            <div class="offer-shell">
+                <div class="offer-header section-heading-block">
+                    <span class="offer-kicker">
+                        <span class="offer-kicker-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="8" height="8" rx="1.5" />
+                                <rect x="13" y="3" width="8" height="8" rx="1.5" />
+                                <rect x="8" y="13" width="8" height="8" rx="1.5" />
+                            </svg>
+                        </span>
+                        <span>Soluções</span>
+                    </span>
+                    <h2>Nossas <span class="title-accent">Soluções</span></h2>
+                    <p>Serviços completos de IA e tecnologia para impulsionar seu negócio para o próximo nível.</p>
+                </div>
+
+                <div class="services-grid" id="servicesGrid">
+                    <!-- Card 1 — Agentes de IA -->
+                    <article class="service-card" data-service-card>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 2a4 4 0 0 1 4 4v1a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z" />
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="10" r="1" fill="currentColor" />
+                                <path d="M9 2.5C7.5 3.5 6.5 5 6.5 7" opacity=".5" />
+                                <path d="M15 2.5c1.5 1 2.5 2.5 2.5 4.5" opacity=".5" />
+                            </svg>
+                        </div>
+                        <h3>Agentes de IA</h3>
+                        <p>Assistentes virtuais inteligentes que automatizam atendimento, vendas e suporte 24/7 com
+                            conversas naturais.</p>
+                        <ul class="service-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Atendimento 24/7</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Automação de vendas</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Integração multicanal</li>
+                        </ul>
+                    </article>
+
+                    <!-- Card 2 — Sistemas ERP -->
+                    <article class="service-card" data-service-card>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="3" width="18" height="18" rx="3" />
+                                <path d="M3 9h18M9 9v12" />
+                                <circle cx="15" cy="15" r="2" opacity=".5" />
+                            </svg>
+                        </div>
+                        <h3>Sistemas ERP Personalizados</h3>
+                        <p>Gestão empresarial sob medida com IA integrada para otimizar processos e aumentar
+                            produtividade.</p>
+                        <ul class="service-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Gestão integrada</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Relatórios em tempo real</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> IA preditiva</li>
+                        </ul>
+                    </article>
+
+                    <!-- Card 3 — Sites & Apps -->
+                    <article class="service-card" data-service-card>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="3" width="20" height="14" rx="2" />
+                                <path d="M8 21h8M12 17v4" />
+                                <path d="M7 10l3 3-3 3" opacity=".5" />
+                                <line x1="13" y1="16" x2="17" y2="16" opacity=".5" />
+                            </svg>
+                        </div>
+                        <h3>Sites & Aplicações Web</h3>
+                        <p>Desenvolvimento de sites modernos e aplicações web responsivas com foco em conversão e
+                            experiência.</p>
+                        <ul class="service-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Design responsivo</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> SEO otimizado</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Alta performance</li>
+                        </ul>
+                    </article>
+
+                    <!-- Card 4 — Tráfego Pago -->
+                    <article class="service-card" data-service-card>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 16l4-4 3 3 6-6" />
+                                <path d="M15 9h5v5" />
+                                <rect x="2" y="2" width="20" height="20" rx="3" opacity=".3" />
+                            </svg>
+                        </div>
+                        <h3>Tráfego Pago</h3>
+                        <p>Campanhas estratégicas em Google Ads e Meta Ads com IA para maximizar ROI e gerar leads
+                            qualificados.</p>
+                        <ul class="service-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> ROI otimizado</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Segmentação avançada</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Análise preditiva</li>
+                        </ul>
+                    </article>
+
+                    <!-- Card 5 — Social Media -->
+                    <article class="service-card" data-service-card>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                <path d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                <path d="M18 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" opacity=".5" />
+                            </svg>
+                        </div>
+                        <h3>Social Media</h3>
+                        <p>Gestão completa de redes sociais com conteúdo estratégico e automação inteligente para
+                            engajamento máximo.</p>
+                        <ul class="service-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Conteúdo estratégico</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Automação inteligente</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Análise de métricas</li>
+                        </ul>
+                    </article>
+
+                    <!-- Card 6 — Consultoria em IA -->
+                    <article class="service-card" data-service-card>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 6v6l4 2" />
+                                <path d="M16 16l2 2" opacity=".5" />
+                                <circle cx="12" cy="12" r="2" fill="currentColor" opacity=".2" />
+                            </svg>
+                        </div>
+                        <h3>Consultoria em IA</h3>
+                        <p>Análise completa do seu negócio e implementação de soluções IA personalizadas que geram
+                            resultados reais.</p>
+                        <ul class="service-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Diagnóstico completo</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Implementação guiada</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Suporte contínuo</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI SECTION -->
+        <section class="ai-section reveal" id="ai">
+            <div class="ai-shell-v2">
+                <div class="ai-header-v2 section-heading-block">
+                    <span class="offer-kicker">
+                        <span class="offer-kicker-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="6" y="6" width="12" height="12" rx="2" />
+                                <path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4" />
+                            </svg>
+                        </span>
+                        <span>Inteligência Artificial</span>
+                    </span>
+                    <h2>Duas realidades: suporte comum vs suporte com <span class="title-accent">VINNX</span></h2>
+                    <p>No fluxo tradicional, o cliente espera e recebe respostas genéricas. Com VINNX, agentes de IA
+                        colaboram entre si e resolvem no mesmo chat.</p>
+                </div>
+
+                <div class="phones-showcase" id="phonesShowcase">
+                    <!-- Phone 1 — Normal -->
+                    <div class="phone-column">
+                        <div class="phone-label phone-label-bad">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M15 9l-6 6M9 9l6 6" />
+                            </svg>
+                            Atendimento Comum
+                        </div>
+                        <div class="phone-device-v2">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen-v2">
+                                <div class="phone-status-bar">
+                                    <span>9:41</span>
+                                    <div class="status-icons">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <rect x="1" y="7" width="3" height="10" rx="1" />
+                                            <rect x="6" y="5" width="3" height="12" rx="1" />
+                                            <rect x="11" y="3" width="3" height="14" rx="1" />
+                                            <rect x="16" y="1" width="3" height="16" rx="1" opacity=".3" />
+                                        </svg>
+                                        <svg width="16" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <rect x="1" y="6" width="18" height="12" rx="2" />
+                                            <rect x="20" y="9" width="2" height="6" rx="1" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="chat-header-v2">
+                                    <div class="chat-avatar-v2 chat-avatar-human">S</div>
+                                    <div class="chat-header-info">
+                                        <strong>Suporte Genérico</strong>
+                                        <span>Tempo médio: 12min</span>
+                                    </div>
+                                </div>
+                                <div class="chat-messages" id="chatNormal">
+                                    <div class="chat-bubble-v2 bubble-user" data-delay="300">
+                                        Oi, preciso mudar a data de entrega do pedido #3981.
+                                    </div>
+                                    <div class="chat-bubble-v2 bubble-agent" data-delay="1200">
+                                        Olá! Vou verificar internamente, por favor aguarde um momento.
+                                    </div>
+                                    <div class="chat-time-gap" data-delay="2200">
+                                        <span>⏳ 12 minutos depois...</span>
+                                    </div>
+                                    <div class="chat-bubble-v2 bubble-user" data-delay="2800">
+                                        Ainda estou aguardando...
+                                    </div>
+                                    <div class="chat-bubble-v2 bubble-agent" data-delay="3600">
+                                        Desculpe a demora. Vou encaminhar para outro setor, ok?
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="phone-metrics">
+                            <div class="phone-metric metric-bad">
+                                <span class="metric-value">12min</span>
+                                <span class="metric-label">1ª resposta</span>
+                            </div>
+                            <div class="phone-metric metric-bad">
+                                <span class="metric-value">3x</span>
+                                <span class="metric-label">Transferências</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VS Divider -->
+                    <div class="vs-divider">
+                        <span>VS</span>
+                    </div>
+
+                    <!-- Phone 2 — VINNX AI -->
+                    <div class="phone-column">
+                        <div class="phone-label phone-label-good">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                            Atendimento VINNX
+                        </div>
+                        <div class="phone-device-v2 phone-vinnx">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen-v2">
+                                <div class="phone-status-bar">
+                                    <span>9:41</span>
+                                    <div class="status-icons">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <rect x="1" y="7" width="3" height="10" rx="1" />
+                                            <rect x="6" y="5" width="3" height="12" rx="1" />
+                                            <rect x="11" y="3" width="3" height="14" rx="1" />
+                                            <rect x="16" y="1" width="3" height="16" rx="1" />
+                                        </svg>
+                                        <svg width="16" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <rect x="1" y="6" width="18" height="12" rx="2" />
+                                            <rect x="20" y="9" width="2" height="6" rx="1" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="chat-header-v2 chat-header-vinnx">
+                                    <div class="chat-avatar-v2 chat-avatar-ai">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="6" y="6" width="12" height="12" rx="2" />
+                                            <path d="M9 1v4M15 1v4M9 19v4M15 19v4" />
+                                        </svg>
+                                    </div>
+                                    <div class="chat-header-info">
+                                        <strong>VINNX Agent Mesh</strong>
+                                        <span class="ai-status-dot">
+                                            <span class="status-pulse"></span>
+                                            3 agentes ativos
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="chat-messages" id="chatVinnx">
+                                    <div class="chat-bubble-v2 bubble-user" data-delay="300">
+                                        Oi, preciso mudar a data de entrega do pedido #3981.
+                                    </div>
+                                    <div class="chat-bubble-v2 bubble-ai" data-delay="800">
+                                        <span class="ai-agent-tag">🔍 Agente Comercial</span>
+                                        Já localizei o pedido #3981. Entrega atual: terça, 13h.
+                                    </div>
+                                    <div class="chat-bubble-v2 bubble-ai" data-delay="1400">
+                                        <span class="ai-agent-tag">📦 Agente Logística</span>
+                                        Janela disponível: quinta 14h-18h ou sexta 9h-12h.
+                                    </div>
+                                    <div class="chat-bubble-v2 bubble-ai" data-delay="2000">
+                                        <span class="ai-agent-tag">💳 Agente Financeiro</span>
+                                        Sem custo adicional. Atualizado no sistema.
+                                    </div>
+                                    <div class="chat-bubble-v2 bubble-final" data-delay="2600">
+                                        ✅ Entrega remarcada para <strong>quinta, 14h-18h</strong>. Notificação enviada
+                                        por WhatsApp.
+                                    </div>
+                                </div>
+                                <div class="chat-typing-v2" data-delay="3200">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="phone-metrics">
+                            <div class="phone-metric metric-good">
+                                <span class="metric-value">8s</span>
+                                <span class="metric-label">1ª resposta</span>
+                            </div>
+                            <div class="phone-metric metric-good">
+                                <span class="metric-value">0</span>
+                                <span class="metric-label">Transferências</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- "POR QUE ESCOLHER" SECTION -->
+        <section class="why-section why-cinematic reveal" id="whyChoose">
+            <div class="why-shell why-shell-cinematic">
+                <div class="section-heading-block why-heading-cinematic">
+                    <span class="offer-kicker">
+                        <span class="offer-kicker-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 7h16M6 4h12v6H6z" />
+                                <path d="M8 13l8 0M12 13v7" />
+                            </svg>
+                        </span>
+                        <span>Cena VINNX</span>
+                    </span>
+                    <h2>Por que a <span class="title-accent">VINNX</span> muda o jogo</h2>
+                    <p>Três atos para sair do atendimento lento e entrar em uma operação com IA que responde, aprende
+                        e escala.</p>
+                </div>
+
+                <div class="why-cinematic-track" aria-hidden="true"></div>
+
+                <div class="why-benefits cinematic-stack">
+                    <article class="benefit-block scene-card reveal" data-benefit>
+                        <div class="scene-chip">Ato 01</div>
+                        <div class="scene-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="6" y="6" width="12" height="12" rx="2" />
+                                <path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4" />
+                            </svg>
+                        </div>
+                        <div class="benefit-content">
+                            <h3>IA de última geração</h3>
+                            <p>Agentes especializados entendem contexto, histórico e intenção para responder com
+                                precisão desde a primeira mensagem.</p>
+                            <ul class="scene-points">
+                                <li>Contexto em tempo real</li>
+                                <li>Respostas consistentes</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="benefit-block scene-card reveal" data-benefit>
+                        <div class="scene-chip">Ato 02</div>
+                        <div class="scene-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 20V10M10 20V4M16 20v-7M22 20V8" />
+                            </svg>
+                        </div>
+                        <div class="benefit-content">
+                            <h3>Resultados mensuráveis</h3>
+                            <p>Cada automação nasce com métricas claras para você enxergar impacto em receita,
+                                produtividade e crescimento, sem achismo.</p>
+                            <ul class="scene-points">
+                                <li>Indicadores acionáveis</li>
+                                <li>Evolução contínua</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="benefit-block scene-card reveal" data-benefit>
+                        <div class="scene-chip">Ato 03</div>
+                        <div class="scene-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 15v-2a8 8 0 0 1 16 0v2" />
+                                <rect x="2" y="14" width="5" height="6" rx="1.5" />
+                                <rect x="17" y="14" width="5" height="6" rx="1.5" />
+                            </svg>
+                        </div>
+                        <div class="benefit-content">
+                            <h3>Suporte dedicado</h3>
+                            <p>Você mantém apoio estratégico com atendimento rápido, manutenção ativa e evolução guiada
+                                por especialistas em produto e IA.</p>
+                            <ul class="scene-points">
+                                <li>Especialistas do seu lado</li>
+                                <li>Resposta ágil e humana</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="why-cinematic-cta">
+                    <a href="#finalCta" class="btn-primary">Ver essa operação em ação</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- "COMO FUNCIONA" SECTION -->
+        <section class="process-section reveal" id="process">
+            <div class="process-shell">
+                <div class="section-heading-block">
+                    <span class="offer-kicker">
+                        <span class="offer-kicker-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 6v6l4 2" />
+                            </svg>
+                        </span>
+                        <span>Processo</span>
+                    </span>
+                    <h2>Como <span class="title-accent">Funciona</span></h2>
+                    <p>Um processo simples e eficiente para transformar seu negócio.</p>
+                </div>
+
+                <div class="process-timeline" id="processTimeline">
+                    <div class="process-line"></div>
+
+                    <div class="process-step reveal" data-step>
+                        <div class="step-number">01</div>
+                        <h4>Análise e Diagnóstico</h4>
+                        <p>Entendemos profundamente seu negócio, desafios e oportunidades para criar a estratégia
+                            perfeita.</p>
+                    </div>
+
+                    <div class="process-step reveal" data-step>
+                        <div class="step-number">02</div>
+                        <h4>Planejamento Estratégico</h4>
+                        <p>Desenvolvemos um plano detalhado com metas claras, cronograma e tecnologias mais adequadas.
+                        </p>
+                    </div>
+
+                    <div class="process-step reveal" data-step>
+                        <div class="step-number">03</div>
+                        <h4>Implementação</h4>
+                        <p>Nossa equipe executa o projeto com excelência, mantendo você informado em cada etapa.</p>
+                    </div>
+
+                    <div class="process-step reveal" data-step>
+                        <div class="step-number">04</div>
+                        <h4>Otimização Contínua</h4>
+                        <p>Monitoramos resultados e otimizamos constantemente para garantir máxima performance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section class="feature-section reveal" id="features">
+            <div class="feature-shell">
+                <div class="offer-header feature-header section-heading-block">
+                    <span class="offer-kicker">
+                        <span class="offer-kicker-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                                <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                                <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                                <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                            </svg>
+                        </span>
+                        <span>Recursos</span>
+                    </span>
+                    <h2>Tudo que você precisa para <span class="title-accent">lançar e evoluir</span></h2>
+                </div>
+
+                <div class="feature-grid-v2" id="featureGrid">
+                    <article class="feature-card-v2" data-feature-idx="0">
+                        <div class="feature-icon-v2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="16" rx="2" />
+                                <path d="M3 10h18" />
+                            </svg>
+                        </div>
+                        <h3>Landing pages de alta conversão</h3>
+                        <p>Páginas otimizadas para captura e venda, com copy persuasiva, A/B testing e métricas
+                            integradas.</p>
+                    </article>
+                    <article class="feature-card-v2" data-feature-idx="1">
+                        <div class="feature-icon-v2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 4h18l-7 8v6l-4 2v-8z" />
+                            </svg>
+                        </div>
+                        <h3>Automações de CRM e funil</h3>
+                        <p>Workflows que qualificam, segmentam e avançam leads automaticamente no seu pipeline de
+                            vendas.</p>
+                    </article>
+                    <article class="feature-card-v2" data-feature-idx="2">
+                        <div class="feature-icon-v2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 20V10M10 20V4M16 20v-7M22 20V8" />
+                            </svg>
+                        </div>
+                        <h3>Painel de indicadores com IA</h3>
+                        <p>Dashboards em tempo real com alertas inteligentes, previsões e insights acionáveis para seu
+                            negócio.</p>
+                    </article>
+                    <article class="feature-card-v2" data-feature-idx="3">
+                        <div class="feature-icon-v2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="5" width="20" height="14" rx="2" />
+                                <path d="M2 10h20" />
+                            </svg>
+                        </div>
+                        <h3>Integração com pagamentos</h3>
+                        <p>Stripe, Mercado Pago, PIX — checkout otimizado com split, recorrência e gestão de
+                            assinaturas.</p>
+                    </article>
+                    <article class="feature-card-v2" data-feature-idx="4">
+                        <div class="feature-icon-v2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 6h16M4 12h16M4 18h10" />
+                            </svg>
+                        </div>
+                        <h3>Copy comercial orientada a resultado</h3>
+                        <p>Textos para vendas, e-mail marketing e redes sociais — gerados e otimizados com assistência
+                            de IA.</p>
+                    </article>
+                    <article class="feature-card-v2" data-feature-idx="5">
+                        <div class="feature-icon-v2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 15v-2a8 8 0 0 1 16 0v2" />
+                                <rect x="2" y="14" width="5" height="6" rx="1.5" />
+                                <rect x="17" y="14" width="5" height="6" rx="1.5" />
+                            </svg>
+                        </div>
+                        <h3>Suporte técnico contínuo</h3>
+                        <p>Equipe dedicada, SLA definido, monitoramento de uptime e canal direto para resolução rápida.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECURITY SECTION -->
+        <section class="security-section reveal" id="security">
+            <div class="security-shell-v2">
+                <div class="security-content-v2 section-heading-block">
+                    <span class="offer-kicker">
+                        <span class="offer-kicker-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 3l7 3v6c0 5-3.2 8.4-7 9.8-3.8-1.4-7-4.8-7-9.8V6z" />
+                                <path d="M9 12l2 2 4-4" />
+                            </svg>
+                        </span>
+                        <span>Segurança</span>
+                    </span>
+                    <h2>Base técnica robusta para operar com <span class="title-accent">confiança</span></h2>
+                    <p>Aplicamos boas práticas de segurança, monitoramento e controle de acesso para reduzir risco
+                        operacional e proteger dados sensíveis.</p>
+                </div>
+
+                <div class="shield-showcase" id="shieldShowcase">
+                    <!-- Shield Center -->
+                    <div class="shield-center">
+                        <div class="shield-orbit shield-orbit-1"></div>
+                        <div class="shield-orbit shield-orbit-2"></div>
+                        <div class="shield-orbit shield-orbit-3"></div>
+                        <div class="shield-glow"></div>
+                        <svg class="shield-svg" viewBox="0 0 80 96" fill="none">
+                            <path d="M40 4L72 18v24c0 22-14 37-32 43C22 79 8 64 8 42V18L40 4z" fill="url(#shieldGrad)"
+                                stroke="url(#shieldStroke)" stroke-width="2" />
+                            <path d="M28 48l8 8 16-16" stroke="#fff" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round" class="shield-check" />
+                            <defs>
+                                <linearGradient id="shieldGrad" x1="40" y1="4" x2="40" y2="85"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="rgba(34, 197, 94, 0.25)" />
+                                    <stop offset="1" stop-color="rgba(34, 197, 94, 0.05)" />
+                                </linearGradient>
+                                <linearGradient id="shieldStroke" x1="8" y1="4" x2="72" y2="85"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4ade80" />
+                                    <stop offset="1" stop-color="#16a34a" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <!-- Metrics around shield -->
+                    <div class="shield-metrics">
+                        <div class="shield-metric-card">
+                            <strong>99.9%</strong>
+                            <span>Disponibilidade alvo</span>
+                        </div>
+                        <div class="shield-metric-card">
+                            <strong>24/7</strong>
+                            <span>Monitoramento contínuo</span>
+                        </div>
+                        <div class="shield-metric-card">
+                            <strong>LGPD</strong>
+                            <span>Boas práticas de privacidade</span>
+                        </div>
+                    </div>
+
+                    <!-- Badges -->
+                    <div class="security-badges">
+                        <div class="sec-badge">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 3l7 3v6c0 5-3.2 8.4-7 9.8-3.8-1.4-7-4.8-7-9.8V6z" />
+                            </svg>
+                            SSL/TLS
+                        </div>
+                        <div class="sec-badge">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            Criptografia
+                        </div>
+                        <div class="sec-badge">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="3" />
+                                <path
+                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                            </svg>
+                            Backup Auto
+                        </div>
+                        <div class="sec-badge">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                            </svg>
+                            Audit Trail
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS SECTION -->
+        <section class="testimonials-section reveal" id="testimonials">
+            <div class="testimonials-shell">
+                <div class="section-heading-block">
+                    <span class="offer-kicker">
+                        <span class="offer-kicker-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </span>
+                        <span>Depoimentos</span>
+                    </span>
+                    <h2>O Que Dizem Nossos <span class="title-accent">Clientes</span></h2>
+                    <p>Histórias reais de transformação e sucesso com nossas soluções.</p>
+                </div>
+
+                <div class="testimonials-grid" id="testimonialGrid">
+                    <article class="testimonial-card" data-testimonial>
+                        <div class="testimonial-stars">★★★★★</div>
+                        <blockquote>"A Vinnx transformou completamente nossa operação. O agente de IA reduziu nosso
+                            tempo de atendimento em 70% e aumentou a satisfação dos clientes."</blockquote>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">CS</div>
+                            <div>
+                                <strong>Carlos Silva</strong>
+                                <span>CEO, TechFlow Solutions</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card" data-testimonial>
+                        <div class="testimonial-stars">★★★★★</div>
+                        <blockquote>"As campanhas de tráfego pago da Vinnx geraram um ROI de 4.2x no primeiro trimestre.
+                            Profissionalismo e resultados excepcionais!"</blockquote>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">AR</div>
+                            <div>
+                                <strong>Ana Paula Rodrigues</strong>
+                                <span>Diretora de Marketing, Innovare</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card" data-testimonial>
+                        <div class="testimonial-stars">★★★★★</div>
+                        <blockquote>"O sistema ERP personalizado integrou todos os nossos processos. Produtividade
+                            aumentou 85% e reduzimos custos operacionais em 40%."</blockquote>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">RM</div>
+                            <div>
+                                <strong>Roberto Mendes</strong>
+                                <span>Fundador, EcoCommerce</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section class="pricing-section reveal" id="pricing">
+            <div class="pricing-shell">
+                <div class="offer-header pricing-header section-heading-block">
+                    <span class="offer-kicker">
+                        <span class="offer-kicker-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 3l9 5-9 5-9-5z" />
+                                <path d="M3 12l9 5 9-5" />
+                            </svg>
+                        </span>
+                        <span>Planos</span>
+                    </span>
+                    <h2>Modelos <span class="title-accent">flexíveis</span> para cada etapa da sua empresa</h2>
+                    <p>Comece rápido, evolua com previsibilidade e mantenha suporte estratégico durante todo o ciclo.
+                    </p>
+                </div>
+                <div class="pricing-grid">
+                    <article class="pricing-card">
+                        <h3>Start</h3>
+                        <p class="pricing-value">R$ 4.900<span>/mês</span></p>
+                        <ul>
+                            <li>Landing page + automações básicas</li>
+                            <li>Setup de analytics e CRM</li>
+                            <li>1 sprint de melhoria por mês</li>
+                        </ul>
+                        <button class="btn-primary">Quero começar</button>
+                    </article>
+                    <article class="pricing-card pricing-card-highlight pricing-pop">
+                        <span class="pricing-badge">Mais popular</span>
+                        <h3>Growth</h3>
+                        <p class="pricing-value">R$ 9.900<span>/mês</span></p>
+                        <ul>
+                            <li>Produto completo com IA aplicada</li>
+                            <li>Integrações de vendas e pagamentos</li>
+                            <li>2 sprints de evolução por mês</li>
+                        </ul>
+                        <button class="btn-primary">Falar com especialista</button>
+                    </article>
+                    <article class="pricing-card">
+                        <h3>Scale</h3>
+                        <p class="pricing-value">Sob medida</p>
+                        <ul>
+                            <li>Arquitetura dedicada e squad estendido</li>
+                            <li>Roadmap trimestral orientado a KPI</li>
+                            <li>Suporte prioritário e consultoria contínua</li>
+                        </ul>
+                        <button class="btn-primary">Montar proposta</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta reveal" id="finalCta">
+        <div class="final-cta-inner">
+            <div class="final-cta-glow"></div>
+            <h2>Pronto para escalar com <span class="title-accent">inteligência</span>?</h2>
+            <p>Agende uma conversa estratégica com nosso time e descubra como a VINNX pode transformar seu negócio.</p>
+            <a href="#" class="btn-primary btn-cta-large">Falar com especialista →</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="footer-brand-logo">
+                    <img src="/logo-verde.png" alt="VINNX">
+                    <span>VINNX</span>
+                </div>
+                <p>Plataforma inteligente que analisa, protege e otimiza cada operação do seu negócio — automaticamente.
+                </p>
+            </div>
+            <div class="footer-column">
+                <h4>Produto</h4>
+                <a href="#features">Recursos</a>
+                <a href="#ai">Motor de IA</a>
+                <a href="#security">Segurança</a>
+                <a href="#pricing">Planos</a>
+            </div>
+            <div class="footer-column">
+                <h4>Empresa</h4>
+                <a href="#">Sobre nós</a>
+                <a href="#">Carreiras</a>
+                <a href="#">Blog</a>
+                <a href="#">Contato</a>
+            </div>
+            <div class="footer-column">
+                <h4>Recursos</h4>
+                <a href="#">Documentação</a>
+                <a href="#">API</a>
+                <a href="#">Suporte</a>
+                <a href="#">Status</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 VINNX. Todos os direitos reservados.</span>
+            <div class="footer-socials">
+                <a href="#" aria-label="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" />
+                        <circle cx="12" cy="12" r="5" />
+                        <circle cx="17.5" cy="6.5" r="1.5" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vite entry point -->
+    <script type="module" src="/src/main.js"></script>
+
+</body>
+
+</html>

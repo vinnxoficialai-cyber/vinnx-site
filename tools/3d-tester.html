@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VINNX 3D Logo Tester</title>
+    <style>
+        :root {
+            --accent: #22c55e;
+            --bg-panel: rgba(8, 8, 8, 0.96);
+            --border: rgba(255, 255, 255, 0.12);
+            --text-main: #f0f0f0;
+            --text-dim: #999;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #050505;
+            color: var(--text-main);
+            overflow: hidden;
+            font-size: 11px;
+        }
+
+        #container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+        }
+
+        #ui-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 350px;
+            max-height: calc(100vh - 40px);
+            background: var(--bg-panel);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+            z-index: 100;
+        }
+
+        #ui-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #ui-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #ui-panel::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 2px;
+        }
+
+        .panel-header {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .brand span {
+            color: var(--accent);
+        }
+
+        .section {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header {
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.01);
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.2s;
+        }
+
+        .section-header:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .section-content {
+            padding: 14px 18px;
+            display: block;
+        }
+
+        .section.closed .section-content {
+            display: none;
+        }
+
+        .control-row {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .label {
+            color: var(--text-main);
+            flex: 1;
+            font-size: 11px;
+        }
+
+        .value {
+            color: var(--accent);
+            font-family: monospace;
+            margin-left: 8px;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            border: 2px solid #000;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: var(--accent);
+        }
+
+        input[type="color"] {
+            width: 100%;
+            height: 28px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 0;
+            background: none;
+        }
+
+        .file-upload {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 1px dashed #555;
+            border-radius: 6px;
+            text-align: center;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+            font-size: 11px;
+        }
+
+        .file-upload:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            font-size: 11px;
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 10px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.2s;
+            font-weight: 600;
+            font-size: 11px;
+        }
+
+        .btn-full:hover {
+            background: var(--accent);
+            color: black;
+        }
+
+        .sub-header {
+            font-size: 9px;
+            text-transform: uppercase;
+            color: #666;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: bold;
+            display: none;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        .status-bar {
+            padding: 8px 18px;
+            background: rgba(34, 197, 94, 0.08);
+            border-top: 1px solid var(--border);
+            font-size: 10px;
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="loading">PROCESSANDO...</div>
+        <div id="canvas-container"></div>
+        <div id="ui-panel">
+            <div class="panel-header">
+                <div class="brand">VINNX <span>3D TESTER</span></div>
+                <div style="font-size:10px; opacity:0.5">v6.0</div>
+            </div>
+
+            <!-- ARQUIVO & CÂMERA -->
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">📁 Arquivo & Câmera</div>
+                <div class="section-content">
+                    <label class="file-upload">📂 Carregar Modelo (.glb/.gltf)<input type="file" id="file-input"
+                            accept=".glb,.gltf" style="display:none"></label>
+                    <div class="control-row"><span class="label">Zoom Câmera</span><span class="value"
+                            id="val-zoom">Auto</span></div>
+                    <input type="range" id="cam-distance" min="0.1" max="10" step="0.1" value="3.0">
+                    <button class="btn-full" onclick="fitCamera()">🎯 Centralizar Foco</button>
+                </div>
+            </div>
+
+            <!-- EIXO DO MODELO -->
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">🔄 Eixo & Rotação do Modelo</div>
+                <div class="section-content">
+                    <div class="control-row"><span class="label">Rotação X</span><span class="value"
+                            id="val-rot-x">0°</span></div>
+                    <input type="range" id="model-rot-x" min="-180" max="180" step="1" value="0">
+                    <div class="control-row"><span class="label">Rotação Y</span><span class="value"
+                            id="val-rot-y">0°</span></div>
+                    <input type="range" id="model-rot-y" min="-180" max="180" step="1" value="0">
+                    <div class="control-row"><span class="label">Rotação Z</span><span class="value"
+                            id="val-rot-z">0°</span></div>
+                    <input type="range" id="model-rot-z" min="-180" max="180" step="1" value="0">
+                    <div class="control-row"><span class="label">Escala</span><span class="value"
+                            id="val-scale">1.8</span></div>
+                    <input type="range" id="model-scale" min="0.1" max="5" step="0.1" value="1.8">
+                    <button class="btn-full" onclick="resetRotation()">↺ Resetar Rotação</button>
+                </div>
+            </div>
+
+            <!-- AMBIENTE & REFLEXO -->
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">🌎 Ambiente & Reflexo</div>
+                <div class="section-content">
+                    <label class="file-upload">🖼️ Carregar Imagem de Reflexo (JPG/PNG/HDR)<input type="file"
+                            id="env-upload" accept=".jpg,.jpeg,.png,.hdr" style="display:none"></label>
+                    <div id="env-status" style="font-size:10px;color:#666;margin-bottom:8px;">Usando ambiente padrão
+                    </div>
+                    <div class="control-row"><span class="label">Intensidade Reflexo</span><span class="value"
+                            id="val-env-int">1.0</span></div>
+                    <input type="range" id="env-intensity" min="0" max="5" step="0.1" value="1.0">
+                    <div class="control-row"><span class="label">Exposição (Brilho Global)</span><span class="value"
+                            id="val-exposure">1.0</span></div>
+                    <input type="range" id="exposure" min="0.1" max="3" step="0.1" value="1.0">
+                    <label style="display:flex;align-items:center;margin-top:5px;font-size:11px;cursor:pointer;">
+                        <input type="checkbox" id="show-bg" checked style="margin-right:8px"> Mostrar Fundo
+                    </label>
+                </div>
+            </div>
+
+            <!-- CORES & PINTURA -->
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">🎨 Cores & Pintura</div>
+                <div class="section-content">
+                    <label style="display:flex;align-items:center;margin-bottom:10px;cursor:pointer;">
+                        <input type="checkbox" id="gradient-enabled" checked style="margin-right:8px"> Ativar Pintura
+                    </label>
+                    <div class="sub-header">Degradê Frente</div>
+                    <div class="control-row"><span class="label">Cor Topo</span></div>
+                    <input type="color" id="color-top" value="#4ade80">
+                    <div class="control-row" style="margin-top:5px"><span class="label">Cor Base</span></div>
+                    <input type="color" id="color-bottom" value="#064e3b">
+
+                    <div class="sub-header">Bordas / Espessura</div>
+                    <label style="display:flex;align-items:center;margin-bottom:8px;cursor:pointer;">
+                        <input type="checkbox" id="side-enabled" checked style="margin-right:8px"> Pintar Bordas
+                    </label>
+                    <div class="control-row"><span class="label">Eixo da Frente</span></div>
+                    <select id="front-axis">
+                        <option value="2" selected>Z (Padrão para Logos)</option>
+                        <option value="0">X (Logo de lado)</option>
+                        <option value="1">Y (Logo deitado)</option>
+                    </select>
+                    <div class="control-row"><span class="label">Cor da Borda</span></div>
+                    <input type="color" id="color-side" value="#22c55e">
+                    <div class="control-row" style="margin-top:8px"><span class="label">Limite do Ângulo</span><span
+                            class="value" id="val-side-bias">0.70</span></div>
+                    <input type="range" id="side-bias" min="0" max="1" step="0.05" value="0.7">
+
+                    <div class="sub-header">Material da Borda</div>
+                    <div class="control-row"><span class="label">Rugosidade (Fosco)</span><span class="value"
+                            id="val-side-rough">0.90</span></div>
+                    <input type="range" id="side-roughness" min="0" max="1" step="0.05" value="0.9">
+                    <div class="control-row"><span class="label">Metal (Reflexo)</span><span class="value"
+                            id="val-side-metal">0.10</span></div>
+                    <input type="range" id="side-metalness" min="0" max="1" step="0.05" value="0.1">
+                </div>
+            </div>
+
+            <!-- MATERIAL PRINCIPAL -->
+            <div class="section closed">
+                <div class="section-header" onclick="toggleSection(this)">💎 Material Principal (Frente)</div>
+                <div class="section-content">
+                    <div class="control-row"><span class="label">Metalness</span><span class="value"
+                            id="val-metal">0.85</span></div>
+                    <input type="range" id="metalness" min="0" max="1" step="0.05" value="0.85">
+                    <div class="control-row"><span class="label">Roughness</span><span class="value"
+                            id="val-rough">0.12</span></div>
+                    <input type="range" id="roughness" min="0" max="1" step="0.05" value="0.12">
+                    <div class="control-row"><span class="label">Clearcoat</span><span class="value"
+                            id="val-cc">1.00</span></div>
+                    <input type="range" id="clearcoat" min="0" max="1" step="0.05" value="1.0">
+                    <div class="control-row"><span class="label">Transmissão (Vidro)</span><span class="value"
+                            id="val-trans">0.00</span></div>
+                    <input type="range" id="transmission" min="0" max="1" step="0.05" value="0.0">
+                </div>
+            </div>
+
+            <!-- LUZ & SOMBRAS -->
+            <div class="section closed">
+                <div class="section-header" onclick="toggleSection(this)">💡 Luz & Sombras</div>
+                <div class="section-content">
+                    <div class="control-row"><span class="label">Intensidade Sol</span><span class="value"
+                            id="val-light">1.50</span></div>
+                    <input type="range" id="light-intensity" min="0" max="5" step="0.1" value="1.5">
+                    <div class="control-row"><span class="label">Rotação Luz</span><span class="value"
+                            id="val-light-rot">45°</span></div>
+                    <input type="range" id="light-rot" min="0" max="360" value="45">
+                    <div class="sub-header">Sombras</div>
+                    <div class="control-row"><span class="label">Suavidade</span><span class="value"
+                            id="val-shadow-rad">4.00</span></div>
+                    <input type="range" id="shadow-radius" min="1" max="10" step="0.5" value="4.0">
+                    <div class="sub-header">Bloom</div>
+                    <div class="control-row"><span class="label">Bloom (Glow)</span><span class="value"
+                            id="val-bloom">0.30</span></div>
+                    <input type="range" id="bloom-strength" min="0" max="3" step="0.1" value="0.3">
+                </div>
+            </div>
+
+            <!-- FERRAMENTAS -->
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">🛠️ Ferramentas</div>
+                <div class="section-content">
+                    <button class="btn-full" onclick="copySettings()" style="background:var(--accent);color:black;">📋
+                        Copiar Configurações para logo-3d.js</button>
+                    <button class="btn-full" onclick="resetAll()">↺ Resetar Tudo</button>
+                </div>
+            </div>
+            <div class="status-bar" id="status-bar">Pronto — carregue um modelo ou ajuste os controles</div>
+        </div>
+    </div>
+
+    <script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+</script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+        import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+        import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+
+        // --- UTILS ---
+        const $ = id => document.getElementById(id);
+        const updateVal = (id, val) => { const el = $(id); if (el) el.textContent = val; };
+        window.toggleSection = (el) => el.parentElement.classList.toggle('closed');
+
+        const bind = (inputId, target, prop, displayId) => {
+            const el = $(inputId);
+            if (!el) return;
+            el.addEventListener('input', (e) => {
+                const v = parseFloat(e.target.value);
+                if (target) target[prop] = v;
+                if (displayId) updateVal(displayId, v.toFixed(2));
+            });
+        };
+
+        // --- SETUP ---
+        RectAreaLightUniformsLib.init();
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a0a0a);
+
+        const container = $('canvas-container');
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 1000);
+        camera.position.set(0, 0, 3);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.0;
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        container.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.screenSpacePanning = true;
+
+        // --- POST PROCESSING ---
+        const composer = new EffectComposer(renderer);
+        composer.addPass(new RenderPass(scene, camera));
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.3, 0.4, 0.9);
+        composer.addPass(bloomPass);
+        composer.addPass(new OutputPass());
+
+        // --- LIGHTING ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+
+        const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        mainLight.position.set(5, 5, 5);
+        mainLight.castShadow = true;
+        mainLight.shadow.mapSize.set(2048, 2048);
+        mainLight.shadow.bias = -0.0001;
+        mainLight.shadow.radius = 4;
+        scene.add(mainLight);
+
+        const rectLight = new THREE.RectAreaLight(0xffffff, 2.0, 4, 4);
+        rectLight.position.set(0, 5, 5);
+        rectLight.lookAt(0, 0, 0);
+        scene.add(rectLight);
+
+        // --- DEFAULT ENVIRONMENT ---
+        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+        pmremGenerator.compileEquirectangularShader();
+
+        function generateDefaultEnv() {
+            const envScene = new THREE.Scene();
+            envScene.background = new THREE.Color(0x0a0a0a);
+            const boxGeo = new THREE.BoxGeometry(10, 10, 10);
+            const boxMat = new THREE.MeshBasicMaterial({ color: 0x444444, side: THREE.BackSide });
+            envScene.add(new THREE.Mesh(boxGeo, boxMat));
+            const lightStrip = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+            lightStrip.position.set(0, 4, 0);
+            lightStrip.rotation.x = Math.PI / 2;
+            envScene.add(lightStrip);
+            const defaultEnv = pmremGenerator.fromScene(envScene).texture;
+            scene.environment = defaultEnv;
+        }
+        generateDefaultEnv();
+
+        // --- MATERIAL & SHADER ---
+        let activeModel = null;
+        let modelPivot = new THREE.Group();
+        scene.add(modelPivot);
+
+        const baseMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0x22c55e,
+            metalness: 0.85,
+            roughness: 0.12,
+            transmission: 0.0,
+            thickness: 1.0,
+            clearcoat: 1.0,
+            side: THREE.DoubleSide,
+            envMapIntensity: 1.0
+        });
+
+        // SHADER INJECTION — Gradient + Edge Detection
+        baseMaterial.onBeforeCompile = (shader) => {
+            shader.uniforms.colorTop = { value: new THREE.Color(0x4ade80) };
+            shader.uniforms.colorBottom = { value: new THREE.Color(0x064e3b) };
+            shader.uniforms.colorSide = { value: new THREE.Color(0x22c55e) };
+            shader.uniforms.gradientEnabled = { value: 1.0 };
+            shader.uniforms.sideEnabled = { value: 1.0 };
+            shader.uniforms.sideBias = { value: 0.7 };
+            shader.uniforms.frontAxis = { value: 2 };
+            shader.uniforms.sideRoughness = { value: 0.9 };
+            shader.uniforms.sideMetalness = { value: 0.1 };
+
+            // Vertex
+            shader.vertexShader = shader.vertexShader.replace(
+                '#include <common>',
+                `#include <common>
+        varying vec3 vGradientWorldPos;
+        varying vec3 vWorldNormal;`
+            );
+            shader.vertexShader = shader.vertexShader.replace(
+                '#include <worldpos_vertex>',
+                `#include <worldpos_vertex>
+        vGradientWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;
+        vWorldNormal = normalize(mat3(modelMatrix) * objectNormal);`
+            );
+
+            // Fragment — declarations
+            shader.fragmentShader = shader.fragmentShader.replace(
+                '#include <common>',
+                `#include <common>
+        uniform vec3 colorTop;
+        uniform vec3 colorBottom;
+        uniform vec3 colorSide;
+        uniform float gradientEnabled;
+        uniform float sideEnabled;
+        uniform float sideBias;
+        uniform int frontAxis;
+        uniform float sideRoughness;
+        uniform float sideMetalness;
+        varying vec3 vGradientWorldPos;
+        varying vec3 vWorldNormal;
+
+        float getEdgeFactor(vec3 normal, int axis, float bias) {
+            vec3 axisVec = vec3(0.0, 0.0, 1.0);
+            if (axis == 0) axisVec = vec3(1.0, 0.0, 0.0);
+            if (axis == 1) axisVec = vec3(0.0, 1.0, 0.0);
+            float alignment = abs(dot(normal, axisVec));
+            return 1.0 - smoothstep(bias, bias + 0.1, alignment);
+        }`
+            );
+
+            // Fragment — roughness
+            shader.fragmentShader = shader.fragmentShader.replace(
+                '#include <roughnessmap_fragment>',
+                `#include <roughnessmap_fragment>
+        if (sideEnabled > 0.5) {
+            float edge = getEdgeFactor(vWorldNormal, frontAxis, sideBias);
+            roughnessFactor = mix(roughnessFactor, sideRoughness, edge);
+        }`
+            );
+
+            // Fragment — metalness
+            shader.fragmentShader = shader.fragmentShader.replace(
+                '#include <metalnessmap_fragment>',
+                `#include <metalnessmap_fragment>
+        if (sideEnabled > 0.5) {
+            float edge = getEdgeFactor(vWorldNormal, frontAxis, sideBias);
+            metalnessFactor = mix(metalnessFactor, sideMetalness, edge);
+        }`
+            );
+
+            // Fragment — diffuse color
+            shader.fragmentShader = shader.fragmentShader.replace(
+                'vec4 diffuseColor = vec4( diffuse, opacity );',
+                `float isEdge = getEdgeFactor(vWorldNormal, frontAxis, sideBias);
+        float gradFactor = smoothstep(-1.0, 1.0, vGradientWorldPos.y);
+        vec3 gradColor = mix(colorBottom, colorTop, gradFactor);
+        vec3 paintColor = gradColor;
+        if (sideEnabled > 0.5) {
+            paintColor = mix(gradColor, colorSide, isEdge);
+        }
+        vec3 finalBase = mix(diffuse, paintColor, gradientEnabled);
+        vec4 diffuseColor = vec4( finalBase, opacity );`
+            );
+
+            baseMaterial.userData.shader = shader;
+        };
+
+        // --- REFLECTION IMAGE LOADING (FIXED) ---
+        $('env-upload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            $('env-status').textContent = '⏳ Carregando: ' + file.name;
+
+            const url = URL.createObjectURL(file);
+            const textureLoader = new THREE.TextureLoader();
+            textureLoader.load(url, (texture) => {
+                texture.mapping = THREE.EquirectangularReflectionMapping;
+                texture.colorSpace = THREE.SRGBColorSpace;
+
+                // Process through PMREM for proper reflections
+                const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+                scene.environment = envMap;
+                if ($('show-bg').checked) scene.background = envMap;
+
+                $('env-status').textContent = '✅ Reflexo: ' + file.name;
+                texture.dispose();
+                URL.revokeObjectURL(url);
+            }, undefined, () => {
+                $('env-status').textContent = '❌ Erro ao carregar imagem';
+            });
+        });
+
+        $('show-bg').addEventListener('change', (e) => {
+            scene.background = e.target.checked && scene.environment ? scene.environment : new THREE.Color(0x0a0a0a);
+        });
+
+        $('exposure').addEventListener('input', (e) => {
+            renderer.toneMappingExposure = parseFloat(e.target.value);
+            updateVal('val-exposure', e.target.value);
+        });
+
+        // --- MODEL AXIS CONTROLS ---
+        $('model-rot-x').addEventListener('input', (e) => {
+            modelPivot.rotation.x = parseFloat(e.target.value) * Math.PI / 180;
+            updateVal('val-rot-x', e.target.value + '°');
+        });
+        $('model-rot-y').addEventListener('input', (e) => {
+            modelPivot.rotation.y = parseFloat(e.target.value) * Math.PI / 180;
+            updateVal('val-rot-y', e.target.value + '°');
+        });
+        $('model-rot-z').addEventListener('input', (e) => {
+            modelPivot.rotation.z = parseFloat(e.target.value) * Math.PI / 180;
+            updateVal('val-rot-z', e.target.value + '°');
+        });
+        $('model-scale').addEventListener('input', (e) => {
+            updateVal('val-scale', parseFloat(e.target.value).toFixed(1));
+            if (activeModel) fitCamera();
+        });
+
+        window.resetRotation = () => {
+            modelPivot.rotation.set(0, 0, 0);
+            $('model-rot-x').value = 0; updateVal('val-rot-x', '0°');
+            $('model-rot-y').value = 0; updateVal('val-rot-y', '0°');
+            $('model-rot-z').value = 0; updateVal('val-rot-z', '0°');
+        };
+
+        // --- CAMERA FIT ---
+        window.fitCamera = () => {
+            if (!activeModel) return;
+            const box = new THREE.Box3().setFromObject(activeModel);
+            const size = box.getSize(new THREE.Vector3());
+            const center = box.getCenter(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z) || 1;
+            const targetScale = parseFloat($('model-scale').value);
+            const scaleFactor = targetScale / maxDim;
+            activeModel.scale.setScalar(scaleFactor);
+            activeModel.position.copy(center).multiplyScalar(-scaleFactor);
+            controls.reset();
+            camera.position.set(0, 0, 4);
+            controls.target.set(0, 0, 0);
+            controls.update();
+            $('cam-distance').value = 4;
+            updateVal('val-zoom', '4.0');
+        };
+
+        // --- LOADER ---
+        const loader = new GLTFLoader();
+
+        function loadModel(source) {
+            $('loading').style.display = 'block';
+
+            const onLoad = (gltf) => {
+                if (activeModel) modelPivot.remove(activeModel);
+                activeModel = gltf.scene;
+                activeModel.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material = baseMaterial;
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                });
+                modelPivot.add(activeModel);
+                fitCamera();
+                $('loading').style.display = 'none';
+                $('status-bar').textContent = '✅ Modelo carregado com sucesso';
+            };
+
+            if (typeof source === 'string') {
+                loader.load(source, onLoad, undefined, () => {
+                    $('loading').style.display = 'none';
+                    $('status-bar').textContent = '⚠️ Modelo padrão não encontrado — carregue um .glb';
+                    // Fallback: show torus knot
+                    if (activeModel) modelPivot.remove(activeModel);
+                    const geometry = new THREE.TorusKnotGeometry(0.6, 0.25, 128, 64);
+                    activeModel = new THREE.Mesh(geometry, baseMaterial);
+                    activeModel.castShadow = true;
+                    modelPivot.add(activeModel);
+                });
+            } else {
+                loader.parse(source, '', onLoad);
+            }
+        }
+
+        // Start with a torus knot shape (file:// protocol can't load relative paths)
+        // Use the "Carregar Modelo" button to load your .glb file
+        {
+            const geometry = new THREE.TorusKnotGeometry(0.6, 0.25, 128, 64);
+            activeModel = new THREE.Mesh(geometry, baseMaterial);
+            activeModel.castShadow = true;
+            activeModel.receiveShadow = true;
+            modelPivot.add(activeModel);
+            $('status-bar').textContent = '🎨 Forma padrão carregada — use o botão acima para carregar seu .glb';
+        }
+
+        $('file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => loadModel(event.target.result);
+            reader.readAsArrayBuffer(file);
+        });
+
+        // --- UI BINDINGS ---
+        bind('metalness', baseMaterial, 'metalness', 'val-metal');
+        bind('roughness', baseMaterial, 'roughness', 'val-rough');
+        bind('clearcoat', baseMaterial, 'clearcoat', 'val-cc');
+        bind('transmission', baseMaterial, 'transmission', 'val-trans');
+        bind('env-intensity', baseMaterial, 'envMapIntensity', 'val-env-int');
+        bind('light-intensity', mainLight, 'intensity', 'val-light');
+        bind('bloom-strength', bloomPass, 'strength', 'val-bloom');
+
+        $('shadow-radius').addEventListener('input', (e) => {
+            mainLight.shadow.radius = parseFloat(e.target.value);
+            updateVal('val-shadow-rad', parseFloat(e.target.value).toFixed(2));
+        });
+
+        $('light-rot').addEventListener('input', (e) => {
+            const rad = parseFloat(e.target.value) * Math.PI / 180;
+            mainLight.position.x = Math.sin(rad) * 5;
+            mainLight.position.z = Math.cos(rad) * 5;
+            updateVal('val-light-rot', e.target.value + '°');
+        });
+
+        // Shader uniforms
+        window.updateShader = () => {
+            if (!baseMaterial.userData.shader) return;
+            const s = baseMaterial.userData.shader.uniforms;
+            s.colorTop.value.set($('color-top').value);
+            s.colorBottom.value.set($('color-bottom').value);
+            s.colorSide.value.set($('color-side').value);
+            s.gradientEnabled.value = $('gradient-enabled').checked ? 1.0 : 0.0;
+            s.sideEnabled.value = $('side-enabled').checked ? 1.0 : 0.0;
+            s.sideBias.value = parseFloat($('side-bias').value);
+            s.frontAxis.value = parseInt($('front-axis').value);
+            s.sideRoughness.value = parseFloat($('side-roughness').value);
+            s.sideMetalness.value = parseFloat($('side-metalness').value);
+        };
+
+        ['color-top', 'color-bottom', 'color-side'].forEach(id => $(id).addEventListener('input', updateShader));
+        ['gradient-enabled', 'side-enabled'].forEach(id => $(id).addEventListener('change', updateShader));
+        $('side-bias').addEventListener('input', (e) => { updateShader(); updateVal('val-side-bias', parseFloat(e.target.value).toFixed(2)); });
+        $('side-roughness').addEventListener('input', (e) => { updateShader(); updateVal('val-side-rough', parseFloat(e.target.value).toFixed(2)); });
+        $('side-metalness').addEventListener('input', (e) => { updateShader(); updateVal('val-side-metal', parseFloat(e.target.value).toFixed(2)); });
+        $('front-axis').addEventListener('change', updateShader);
+
+        // Zoom slider
+        const distSlider = $('cam-distance');
+        distSlider.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            const dir = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
+            camera.position.copy(controls.target).add(dir.multiplyScalar(val));
+            updateVal('val-zoom', val.toFixed(1));
+        });
+        controls.addEventListener('change', () => {
+            const d = camera.position.distanceTo(controls.target);
+            distSlider.value = d;
+            updateVal('val-zoom', d.toFixed(1));
+        });
+
+        // --- COPY SETTINGS (SITE-COMPATIBLE FORMAT) ---
+        window.copySettings = () => {
+            const settings = {
+                _comment: "Cole estes valores em logo-3d.js",
+                renderer: {
+                    toneMappingExposure: renderer.toneMappingExposure
+                },
+                material: {
+                    color: '#' + baseMaterial.color.getHexString(),
+                    metalness: baseMaterial.metalness,
+                    roughness: baseMaterial.roughness,
+                    clearcoat: baseMaterial.clearcoat,
+                    transmission: baseMaterial.transmission,
+                    thickness: baseMaterial.thickness,
+                    envMapIntensity: baseMaterial.envMapIntensity
+                },
+                shader: {
+                    enabled: $('gradient-enabled').checked,
+                    colorTop: $('color-top').value,
+                    colorBottom: $('color-bottom').value,
+                    colorSide: $('color-side').value,
+                    sideEnabled: $('side-enabled').checked,
+                    sideBias: parseFloat($('side-bias').value),
+                    frontAxis: parseInt($('front-axis').value),
+                    sideRoughness: parseFloat($('side-roughness').value),
+                    sideMetalness: parseFloat($('side-metalness').value)
+                },
+                modelRotation: {
+                    x: parseFloat($('model-rot-x').value),
+                    y: parseFloat($('model-rot-y').value),
+                    z: parseFloat($('model-rot-z').value)
+                },
+                modelScale: parseFloat($('model-scale').value),
+                lighting: {
+                    mainIntensity: mainLight.intensity,
+                    shadowRadius: mainLight.shadow.radius,
+                    bloom: bloomPass.strength
+                }
+            };
+
+            const json = JSON.stringify(settings, null, 2);
+            navigator.clipboard.writeText(json).then(() => {
+                $('status-bar').textContent = '✅ Configurações copiadas! Cole no logo-3d.js';
+                alert('✅ Configurações copiadas para a área de transferência!\n\nCole no logo-3d.js e ajuste os valores correspondentes.');
+            }).catch(() => {
+                // Fallback: show in console
+                console.log('=== CONFIGURAÇÕES ===\n' + json);
+                $('status-bar').textContent = '⚠️ Veja o console (F12) para as configurações';
+            });
+        };
+
+        window.resetAll = () => { location.reload(); };
+
+        // --- ANIMATION ---
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            composer.render();
+        }
+
+        window.addEventListener('resize', () => {
+            const w = container.clientWidth, h = container.clientHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+            composer.setSize(w, h);
+            bloomPass.resolution.set(w, h);
+        });
+
+        animate();
+    </script>
+</body>
+
+</html>
