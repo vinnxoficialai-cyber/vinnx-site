@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
-  base: '/vinnx-site/',
+  base: './',
   root: '.',
   publicDir: 'public',
   build: {
