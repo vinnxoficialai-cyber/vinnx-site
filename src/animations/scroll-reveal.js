@@ -6,7 +6,7 @@
 const isMobile = () => window.innerWidth <= 768;
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* â”€â”€â”€ Staggered Reveal â”€â”€â”€ */
+/* --- Staggered Reveal --- */
 function initStaggeredReveal() {
     const containers = document.querySelectorAll(
         '.services-grid, .offer-grid, .feature-grid-v2, .pricing-grid, .addons-grid, .testimonials-grid, .shield-metrics, .why-v2-cards, .bento-grid-solutions'
@@ -39,7 +39,7 @@ function initStaggeredReveal() {
     containers.forEach((c) => io.observe(c));
 }
 
-/* â”€â”€â”€ Scale-in Blur (sections focus as they enter) â”€â”€â”€ */
+/* --- Scale-in Blur (sections focus as they enter) --- */
 function initScaleBlurReveal() {
     const sections = document.querySelectorAll('.reveal:not(.hero *)');
 
@@ -64,9 +64,9 @@ function initScaleBlurReveal() {
     });
 }
 
-/* â”€â”€â”€ Counter Animation â”€â”€â”€ */
+/* --- Counter Animation --- */
 function animateCounter(el) {
-    // Support data-counter attribute for explicit targetss
+    // Support data-counter attribute for explicit targets
     if (el.dataset.counter) {
         const target = parseInt(el.dataset.counter, 10);
         if (isNaN(target) || target === 0) return;
@@ -174,7 +174,7 @@ function initCounterAnimations() {
     counterEls.forEach((el) => io.observe(el));
 }
 
-/* â”€â”€â”€ Parallax (subtle depth effect) â”€â”€â”€ */
+/* --- Parallax (subtle depth effect) --- */
 function initParallax() {
     if (prefersReducedMotion() || isMobile()) return;
 
@@ -212,7 +212,7 @@ function initParallax() {
     }, { passive: true });
 }
 
-/* â”€â”€â”€ Heading reveal (kicker â†’ h2 â†’ p stagger) â”€â”€â”€ */
+/* --- Heading reveal (kicker -> h2 -> p stagger) --- */
 function initHeadingReveal() {
     const headings = document.querySelectorAll('.section-heading-block, .ai-header-v2, .why-v2-header, .final-cta-inner');
 
@@ -251,7 +251,7 @@ function initHeadingReveal() {
     headings.forEach((h) => io.observe(h));
 }
 
-/* â”€â”€â”€ Mobile Card Scroll-Expand (Spotlight) â”€â”€â”€ */
+/* --- Mobile Card Scroll-Expand (Spotlight) - Otimizado --- */
 function initServiceCardExpand() {
     if (window.innerWidth > 1023) return;
 
@@ -260,130 +260,70 @@ function initServiceCardExpand() {
     ));
     if (!cards.length) return;
 
-    const states = cards.map((card) => ({
-        card,
-        current: { opacity: 0.56, blur: 1, y: 8, scale: 0.97, brightness: 0.82 },
-        target: { opacity: 0.56, blur: 1, y: 8, scale: 0.97, brightness: 0.82 }
-    }));
-
     let activeCard = null;
-    let rafId = null;
-    let needsMeasure = true;
+    let scrollTick = false;
 
-    function setTargets() {
-        // Sweet spot: slightly below center for a cinematic "rack focus" feel.
-        const target = window.innerHeight * 0.62;
-        const maxEffectDistance = Math.max(window.innerHeight * 0.58, 260);
-        let closest = null;
-        let closestDist = Infinity;
-        const metrics = [];
+    function update() {
+        const target = window.innerHeight * 0.55;
+        let bestCard = null;
+        let bestDist = Infinity;
 
-        for (const state of states) {
-            const rect = state.card.getBoundingClientRect();
+        cards.forEach((card) => {
+            const rect = card.getBoundingClientRect();
+            const isVisible = rect.bottom > 0 && rect.top < window.innerHeight;
+            if (!isVisible) {
+                card.classList.remove('service-near', 'service-expanded');
+                if (card === activeCard) activeCard = null;
+                return;
+            }
+
             const center = rect.top + rect.height / 2;
             const dist = Math.abs(center - target);
 
-            // Only consider cards that are at least partially visible
-            const isVisible = rect.bottom > 0 && rect.top < window.innerHeight;
-            const proximity = isVisible
-                ? Math.max(0, Math.min(1, 1 - dist / maxEffectDistance))
-                : 0;
+            // Marca cards proximos (visiveis mas nao focados)
+            const isNear = dist < window.innerHeight * 0.45;
+            card.classList.toggle('service-near', isNear);
 
-            state.target.opacity = 0.36 + proximity * 0.64;
-            state.target.blur = (1 - proximity) * 2.2;
-            state.target.y = (1 - proximity) * 12;
-            state.target.scale = 0.958 + proximity * 0.042;
-            state.target.brightness = 0.72 + proximity * 0.28;
-
-            metrics.push({ state, dist, isVisible, proximity });
-
-            if (isVisible && dist < closestDist) {
-                closestDist = dist;
-                closest = state.card;
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestCard = card;
             }
-        }
-
-        // Hysteresis to prevent rapid focus swapping between adjacent cards.
-        if (activeCard) {
-            const activeMetric = metrics.find((m) => m.state.card === activeCard);
-            if (
-                activeMetric &&
-                activeMetric.isVisible &&
-                activeMetric.dist <= closestDist + 24
-            ) {
-                closest = activeCard;
-            }
-        }
-
-        if (closest !== activeCard) {
-            if (activeCard) activeCard.classList.remove('service-expanded');
-            if (closest) closest.classList.add('service-expanded');
-            activeCard = closest;
-        }
-
-        metrics.forEach(({ state, proximity }) => {
-            const isNear = state.card !== closest && proximity >= 0.46;
-            state.card.classList.toggle('service-near', isNear);
         });
-    }
 
-    function animate() {
-        if (needsMeasure) {
-            setTargets();
-            needsMeasure = false;
-        }
-
-        let keepAnimating = false;
-        const smooth = 0.22;
-
-        for (const state of states) {
-            const { current, target, card } = state;
-
-            current.opacity += (target.opacity - current.opacity) * smooth;
-            current.blur += (target.blur - current.blur) * smooth;
-            current.y += (target.y - current.y) * smooth;
-            current.scale += (target.scale - current.scale) * smooth;
-            current.brightness += (target.brightness - current.brightness) * smooth;
-
-            card.style.setProperty('--service-focus-opacity', current.opacity.toFixed(3));
-            card.style.setProperty('--service-focus-blur', `${current.blur.toFixed(2)}px`);
-            card.style.setProperty('--service-focus-y', `${current.y.toFixed(1)}px`);
-            card.style.setProperty('--service-focus-scale', current.scale.toFixed(3));
-            card.style.setProperty('--service-focus-brightness', current.brightness.toFixed(3));
-
-            if (
-                Math.abs(target.opacity - current.opacity) > 0.004 ||
-                Math.abs(target.blur - current.blur) > 0.02 ||
-                Math.abs(target.y - current.y) > 0.08 ||
-                Math.abs(target.scale - current.scale) > 0.002 ||
-                Math.abs(target.brightness - current.brightness) > 0.003
-            ) {
-                keepAnimating = true;
+        // Hysteresis: so troca se o novo card estiver >30px mais perto
+        if (activeCard && bestCard !== activeCard) {
+            const activeRect = activeCard.getBoundingClientRect();
+            const activeDist = Math.abs(activeRect.top + activeRect.height / 2 - target);
+            if (bestDist >= activeDist - 30) {
+                bestCard = activeCard;
             }
         }
 
-        if (needsMeasure || keepAnimating) {
-            rafId = requestAnimationFrame(animate);
-            return;
+        if (bestCard !== activeCard) {
+            if (activeCard) activeCard.classList.remove('service-expanded');
+            if (bestCard) bestCard.classList.add('service-expanded');
+            activeCard = bestCard;
         }
 
-        rafId = null;
+        // Remove 'near' do card expandido
+        if (activeCard) activeCard.classList.remove('service-near');
     }
 
-    function requestUpdate() {
-        needsMeasure = true;
-        if (rafId === null) {
-            rafId = requestAnimationFrame(animate);
+    window.addEventListener('scroll', () => {
+        if (!scrollTick) {
+            scrollTick = true;
+            requestAnimationFrame(() => {
+                update();
+                scrollTick = false;
+            });
         }
-    }
+    }, { passive: true });
 
-    window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate, { passive: true });
-    // Initial check
-    requestUpdate();
+    // Check inicial
+    update();
 }
 
-/* â”€â”€â”€ Main init â”€â”€â”€ */
+/* --- Main init --- */
 export function initScrollReveal() {
     if (prefersReducedMotion()) {
         // Just show everything immediately
@@ -398,4 +338,3 @@ export function initScrollReveal() {
     initHeadingReveal();
     initServiceCardExpand();
 }
-
