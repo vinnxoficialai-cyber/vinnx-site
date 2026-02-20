@@ -1,5 +1,5 @@
-/**
- * Solution Animations — Stats countUp, Service cards stagger, Feature grid stagger,
+﻿/**
+ * Solution Animations - Stats countUp, Service cards stagger, Feature grid stagger,
  * Benefits stagger, Process steps sequential, Testimonials stagger, Final CTA reveal
  */
 export function initSolutionAnims() {
@@ -25,7 +25,7 @@ export function initSolutionAnims() {
     staggerReveal('#featureGrid', '.feature-card-v2', 100, 'in-view');
 
     // ---- Benefit blocks stagger ----
-    staggerReveal('#whyChoose .why-benefits', '.benefit-block', 180, 'in');
+    staggerReveal('#whyChoose .why-v2-cards', '.why-adv-card', 180, 'in');
 
     // ---- Process steps sequential + timeline ----
     const timeline = document.getElementById('processTimeline');
@@ -98,3 +98,4 @@ function countUp(el, target, duration, isDecimal = false) {
     }
     requestAnimationFrame(tick);
 }
+

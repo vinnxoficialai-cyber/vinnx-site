@@ -1,29 +1,74 @@
-/**
- * AI Chat Animation — Cinematic staggered chat with typing simulation
+﻿/**
+ * AI Chat Animation - Cinematic staggered chat with typing simulation
  */
 export function initAiChatAnim() {
     const showcase = document.getElementById('phonesShowcase');
     if (!showcase) return;
 
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
+    const isMobile = window.innerWidth <= 768;
+    const columns = Array.from(showcase.querySelectorAll('.phone-column'));
+    const normalColumn = columns[0] || null;
+    const vinnxColumn = columns[1] || null;
+
+    let normalStarted = false;
+    let vinnxStarted = false;
+
+    function startNormal() {
+        if (normalStarted) return;
+        normalStarted = true;
+        animateChatNormal('chatNormal');
+    }
+
+    function startVinnx() {
+        if (vinnxStarted) return;
+        vinnxStarted = true;
+        animateChatVinnx('chatVinnx');
+    }
+
+    if (!isMobile) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+
                     showcase.classList.add('in-view');
+                    columns.forEach((col) => col.classList.add('in-view'));
                     observer.unobserve(showcase);
 
-                    // Start chat animations after phones appear
+                    // Desktop/tablet: both phones animate together.
                     setTimeout(() => {
-                        animateChatNormal('chatNormal');
-                        animateChatVinnx('chatVinnx');
+                        startNormal();
+                        startVinnx();
                     }, 600);
-                }
+                });
+            },
+            { threshold: 0.2 }
+        );
+
+        observer.observe(showcase);
+        return;
+    }
+
+    // Mobile: each phone starts only when the user reaches it.
+    const mobileObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+
+                const col = entry.target;
+                col.classList.add('in-view');
+                mobileObserver.unobserve(col);
+
+                setTimeout(() => {
+                    if (col === normalColumn) startNormal();
+                    if (col === vinnxColumn) startVinnx();
+                }, 420);
             });
         },
-        { threshold: 0.2 }
+        { threshold: 0.55, rootMargin: '0px 0px -12% 0px' }
     );
 
-    observer.observe(showcase);
+    columns.forEach((col) => mobileObserver.observe(col));
 }
 
 /**
@@ -60,7 +105,7 @@ function simulateTyping(inputBar, text, duration, callback) {
 }
 
 /**
- * Normal chat — slower, frustrating experience
+ * Normal chat - slower, frustrating experience
  */
 function animateChatNormal(containerId) {
     const container = document.getElementById(containerId);
@@ -100,7 +145,7 @@ function animateChatNormal(containerId) {
 }
 
 /**
- * VINNX chat — fast, multi-agent, cinematic
+ * VINNX chat - fast, multi-agent, cinematic
  */
 function animateChatVinnx(containerId) {
     const container = document.getElementById(containerId);
@@ -158,3 +203,4 @@ function animateChatVinnx(containerId) {
         }, 4200);
     });
 }
+

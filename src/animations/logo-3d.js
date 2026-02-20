@@ -1,5 +1,5 @@
 ﻿/**
- * Three.js 3D Logo â€” VERSÃƒO PREMIUM CAKTO-STYLE
+ * Three.js 3D Logo - VERSÃƒO PREMIUM CAKTO-STYLE
  * 
  * Sistema de shader avanÃ§ado com:
  * - DegradÃª vertical (verde claro â†’ escuro) na face frontal
@@ -70,7 +70,7 @@ export function initLogo3D() {
     RectAreaLightUniformsLib.init();
 
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-    // Environment Map â€” Imagem de reflexo ou fallback programÃ¡tico
+    // Environment Map - Imagem de reflexo ou fallback programÃ¡tico
     // Coloque sua imagem equirectangular em: public/env/reflection.jpg
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -140,7 +140,7 @@ export function initLogo3D() {
     });
 
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-    // IluminaÃ§Ã£o â€” ESTILO CAKTO
+    // IluminaÃ§Ã£o - ESTILO CAKTO
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
     scene.add(ambientLight);
@@ -190,7 +190,7 @@ export function initLogo3D() {
     let entranceStart = 0;
     let entranceActive = false;
     const ENTRANCE_DURATION = 1.5;
-    const BASE_Y_ROT = 0; // Centralizado â€” segue o mouse diretamente
+    const BASE_Y_ROT = 0; // Centralizado - segue o mouse diretamente
 
     // Model rotation offsets (from tester)
     const MODEL_ROT_X = 7 * Math.PI / 180;
@@ -220,7 +220,7 @@ export function initLogo3D() {
             });
 
             // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-            // SHADER â€” DegradÃª Vertical + Bordas Foscas
+            // SHADER - DegradÃª Vertical + Bordas Foscas
             // Mesmo sistema do 3D Tester
             // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
             material.onBeforeCompile = (shader) => {
@@ -235,7 +235,7 @@ export function initLogo3D() {
                 shader.uniforms.sideRoughness = { value: 0.9 };
                 shader.uniforms.sideMetalness = { value: 0.1 };
 
-                // Vertex â€” world position e normal
+                // Vertex - world position e normal
                 shader.vertexShader = shader.vertexShader.replace(
                     '#include <common>',
                     `#include <common>
@@ -249,7 +249,7 @@ export function initLogo3D() {
                     vWorldNormal = normalize(mat3(modelMatrix) * objectNormal);`
                 );
 
-                // Fragment â€” declarations + edge helper
+                // Fragment - declarations + edge helper
                 shader.fragmentShader = shader.fragmentShader.replace(
                     '#include <common>',
                     `#include <common>
@@ -274,7 +274,7 @@ export function initLogo3D() {
                     }`
                 );
 
-                // Fragment â€” roughness per face
+                // Fragment - roughness per face
                 shader.fragmentShader = shader.fragmentShader.replace(
                     '#include <roughnessmap_fragment>',
                     `#include <roughnessmap_fragment>
@@ -284,7 +284,7 @@ export function initLogo3D() {
                     }`
                 );
 
-                // Fragment â€” metalness per face
+                // Fragment - metalness per face
                 shader.fragmentShader = shader.fragmentShader.replace(
                     '#include <metalnessmap_fragment>',
                     `#include <metalnessmap_fragment>
@@ -294,7 +294,7 @@ export function initLogo3D() {
                     }`
                 );
 
-                // Fragment â€” diffuse color with gradient + edge
+                // Fragment - diffuse color with gradient + edge
                 shader.fragmentShader = shader.fragmentShader.replace(
                     'vec4 diffuseColor = vec4( diffuse, opacity );',
                     `float isEdge = getEdgeFactor(vWorldNormal, frontAxis, sideBias);
@@ -363,7 +363,7 @@ export function initLogo3D() {
     );
 
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-    // Mouse follow â€” segue o cursor SEMPRE (global)
+    // Mouse follow - segue o cursor SEMPRE (global)
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     const MAX_TILT = 0.25;
 
@@ -454,3 +454,4 @@ export function initLogo3D() {
         window.addEventListener('resize', updateViewportSize);
     }
 }
+

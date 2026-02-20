@@ -1,5 +1,5 @@
-/**
- * Logo 3D Tilt — Interactive mouse-follow tilt effect
+﻿/**
+ * Logo 3D Tilt - Interactive mouse-follow tilt effect
  * When the mouse approaches an edge of the card, the logo tilts
  * toward that direction as if it were a 3D object.
  */
@@ -16,7 +16,7 @@ export function initLogoTilt() {
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
 
-        // Normalize mouse position to -1 → +1 range
+        // Normalize mouse position to -1 â†’ +1 range
         const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
 
@@ -50,3 +50,4 @@ export function initLogoTilt() {
         }
     });
 }
+

@@ -1,5 +1,5 @@
-/**
- * Transaction Carousel — Rotating card stack animation
+﻿/**
+ * Transaction Carousel - Rotating card stack animation
  */
 export function initTxCarousel() {
     const transactions = [
@@ -120,3 +120,4 @@ export function initTxCarousel() {
 
     txObserver.observe(stack);
 }
+

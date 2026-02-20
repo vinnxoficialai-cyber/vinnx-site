@@ -1,5 +1,5 @@
-/**
- * Fan Cards — Scroll spread effect
+﻿/**
+ * Fan Cards - Scroll spread effect
  */
 export function initFanCards() {
     const fanContainer = document.getElementById('fanContainer');
@@ -57,3 +57,4 @@ export function initFanCards() {
     window.addEventListener('resize', requestFrameUpdate);
     requestFrameUpdate();
 }
+

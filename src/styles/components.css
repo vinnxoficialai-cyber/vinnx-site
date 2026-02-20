@@ -1,5 +1,5 @@
-/* =============================================
-   Components — Navbar, Buttons, Cards, Footer
+﻿/* =============================================
+   Components - Navbar, Buttons, Cards, Footer
    ============================================= */
 
 /* ---- Navbar ---- */
@@ -71,7 +71,7 @@
     font-size: var(--font-size-sm);
     font-weight: 500;
     color: var(--color-text);
-    padding: 6px 16px;
+    padding: 8px 16px;
     border-radius: var(--radius-full);
     border: 1px solid var(--color-border);
     transition: background 0.3s;
@@ -320,3 +320,4 @@
 .footer-socials a:hover {
     color: var(--color-primary);
 }
+

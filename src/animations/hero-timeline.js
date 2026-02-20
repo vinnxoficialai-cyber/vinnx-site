@@ -1,5 +1,5 @@
 ﻿/**
- * Hero Timeline â€” Orchestrates the intro animation sequence
+ * Hero Timeline - Orchestrates the intro animation sequence
  */
 export function initHeroTimeline() {
     const titleEl = document.getElementById('heroTitle');
@@ -16,8 +16,8 @@ export function initHeroTimeline() {
 
     // Split title into word spans
     const titleLines = [
-        ['Sistemas', ' com ', 'IA'],
-        ['para ', 'escalar', ' sua ', 'empresa'],
+        ['Seu', ' Negócio'],
+        ['com ', 'Inteligência', ' Artificial'],
     ];
 
     const allWordSpans = [];
@@ -30,7 +30,7 @@ export function initHeroTimeline() {
             const span = document.createElement('span');
             span.classList.add('title-word');
             const trimmed = word.trim();
-            if (trimmed === 'escalar' || trimmed === 'empresa') {
+            if (trimmed === 'Negócio' || trimmed === 'Inteligência' || trimmed === 'Artificial') {
                 span.classList.add('highlight');
             }
             span.textContent = word;
@@ -74,7 +74,7 @@ export function initHeroTimeline() {
         contentLeadMs: 260,
     };
 
-    // 1. Title words â€” staggered reveal
+    // 1. Title words - staggered reveal
     allWordSpans.forEach((span, i) => {
         setTimeout(() => span.classList.add('word-in'), T.titleStart + i * WORD_STAGGER);
     });
@@ -138,7 +138,7 @@ export function initHeroTimeline() {
         playFanEntrance();
     }, T.cardFanIn + 1400);
 
-    // 7. Card content animations â€” staggered internal reveals
+    // 7. Card content animations - staggered internal reveals
     const T_CONTENT = T.cardFanIn + (CARD_STAGGER * 2) + Math.max(220, CARD_SETTLE_DELAY - COUNTUP_PROFILE.contentLeadMs);
 
     // CountUp helper with smart-easing: fast linear phase + strong expo brake.
@@ -326,3 +326,4 @@ export function initHeroTimeline() {
         if (glow) glow.classList.add('active');
     }, T.ambientIn);
 }
+

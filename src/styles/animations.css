@@ -1,5 +1,5 @@
-/* =============================================
-   Animations — Keyframes & Reveal Classes
+﻿/* =============================================
+   Animations - Keyframes & Reveal Classes
    ============================================= */
 
 /* Ambient Background Glow */
@@ -62,7 +62,7 @@
    Cinematic Reveal System
    ============================================= */
 
-/* Generic reveal — scale-in + blur (cinematic) */
+/* Generic reveal - scale-in + blur (cinematic) */
 .reveal {
     opacity: 0;
     filter: blur(6px);
@@ -83,9 +83,10 @@
 .offer-card,
 .feature-card-v2,
 .pricing-card,
+.addon-card,
 .testimonial-card,
 .shield-metric-card,
-.benefit-block,
+.why-adv-card,
 .sol-card {
     opacity: 0;
     filter: blur(4px);
@@ -101,6 +102,7 @@
 .offer-card.stagger-in,
 .feature-card-v2.stagger-in,
 .pricing-card.stagger-in,
+.addon-card.stagger-in,
 .testimonial-card.stagger-in,
 .shield-metric-card.stagger-in,
 .benefit-block.stagger-in,
@@ -110,28 +112,32 @@
     transform: translateY(0) scale(1);
 }
 
-/* Heading sequential reveal — kicker -> h2 -> p */
+/* Heading sequential reveal - kicker -> h2 -> p */
 .section-heading-block .offer-kicker,
 .section-heading-block h2,
 .section-heading-block p,
 .ai-header-v2 .offer-kicker,
 .ai-header-v2 h2,
 .ai-header-v2 p,
-.why-heading-cinematic .offer-kicker,
-.why-heading-cinematic h2,
-.why-heading-cinematic p {
+.why-v2-header .offer-kicker,
+.why-v2-header h2,
+.why-v2-header p,
+.final-cta-inner h2,
+.final-cta-inner p {
     opacity: 0;
-    filter: blur(4px);
-    transform: translateY(14px);
-    transition: opacity 0.7s var(--ease-smooth),
-        filter 0.7s var(--ease-smooth),
-        transform 0.7s var(--ease-smooth);
+    filter: blur(10px);
+    transform: translate3d(0, 40px, 0) scale(1.08);
+    transform-origin: center center;
+    will-change: opacity, transform, filter;
+    transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .heading-reveal-in {
     opacity: 1 !important;
     filter: blur(0) !important;
-    transform: translateY(0) !important;
+    transform: translate3d(0, 0, 0) scale(1) !important;
 }
 
 /* CTA shimmer hover */
@@ -157,7 +163,7 @@
     background-size: 200% 100%;
 }
 
-/* CTA — pure fade, no blur */
+/* CTA - pure fade, no blur */
 .reveal-cta {
     opacity: 0;
     transition: opacity 2.4s var(--ease-standard);
@@ -167,7 +173,7 @@
     opacity: 1;
 }
 
-/* Reduced motion — show everything immediately */
+/* Reduced motion - show everything immediately */
 @media (prefers-reduced-motion: reduce) {
 
     .reveal,
@@ -175,13 +181,16 @@
     .offer-card,
     .feature-card-v2,
     .pricing-card,
+    .addon-card,
     .testimonial-card,
     .shield-metric-card,
-    .benefit-block,
+    .why-adv-card,
     .sol-card,
     .section-heading-block .offer-kicker,
     .section-heading-block h2,
-    .section-heading-block p {
+    .section-heading-block p,
+    .final-cta-inner h2,
+    .final-cta-inner p {
         opacity: 1 !important;
         filter: none !important;
         transform: none !important;
@@ -211,7 +220,7 @@
 }
 
 /* =============================================
-   Card Content Animations — Triggered after card-in
+   Card Content Animations - Triggered after card-in
    ============================================= */
 
 /* --- Left Card: Chart bars grow up --- */
@@ -350,3 +359,4 @@
 .online-dot {
     animation: onlinePulse 2s ease-in-out infinite;
 }
+

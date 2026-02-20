@@ -1,5 +1,5 @@
-/**
- * Navbar — Mobile menu toggle
+﻿/**
+ * Navbar - Mobile menu toggle
  */
 export function initNavbar() {
     const hamburger = document.getElementById('navHamburger');
@@ -65,3 +65,4 @@ export function initNavbar() {
         }
     });
 }
+

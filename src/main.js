@@ -1,5 +1,5 @@
-/**
- * Main entry point — imports styles and initializes all modules
+﻿/**
+ * Main entry point - imports styles and initializes all modules
  */
 
 import { initHeroTimeline } from './animations/hero-timeline.js';
@@ -44,3 +44,4 @@ if (document.readyState === 'loading') {
 } else {
     bootstrap();
 }
+

@@ -1,5 +1,5 @@
-/* =============================================
-   Responsive — Mobile & Tablet Overrides
+﻿/* =============================================
+   Responsive - Mobile & Tablet Overrides
    ============================================= */
 
 /* ---- Tablet (max 1023px) ---- */
@@ -126,7 +126,7 @@
     }
 
     .navbar-cta {
-        padding: 8px 16px;
+        padding: 10px 16px;
         font-size: 13px;
         line-height: 1;
         white-space: nowrap;
@@ -253,7 +253,7 @@
     }
 
     .navbar-cta {
-        padding: 8px 15px;
+        padding: 10px 15px;
         font-size: 13px;
         line-height: 1.1;
         white-space: nowrap;
@@ -414,3 +414,4 @@
         font-size: var(--font-size-lg);
     }
 }
+
