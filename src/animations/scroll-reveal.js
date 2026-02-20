@@ -251,7 +251,7 @@ function initHeadingReveal() {
     headings.forEach((h) => io.observe(h));
 }
 
-/* --- Mobile Card Scroll-Expand (Spotlight) - Otimizado --- */
+/* --- Mobile Card Scroll-Expand (Spotlight) - IntersectionObserver --- */
 function initServiceCardExpand() {
     if (window.innerWidth > 1023) return;
 
@@ -261,41 +261,33 @@ function initServiceCardExpand() {
     if (!cards.length) return;
 
     let activeCard = null;
-    let scrollTick = false;
 
-    function update() {
-        const target = window.innerHeight * 0.55;
-        let bestCard = null;
-        let bestDist = Infinity;
+    // Zona de foco: faixa central da viewport (~30% do centro)
+    // rootMargin negativo corta top e bottom, criando uma faixa estreita
+    const vh = window.innerHeight;
+    const topCut = Math.round(vh * 0.35);    // corta 35% do topo
+    const bottomCut = Math.round(vh * 0.35); // corta 35% de baixo
+    // Resultado: zona de detecçao = 30% central da viewport
 
-        cards.forEach((card) => {
-            const rect = card.getBoundingClientRect();
-            const isVisible = rect.bottom > 0 && rect.top < window.innerHeight;
-            if (!isVisible) {
-                card.classList.remove('service-near', 'service-expanded');
-                if (card === activeCard) activeCard = null;
-                return;
-            }
+    const visibleCards = new Set();
 
-            const center = rect.top + rect.height / 2;
-            const dist = Math.abs(center - target);
-
-            // Marca cards proximos (visiveis mas nao focados)
-            const isNear = dist < window.innerHeight * 0.45;
-            card.classList.toggle('service-near', isNear);
-
-            if (dist < bestDist) {
-                bestDist = dist;
-                bestCard = card;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                visibleCards.add(entry.target);
+            } else {
+                visibleCards.delete(entry.target);
+                entry.target.classList.remove('service-expanded');
+                if (entry.target === activeCard) activeCard = null;
             }
         });
 
-        // Hysteresis: so troca se o novo card estiver >30px mais perto
-        if (activeCard && bestCard !== activeCard) {
-            const activeRect = activeCard.getBoundingClientRect();
-            const activeDist = Math.abs(activeRect.top + activeRect.height / 2 - target);
-            if (bestDist >= activeDist - 30) {
-                bestCard = activeCard;
+        // Dos cards visiveis na zona central, pega o primeiro na ordem do DOM
+        let bestCard = null;
+        for (const card of cards) {
+            if (visibleCards.has(card)) {
+                bestCard = card;
+                break;
             }
         }
 
@@ -304,23 +296,24 @@ function initServiceCardExpand() {
             if (bestCard) bestCard.classList.add('service-expanded');
             activeCard = bestCard;
         }
+    }, {
+        rootMargin: `-${topCut}px 0px -${bottomCut}px 0px`,
+        threshold: 0
+    });
 
-        // Remove 'near' do card expandido
-        if (activeCard) activeCard.classList.remove('service-near');
-    }
+    cards.forEach(card => observer.observe(card));
 
-    window.addEventListener('scroll', () => {
-        if (!scrollTick) {
-            scrollTick = true;
-            requestAnimationFrame(() => {
-                update();
-                scrollTick = false;
-            });
+    // Check inicial: expande o primeiro card visivel
+    requestAnimationFrame(() => {
+        const firstVisible = cards.find(card => {
+            const rect = card.getBoundingClientRect();
+            return rect.top < vh && rect.bottom > 0;
+        });
+        if (firstVisible) {
+            firstVisible.classList.add('service-expanded');
+            activeCard = firstVisible;
         }
-    }, { passive: true });
-
-    // Check inicial
-    update();
+    });
 }
 
 /* --- Main init --- */

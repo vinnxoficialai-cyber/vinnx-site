@@ -4680,7 +4680,6 @@
         background: linear-gradient(150deg, rgba(21, 26, 35, 0.9), rgba(11, 14, 21, 0.97));
         border: 1px solid rgba(255, 255, 255, 0.055);
         border-radius: 16px;
-        box-shadow: 0 4px 16px -8px rgba(0, 0, 0, 0.6);
         padding: 14px 14px 14px 18px;
         display: grid;
         grid-template-columns: 38px 1fr;
@@ -4707,18 +4706,17 @@
         pointer-events: none;
     }
 
+    /* ::after usado para glow shadow (substitui box-shadow animado) */
     .service-card::after {
         content: '';
         position: absolute;
-        inset: 0;
-        background: linear-gradient(110deg,
-                transparent 0%,
-                rgba(34, 197, 94, 0.045) 40%,
-                rgba(34, 197, 94, 0.1) 52%,
-                rgba(34, 197, 94, 0.045) 64%,
-                transparent 100%);
-        opacity: 0.16;
-        transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+        inset: -1px;
+        border-radius: 17px;
+        box-shadow: 0 24px 44px -24px rgba(0, 0, 0, 0.95),
+            0 0 0 1px rgba(74, 222, 128, 0.14),
+            0 0 34px -14px rgba(34, 197, 94, 0.36);
+        opacity: 0;
+        transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         pointer-events: none;
         z-index: 0;
     }
@@ -4728,16 +4726,9 @@
         z-index: 1;
     }
 
-    .service-card:hover {
-        box-shadow: 0 4px 16px -8px rgba(0, 0, 0, 0.6);
-    }
-
     /* --- Expanded state (accordion - compartilhado) --- */
     .service-card.service-expanded {
         border-color: rgba(74, 222, 128, 0.26);
-        box-shadow: 0 24px 44px -24px rgba(0, 0, 0, 0.95),
-            0 0 0 1px rgba(74, 222, 128, 0.14),
-            0 0 34px -14px rgba(34, 197, 94, 0.36);
         background: linear-gradient(152deg, rgba(24, 31, 40, 0.97), rgba(14, 18, 25, 1));
     }
 
@@ -4747,7 +4738,7 @@
     }
 
     .service-card.service-expanded::after {
-        opacity: 0.46;
+        opacity: 1;
     }
 
     /* --- Header: icon + title em row --- */
@@ -4760,26 +4751,15 @@
         margin: 0;
         background: rgba(34, 197, 94, 0.06);
         border: 1px solid rgba(34, 197, 94, 0.14);
-        opacity: 0.85;
-        transform: scale(0.96);
         transition: background 0.4s ease,
             border-color 0.4s ease,
-            box-shadow 0.4s ease,
             opacity 0.4s ease,
             transform 0.4s ease;
-    }
-
-    .service-card.service-near .service-icon {
-        opacity: 0.95;
-        transform: scale(0.99);
     }
 
     .service-card.service-expanded .service-icon {
         background: rgba(34, 197, 94, 0.18);
         border-color: rgba(74, 222, 128, 0.4);
-        box-shadow: 0 0 16px rgba(34, 197, 94, 0.2);
-        opacity: 1;
-        transform: scale(1.03);
     }
 
     .service-icon svg {
@@ -4797,19 +4777,14 @@
         color: rgba(228, 234, 245, 0.7);
         line-height: 1.3;
         align-self: center;
-        transition: color 0.45s ease, text-shadow 0.45s ease;
-    }
-
-    .service-card.service-near h3 {
-        color: rgba(236, 242, 255, 0.86);
+        transition: color 0.45s ease;
     }
 
     .service-card.service-expanded h3 {
         color: #eef2ff;
-        text-shadow: 0 0 14px rgba(34, 197, 94, 0.14);
     }
 
-    /* --- Descricao: colapsada por padrao --- */
+    /* --- Descricao: accordion com grid-template-rows (GPU) --- */
     .service-card p {
         grid-column: 1 / -1;
         font-size: 12.5px;
@@ -4817,23 +4792,19 @@
         color: rgba(228, 234, 245, 0.45);
         margin: 0;
         padding: 0;
-        max-height: 0;
+        display: grid;
+        grid-template-rows: 0fr;
         opacity: 0;
         overflow: hidden;
-        filter: blur(3px);
-        transform: translateY(-8px);
-        transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-            opacity 0.45s ease 0.1s,
-            filter 0.45s ease 0.08s,
-            transform 0.52s cubic-bezier(0.22, 1, 0.36, 1) 0.06s,
-            padding 0.45s ease,
-            margin 0.45s ease;
+        transform: translateY(-6px);
+        transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 0.4s ease 0.08s,
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
     }
 
     .service-card.service-expanded p {
-        max-height: 120px;
+        grid-template-rows: 1fr;
         opacity: 1;
-        filter: blur(0);
         transform: translateY(0);
         margin-top: 8px;
         padding-bottom: 2px;
@@ -4855,18 +4826,7 @@
             transition: opacity 0.4s ease,
                 transform 0.4s ease,
                 border-color 0.4s ease,
-                box-shadow 0.4s ease,
                 background 0.4s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(4px) scale(0.98) !important;
-        }
-
-        .service-card.service-near {
-            opacity: 0.72 !important;
-            transform: translateY(2px) scale(0.99) !important;
-            border-color: rgba(34, 197, 94, 0.1);
         }
 
         .service-card.service-expanded {
@@ -4912,7 +4872,6 @@
                 transform: translateY(-8px) scale(0.97);
             }
         }
-
 
         .service-card {
             animation: service-focus linear both;
