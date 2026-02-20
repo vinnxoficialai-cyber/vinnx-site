@@ -264,7 +264,7 @@ function initServiceCardExpand() {
     let scrollTick = false;
     const visibleCards = new Set();
     const vh = window.innerHeight;
-    const centerTarget = vh * 0.35; // ponto de foco: 35% do topo (troca mais cedo)
+    const centerTarget = vh * 0.55; // ponto de foco: abaixo do meio (troca antes)
 
     // IO detecta quais cards estao NA VIEWPORT (zero layout cost)
     const viewportObserver = new IntersectionObserver((entries) => {
