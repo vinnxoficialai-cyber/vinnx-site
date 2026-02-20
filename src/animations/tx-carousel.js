@@ -11,24 +11,26 @@ export function initTxCarousel() {
     ];
 
     const svgIcons = {
-        pix: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor">
-      <path d="M342.7 336c-13.9 0-27.1-5.4-36.9-15.3l-67.4-67.4c-5-5-13-5-18 0l-67.7 67.7c-9.9 9.9-23 15.3-36.9 15.3h-13l85.4 85.4c20.3 20.3 53.2 20.3 73.5 0l85.7-85.7h-4.7zM116 176c13.9 0 27.1 5.4 36.9 15.3l67.7 67.7c5 5 13 5 18 0l67.4-67.4c9.9-9.9 23-15.3 36.9-15.3h4.7l-85.7-85.7c-20.3-20.3-53.2-20.3-73.5 0L103 176h13zM424.8 204.4l-55.4-55.4c1.5 3.5 2.3 7.4 2.3 11.5v18.5c0 9.9-3.9 19.4-10.8 26.4l-67.4 67.4c-9.3 9.3-21.6 14.4-34.7 14.4s-25.4-5.1-34.7-14.4l-67.7-67.7c-6.9-6.9-16.4-10.8-26.4-10.8H112c-4.1 0-8-.8-11.5-2.3l-55.4 55.4c-20.3 20.3-20.3 53.2 0 73.5l55.4 55.4c-1.5-3.5-2.3-7.4-2.3-11.5v-18.5c0-9.9 3.9-19.4 10.8-26.4l67.7-67.7c9.3-9.3 21.6-14.4 34.7-14.4 13.1 0 25.4 5.1 34.7 14.4l67.4 67.4c6.9 6.9 16.4 10.8 26.4 10.8h18.5c4.1 0 8 .8 11.5 2.3l55.4-55.4c20.3-20.3 20.3-53.2-.1-73.5z"/>
+        pix: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="6" width="12" height="12" rx="2" />
+      <path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4" />
     </svg>`,
         dollar: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="12" y1="1" x2="12" y2="23"/>
-      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
     </svg>`,
         store: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M2 7l4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/>
-      <path d="M4 22V12m16 10V12M2 7h20M7 22v-5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v5"/>
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
     </svg>`,
-        nubank: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M6 19V5l12 14V5"/>
+        nubank: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 20V10M10 20V4M16 20v-7M22 20V8"/>
     </svg>`,
         bag: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-      <line x1="3" y1="6" x2="21" y2="6"/>
-      <path d="M16 10a4 4 0 0 1-8 0"/>
+      <rect x="3" y="4" width="18" height="16" rx="2"/>
+      <path d="M3 10h18"/>
     </svg>`,
     };
 

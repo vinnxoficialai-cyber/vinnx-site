@@ -28,7 +28,7 @@ export function initProcessCinematic() {
 
     function updateTimeline() {
         const vh = window.innerHeight || 1;
-        const focusY = vh * 0.46;
+        const focusY = vh * 0.65;
         const rect = timeline.getBoundingClientRect();
 
         // Skip work when timeline is far from viewport.

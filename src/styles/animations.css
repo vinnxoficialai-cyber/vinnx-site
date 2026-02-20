@@ -58,20 +58,103 @@
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
 }
 
-/* Generic reveal — blur + slide-up */
+/* =============================================
+   Cinematic Reveal System
+   ============================================= */
+
+/* Generic reveal — scale-in + blur (cinematic) */
 .reveal {
     opacity: 0;
-    filter: blur(8px);
-    transform: translateY(20px);
-    transition: opacity 0.8s var(--ease-smooth),
-        filter 0.8s var(--ease-smooth),
-        transform 0.8s var(--ease-smooth);
+    filter: blur(6px);
+    transform: translateY(24px) scale(0.97);
+    transition: opacity 0.9s var(--ease-smooth),
+        filter 0.9s var(--ease-smooth),
+        transform 0.9s var(--ease-smooth);
 }
 
 .reveal.in {
     opacity: 1;
     filter: blur(0);
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+}
+
+/* Staggered children inside grids */
+.service-card,
+.offer-card,
+.feature-card-v2,
+.pricing-card,
+.testimonial-card,
+.shield-metric-card,
+.benefit-block,
+.sol-card {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(18px) scale(0.96);
+    transition: opacity 0.65s var(--ease-smooth),
+        filter 0.65s var(--ease-smooth),
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.35s var(--ease-smooth),
+        box-shadow 0.35s var(--ease-smooth);
+}
+
+.service-card.stagger-in,
+.offer-card.stagger-in,
+.feature-card-v2.stagger-in,
+.pricing-card.stagger-in,
+.testimonial-card.stagger-in,
+.shield-metric-card.stagger-in,
+.benefit-block.stagger-in,
+.sol-card.stagger-in {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+}
+
+/* Heading sequential reveal — kicker -> h2 -> p */
+.section-heading-block .offer-kicker,
+.section-heading-block h2,
+.section-heading-block p,
+.ai-header-v2 .offer-kicker,
+.ai-header-v2 h2,
+.ai-header-v2 p,
+.why-heading-cinematic .offer-kicker,
+.why-heading-cinematic h2,
+.why-heading-cinematic p {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(14px);
+    transition: opacity 0.7s var(--ease-smooth),
+        filter 0.7s var(--ease-smooth),
+        transform 0.7s var(--ease-smooth);
+}
+
+.heading-reveal-in {
+    opacity: 1 !important;
+    filter: blur(0) !important;
+    transform: translateY(0) !important;
+}
+
+/* CTA shimmer hover */
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.btn-primary:hover,
+.navbar-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -8px rgba(34, 197, 94, 0.35);
+    animation: shimmer 1.5s ease-in-out;
+    background-image: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.08) 50%,
+            transparent 100%);
+    background-size: 200% 100%;
 }
 
 /* CTA — pure fade, no blur */
@@ -83,6 +166,32 @@
 .reveal-cta.in {
     opacity: 1;
 }
+
+/* Reduced motion — show everything immediately */
+@media (prefers-reduced-motion: reduce) {
+
+    .reveal,
+    .service-card,
+    .offer-card,
+    .feature-card-v2,
+    .pricing-card,
+    .testimonial-card,
+    .shield-metric-card,
+    .benefit-block,
+    .sol-card,
+    .section-heading-block .offer-kicker,
+    .section-heading-block h2,
+    .section-heading-block p {
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+/* =============================================
+   Pulse & Dots
+   ============================================= */
 
 /* Pulse animation for dots */
 @keyframes pulse {
