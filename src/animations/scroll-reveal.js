@@ -251,7 +251,7 @@ function initHeadingReveal() {
     headings.forEach((h) => io.observe(h));
 }
 
-/* --- Mobile Card Scroll-Expand (Spotlight) - IntersectionObserver --- */
+/* --- Mobile Card Scroll-Expand (Spotlight) - Hibrido otimizado --- */
 function initServiceCardExpand() {
     if (window.innerWidth > 1023) return;
 
@@ -261,17 +261,13 @@ function initServiceCardExpand() {
     if (!cards.length) return;
 
     let activeCard = null;
-
-    // Zona de foco: faixa central da viewport (~30% do centro)
-    // rootMargin negativo corta top e bottom, criando uma faixa estreita
-    const vh = window.innerHeight;
-    const topCut = Math.round(vh * 0.35);    // corta 35% do topo
-    const bottomCut = Math.round(vh * 0.35); // corta 35% de baixo
-    // Resultado: zona de detecçao = 30% central da viewport
-
+    let scrollTick = false;
     const visibleCards = new Set();
+    const vh = window.innerHeight;
+    const centerTarget = vh * 0.45; // ponto de foco: 45% do topo
 
-    const observer = new IntersectionObserver((entries) => {
+    // IO detecta quais cards estao NA VIEWPORT (zero layout cost)
+    const viewportObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 visibleCards.add(entry.target);
@@ -281,39 +277,48 @@ function initServiceCardExpand() {
                 if (entry.target === activeCard) activeCard = null;
             }
         });
+    }, { threshold: 0.1 });
 
-        // Dos cards visiveis na zona central, pega o primeiro na ordem do DOM
+    cards.forEach(card => viewportObserver.observe(card));
+
+    // Scroll listener: so checa posicao dos cards VISIVEIS (2-3 max)
+    function pickBestCard() {
+        if (visibleCards.size === 0) return;
+
         let bestCard = null;
-        for (const card of cards) {
-            if (visibleCards.has(card)) {
-                bestCard = card;
-                break;
-            }
-        }
+        let bestDist = Infinity;
 
-        if (bestCard !== activeCard) {
+        // Le posicao apenas dos cards visiveis (batch read, zero write)
+        visibleCards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const cardCenter = rect.top + rect.height * 0.5;
+            const dist = Math.abs(cardCenter - centerTarget);
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestCard = card;
+            }
+        });
+
+        // So troca se mudou
+        if (bestCard && bestCard !== activeCard) {
             if (activeCard) activeCard.classList.remove('service-expanded');
-            if (bestCard) bestCard.classList.add('service-expanded');
+            bestCard.classList.add('service-expanded');
             activeCard = bestCard;
         }
-    }, {
-        rootMargin: `-${topCut}px 0px -${bottomCut}px 0px`,
-        threshold: 0
-    });
+    }
 
-    cards.forEach(card => observer.observe(card));
-
-    // Check inicial: expande o primeiro card visivel
-    requestAnimationFrame(() => {
-        const firstVisible = cards.find(card => {
-            const rect = card.getBoundingClientRect();
-            return rect.top < vh && rect.bottom > 0;
-        });
-        if (firstVisible) {
-            firstVisible.classList.add('service-expanded');
-            activeCard = firstVisible;
+    window.addEventListener('scroll', () => {
+        if (!scrollTick && visibleCards.size > 0) {
+            scrollTick = true;
+            requestAnimationFrame(() => {
+                pickBestCard();
+                scrollTick = false;
+            });
         }
-    });
+    }, { passive: true });
+
+    // Check inicial
+    requestAnimationFrame(pickBestCard);
 }
 
 /* --- Main init --- */
