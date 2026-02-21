@@ -24,7 +24,6 @@ function initStaggeredReveal() {
                 );
 
                 const baseDelay = isMobile() ? 60 : 80;
-
                 children.forEach((child, i) => {
                     child.style.transitionDelay = `${i * baseDelay}ms`;
                     child.classList.add('stagger-in');
@@ -251,45 +250,47 @@ function initHeadingReveal() {
     headings.forEach((h) => io.observe(h));
 }
 
-/* --- Mobile Card Scroll-Expand (Spotlight) - Hibrido otimizado --- */
+/* --- Mobile service cards (no expansion) --- */
 function initServiceCardExpand() {
-    if (window.innerWidth > 1023) return;
+    if (!isMobile()) return;
 
-    const cards = Array.from(document.querySelectorAll(
-        '.services-grid .service-card'
-    ));
+    const cards = Array.from(document.querySelectorAll('.services-grid .service-card'));
     if (!cards.length) return;
 
-    let activeCard = null;
-    let scrollTick = false;
+    cards.forEach((card, index) => {
+        card.dataset.serviceIndex = String(index);
+    });
+
     const visibleCards = new Set();
-    const vh = window.innerHeight;
-    const centerTarget = vh * 0.55; // ponto de foco: abaixo do meio (troca antes)
+    let centerTarget = window.innerHeight * 0.62;
+    let scrollTick = false;
 
-    // IO detecta quais cards estao NA VIEWPORT (zero layout cost)
-    const viewportObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                visibleCards.add(entry.target);
-            } else {
-                visibleCards.delete(entry.target);
-                entry.target.classList.remove('service-expanded');
-                if (entry.target === activeCard) activeCard = null;
-            }
+    function applyFocusState(focusCard) {
+        if (!focusCard) return;
+
+        const focusIndex = Number(focusCard.dataset.serviceIndex);
+
+        cards.forEach((card, index) => {
+            const isFocus = index === focusIndex;
+            const isNear = index === focusIndex - 1 || index === focusIndex + 1;
+            const isDim = index < focusIndex - 1 || index > focusIndex + 1;
+
+            card.classList.toggle('is-focus', isFocus);
+            card.classList.toggle('is-near', isNear);
+            card.classList.toggle('is-dim', isDim);
         });
-    }, { threshold: 0.1 });
+    }
 
-    cards.forEach(card => viewportObserver.observe(card));
-
-    // Scroll listener: so checa posicao dos cards VISIVEIS (2-3 max)
     function pickBestCard() {
-        if (visibleCards.size === 0) return;
+        if (visibleCards.size === 0) {
+            applyFocusState(cards[0]);
+            return;
+        }
 
         let bestCard = null;
         let bestDist = Infinity;
 
-        // Le posicao apenas dos cards visiveis (batch read, zero write)
-        visibleCards.forEach(card => {
+        visibleCards.forEach((card) => {
             const rect = card.getBoundingClientRect();
             const cardCenter = rect.top + rect.height * 0.5;
             const dist = Math.abs(cardCenter - centerTarget);
@@ -299,26 +300,61 @@ function initServiceCardExpand() {
             }
         });
 
-        // So troca se mudou
-        if (bestCard && bestCard !== activeCard) {
-            if (activeCard) activeCard.classList.remove('service-expanded');
-            bestCard.classList.add('service-expanded');
-            activeCard = bestCard;
-        }
+        applyFocusState(bestCard || cards[0]);
     }
 
-    window.addEventListener('scroll', () => {
-        if (!scrollTick && visibleCards.size > 0) {
-            scrollTick = true;
-            requestAnimationFrame(() => {
-                pickBestCard();
-                scrollTick = false;
-            });
-        }
-    }, { passive: true });
+    function requestPick() {
+        if (scrollTick) return;
+        scrollTick = true;
+        requestAnimationFrame(() => {
+            pickBestCard();
+            scrollTick = false;
+        });
+    }
 
-    // Check inicial
-    requestAnimationFrame(pickBestCard);
+    const visibilityObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    visibleCards.add(entry.target);
+                } else {
+                    visibleCards.delete(entry.target);
+                }
+            });
+            requestPick();
+        },
+        { threshold: 0.15 }
+    );
+
+    cards.forEach((card) => visibilityObserver.observe(card));
+
+    window.addEventListener(
+        'scroll',
+        () => {
+            requestPick();
+        },
+        { passive: true }
+    );
+
+    window.addEventListener(
+        'resize',
+        () => {
+            if (!isMobile()) {
+                cards.forEach((card) => {
+                    card.classList.remove('is-focus', 'is-near', 'is-dim');
+                });
+                return;
+            }
+            centerTarget = window.innerHeight * 0.62;
+            requestPick();
+        },
+        { passive: true }
+    );
+
+    requestAnimationFrame(() => {
+        applyFocusState(cards[0]);
+        requestPick();
+    });
 }
 
 /* --- Main init --- */

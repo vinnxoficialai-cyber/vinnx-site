@@ -18,9 +18,6 @@ export function initSolutionAnims() {
         });
     }
 
-    // ---- Service cards stagger reveal ----
-    staggerReveal('#servicesGrid', '.service-card', 100, 'in-view');
-
     // ---- Feature cards stagger reveal ----
     staggerReveal('#featureGrid', '.feature-card-v2', 100, 'in-view');
 
