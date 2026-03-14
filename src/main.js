@@ -8,9 +8,13 @@ import { initScrollReveal } from './animations/scroll-reveal.js';
 import { initTxCarousel } from './animations/tx-carousel.js';
 import { initLogo3D } from './animations/logo-3d.js';
 import { initNavbar } from './components/navbar.js';
+import { initFooterSpline } from './components/spline-footer.js';
 import { initSolutionAnims } from './animations/solution-anims.js';
 import { initAiChatAnim } from './animations/ai-chat-anim.js';
 import { initProcessCinematic } from './animations/process-cinematic.js';
+import { initCtaRotator } from './animations/cta-rotator.js';
+import { initFaqAccordion } from './animations/faq-accordion.js';
+import { initButtonOpenFeedback } from './animations/button-open-feedback.js';
 
 const STARTUP_DELAY_MS = 500;
 
@@ -27,6 +31,10 @@ function bootstrap() {
     runInit('fan cards', initFanCards);
     runInit('navbar', initNavbar);
     runInit('3D logo', initLogo3D);
+    runInit('footer spline', initFooterSpline);
+    runInit('cta rotator', initCtaRotator);
+    runInit('faq accordion', initFaqAccordion);
+    runInit('button open feedback', initButtonOpenFeedback);
 
     // Keep the original stagger so hero animation starts first.
     window.setTimeout(() => {

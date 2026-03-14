@@ -1,4 +1,4 @@
-﻿/* =============================================
+/* =============================================
    Sections - Transaction flow, generic sections
    ============================================= */
 
@@ -675,6 +675,8 @@
 .feature-section,
 .security-section,
 .addons-section,
+.faq-section,
+.spline-section,
 .pricing-section,
 .testimonials-section,
 .process-section,
@@ -690,6 +692,8 @@
 .feature-section::after,
 .security-section::after,
 .addons-section::after,
+.faq-section::after,
+.spline-section::after,
 .testimonials-section::after,
 .process-section::after,
 .why-section::after {
@@ -709,6 +713,8 @@
 .feature-shell,
 .security-shell,
 .addons-shell,
+.faq-shell,
+.spline-section-shell,
 .pricing-shell {
     position: relative;
     overflow: visible;
@@ -727,9 +733,61 @@
 .feature-shell::before,
 .security-shell::before,
 .addons-shell::before,
+.faq-shell::before,
+.spline-section-shell::before,
 .pricing-shell::before {
     content: none;
     display: none;
+}
+
+.spline-section {
+    overflow: hidden;
+    padding-bottom: 0 !important;
+    /* Cola no footer */
+}
+
+.spline-section-shell {
+    display: block;
+    width: 100%;
+}
+
+.spline-stage {
+    position: relative;
+    height: 900px;
+    min-height: 900px;
+    background: transparent;
+    overflow: hidden;
+    margin-bottom: -70px;
+    /* Puxa o footer para cima para cobrir a marca d'água do Spline */
+}
+
+.spline-stage-viewer,
+#splineViewerMount {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    transition: opacity 0.55s ease;
+    border-radius: inherit;
+}
+
+.spline-stage-viewer spline-viewer,
+#splineViewerMount spline-viewer {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+}
+
+.spline-stage-fallback img {
+    width: min(210px, 40%);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 38px rgba(34, 197, 94, 0.22));
 }
 
 .offer-header {
@@ -1138,6 +1196,7 @@
 .pricing-card:hover .pricing-watermark,
 .pricing-card:focus-within .pricing-watermark,
 .pricing-card:active .pricing-watermark,
+.pricing-card.is-scroll-focus .pricing-watermark,
 .pricing-card-highlight:hover .pricing-watermark,
 .pricing-card-highlight:focus-within .pricing-watermark,
 .pricing-card-highlight:active .pricing-watermark {
@@ -1336,7 +1395,8 @@
 
 .addon-card:hover .addon-watermark,
 .addon-card:focus-within .addon-watermark,
-.addon-card:active .addon-watermark {
+.addon-card:active .addon-watermark,
+.addon-card.is-scroll-focus .addon-watermark {
     color: rgba(134, 251, 186, 0.88);
     opacity: 0.94;
     transform: scale(1.05);
@@ -1346,7 +1406,8 @@
 
 .addon-card:hover .addon-icon,
 .addon-card:focus-within .addon-icon,
-.addon-card:active .addon-icon {
+.addon-card:active .addon-icon,
+.addon-card.is-scroll-focus .addon-icon {
     opacity: 1;
     color: #7ff6b5;
     border-color: rgba(118, 248, 178, 0.6);
@@ -1428,6 +1489,283 @@
     text-align: center;
 }
 
+.pricing-card .btn-primary.btn-openfx,
+.addon-actions .btn-primary.btn-openfx {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: 100%;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(240, 245, 255, 0.95));
+    color: #060b12;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84), 0 12px 24px -20px rgba(0, 0, 0, 0.82);
+    will-change: transform;
+    transition: transform 0.3s var(--ease-standard), box-shadow 0.34s var(--ease-standard), border-color 0.34s var(--ease-standard), background 0.34s var(--ease-standard), color 0.34s var(--ease-standard);
+}
+
+.pricing-card .btn-primary.btn-openfx::before,
+.addon-actions .btn-primary.btn-openfx::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(108deg,
+            rgba(255, 255, 255, 0) 16%,
+            rgba(34, 197, 94, 0.15) 44%,
+            rgba(110, 255, 193, 0.28) 54%,
+            rgba(255, 255, 255, 0) 82%);
+    transform: translateX(-120%);
+    opacity: 0;
+    transition: transform 0.56s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.42s var(--ease-standard);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pricing-card .btn-primary.btn-openfx>*,
+.addon-actions .btn-primary.btn-openfx>* {
+    position: relative;
+    z-index: 1;
+}
+
+.pricing-card .btn-primary.btn-openfx:hover,
+.addon-actions .btn-primary.btn-openfx:hover {
+    transform: translateY(-1px);
+    animation: none;
+    background-image: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 14px 26px -20px rgba(0, 0, 0, 0.82);
+}
+
+.pricing-card .btn-primary.btn-openfx:active,
+.addon-actions .btn-primary.btn-openfx:active {
+    transform: translateY(0);
+}
+
+.btn-open-label,
+.btn-open-status {
+    line-height: 1;
+    transition: transform 0.34s var(--ease-standard), opacity 0.3s var(--ease-standard);
+}
+
+.btn-open-label {
+    letter-spacing: -0.01em;
+}
+
+.btn-open-status {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 130%);
+    opacity: 0;
+    font-weight: 650;
+    color: #97ffcb;
+    pointer-events: none;
+}
+
+.btn-open-arrow {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(10, 16, 27, 0.58);
+    transition: transform 0.34s var(--ease-standard), color 0.34s var(--ease-standard), opacity 0.34s var(--ease-standard);
+}
+
+.btn-open-arrow svg {
+    width: 100%;
+    height: 100%;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pricing-card .btn-primary.btn-openfx.is-opening,
+.addon-actions .btn-primary.btn-openfx.is-opening {
+    border-color: rgba(109, 249, 187, 0.78);
+    background: linear-gradient(158deg, rgba(16, 29, 23, 0.98), rgba(8, 14, 12, 0.98));
+    color: rgba(230, 255, 241, 0.95);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 0 1px rgba(34, 197, 94, 0.22), 0 16px 30px -20px rgba(34, 197, 94, 0.5);
+}
+
+.pricing-card .btn-primary.btn-openfx.is-opening::before,
+.addon-actions .btn-primary.btn-openfx.is-opening::before {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.pricing-card .btn-primary.btn-openfx.is-opening .btn-open-label,
+.addon-actions .btn-primary.btn-openfx.is-opening .btn-open-label {
+    opacity: 0;
+    transform: translateY(-135%);
+}
+
+.pricing-card .btn-primary.btn-openfx.is-opening .btn-open-status,
+.addon-actions .btn-primary.btn-openfx.is-opening .btn-open-status {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+.pricing-card .btn-primary.btn-openfx.is-opening .btn-open-arrow,
+.addon-actions .btn-primary.btn-openfx.is-opening .btn-open-arrow {
+    color: #8dffc6;
+    transform: translateX(3px) scale(1.04);
+}
+
+/* =============================================
+   FAQ Section
+   ============================================= */
+.faq-header {
+    margin-bottom: 34px;
+}
+
+.faq-grid {
+    position: relative;
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-grid::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -24px;
+    width: min(760px, 100%);
+    height: 190px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.12), transparent 68%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.faq-item {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid rgba(131, 150, 186, 0.26);
+    background: linear-gradient(162deg, rgba(18, 24, 34, 0.94), rgba(9, 13, 19, 0.98));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 20px 42px -30px rgba(0, 0, 0, 0.92);
+    transition: border-color 0.34s var(--ease-standard), box-shadow 0.34s var(--ease-standard), transform 0.34s var(--ease-standard), background 0.34s var(--ease-standard);
+}
+
+.faq-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 84% -12%, rgba(34, 197, 94, 0.18), transparent 56%);
+    opacity: 0.62;
+    pointer-events: none;
+    transition: opacity 0.34s var(--ease-standard);
+}
+
+.faq-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(110, 240, 170, 0.42);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11), 0 28px 54px -32px rgba(0, 0, 0, 0.94);
+}
+
+.faq-item.is-open {
+    border-color: rgba(111, 244, 173, 0.52);
+    background: linear-gradient(162deg, rgba(20, 30, 36, 0.96), rgba(10, 14, 20, 0.98));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 34px 58px -34px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(34, 197, 94, 0.14);
+}
+
+.faq-item.is-open::before {
+    opacity: 1;
+}
+
+.faq-question {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    text-align: left;
+    padding: 20px 22px;
+    border: none;
+    background: transparent;
+    color: #eef2ff;
+    cursor: pointer;
+}
+
+.faq-question-text {
+    font-size: 17px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+}
+
+.faq-icon {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    border: 1px solid rgba(34, 197, 94, 0.28);
+    background: rgba(34, 197, 94, 0.1);
+    color: #8af7c0;
+    transition: border-color 0.32s var(--ease-standard), background 0.32s var(--ease-standard), box-shadow 0.32s var(--ease-standard), color 0.32s var(--ease-standard), transform 0.32s var(--ease-standard);
+}
+
+.faq-icon::before,
+.faq-icon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 1.8px;
+    border-radius: 999px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform 0.32s var(--ease-standard), opacity 0.32s var(--ease-standard);
+}
+
+.faq-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.faq-item.is-open .faq-icon {
+    border-color: rgba(114, 244, 174, 0.6);
+    background: rgba(34, 197, 94, 0.2);
+    color: #b8ffdb;
+    box-shadow: 0 0 0 1px rgba(116, 243, 175, 0.14), 0 0 16px rgba(34, 197, 94, 0.18);
+}
+
+.faq-item.is-open .faq-icon::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(90deg) scale(0.7);
+}
+
+.faq-answer-wrap {
+    position: relative;
+    z-index: 1;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.34s ease;
+}
+
+.faq-answer {
+    padding: 0 22px 22px;
+    margin-top: -2px;
+    font-size: 14px;
+    line-height: 1.78;
+    color: rgba(228, 234, 245, 0.75);
+    max-width: 78ch;
+}
+
 @media (max-width: 1023px) {
 
     .offer-shell,
@@ -1435,6 +1773,7 @@
     .feature-shell,
     .security-shell,
     .addons-shell,
+    .faq-shell,
     .pricing-shell {
         padding: 0;
     }
@@ -1488,6 +1827,7 @@
     .feature-section,
     .security-section,
     .addons-section,
+    .faq-section,
     .pricing-section {
         padding: 60px 12px;
     }
@@ -1497,6 +1837,7 @@
     .feature-shell,
     .security-shell,
     .addons-shell,
+    .faq-shell,
     .pricing-shell {
         padding: 0;
         border-radius: 0;
@@ -3006,19 +3347,46 @@
 
 .btn-cta-label {
     display: inline-flex;
-    align-items: flex-start;
-    height: 1.25em;
+    align-items: center;
+    justify-content: center;
+    height: 1.35em;
     overflow: hidden;
-    line-height: 1.25;
+    line-height: 1.2;
     font-size: 15px;
     letter-spacing: 0.01em;
 }
 
 .btn-cta-words {
-    display: flex;
-    flex-direction: column;
-    will-change: transform;
-    animation: ctaWordCycle 9s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: clamp(180px, 22ch, 270px);
+    white-space: nowrap;
+}
+
+.btn-cta-words span+span {
+    display: none;
+}
+
+.btn-cta-current {
+    display: inline-block;
+    text-align: center;
+    will-change: transform, opacity, filter;
+    transition: opacity 0.52s cubic-bezier(0.33, 1, 0.68, 1),
+        transform 0.52s cubic-bezier(0.33, 1, 0.68, 1),
+        filter 0.52s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.btn-cta-current.is-leaving {
+    opacity: 0;
+    transform: translateY(-20%);
+    filter: blur(2px);
+}
+
+.btn-cta-current.is-pre-enter {
+    opacity: 0;
+    transform: translateY(20%);
+    filter: blur(2px);
 }
 
 .btn-cta-arrow {
@@ -3055,29 +3423,6 @@
 
     .btn-cta-label {
         font-size: 14px;
-    }
-}
-
-@keyframes ctaWordCycle {
-
-    0%,
-    24% {
-        transform: translateY(0);
-    }
-
-    30%,
-    54% {
-        transform: translateY(-1.25em);
-    }
-
-    60%,
-    84% {
-        transform: translateY(-2.5em);
-    }
-
-    90%,
-    100% {
-        transform: translateY(-3.75em);
     }
 }
 
@@ -4483,14 +4828,18 @@
     .pricing-watermark,
     .addon-watermark,
     .addon-icon,
-    .btn-cta-words {
+    .btn-openfx,
+    .btn-openfx::before,
+    .btn-open-arrow,
+    .btn-cta-current {
         animation: none !important;
         transition: none !important;
         transform: none !important;
         filter: none !important;
     }
 
-    .btn-cta-words {
+    .btn-cta-current {
+        opacity: 1 !important;
         transform: translateY(0) !important;
     }
 }
@@ -4513,6 +4862,7 @@
     .security-section,
     .testimonials-section,
     .addons-section,
+    .faq-section,
     .pricing-section {
         padding-top: 60px;
         padding-bottom: 60px;
@@ -4647,6 +4997,36 @@
 
     .addon-card ul {
         font-size: 12.5px;
+    }
+
+    .faq-grid {
+        gap: 10px;
+    }
+
+    .faq-item {
+        border-radius: 16px;
+    }
+
+    .faq-question {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .faq-question-text {
+        font-size: 15px;
+        line-height: 1.45;
+    }
+
+    .faq-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 9px;
+    }
+
+    .faq-answer {
+        padding: 0 16px 16px;
+        font-size: 13px;
+        line-height: 1.7;
     }
 
     .addon-actions {

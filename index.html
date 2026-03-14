@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -59,13 +59,38 @@
 
     <!-- Mobile Menu Overlay -->
     <div class="navbar-mobile-menu" id="navMobileMenu">
-        <button class="navbar-mobile-close" id="navMobileClose">&times;</button>
-        <a href="#solution">Soluções</a>
-        <a href="#ai">Inteligência</a>
-        <a href="#features">Recursos</a>
-        <a href="#security">Segurança</a>
-        <a href="#pricing">Preços</a>
-        <button class="btn-primary" style="margin-top: 16px;">Começar Agora</button>
+        <div class="navbar-mobile-backdrop" id="navMobileBackdrop"></div>
+        <div class="navbar-mobile-sheet" id="navMobileSheet">
+            <a href="#solution">Soluções</a>
+            <a href="#ai">Inteligência</a>
+            <a href="#features">Recursos</a>
+            <a href="#security">Segurança</a>
+            <a href="#pricing">Preços</a>
+            <div class="navbar-mobile-actions">
+                <a class="navbar-mobile-action navbar-mobile-action-whatsapp is-selected" href="https://wa.me/553799417496"
+                    target="_blank" rel="noopener noreferrer" aria-label="WhatsApp VINNX">
+                    <span class="navbar-action-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 11.5a9 9 0 0 1-13.6 7.7L3 20l1-4.2A9 9 0 1 1 21 11.5z" />
+                            <path d="M8.7 9.4c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .5.4.2.4.8 2 .8 2.1.1.2.1.3 0 .5-.1.1-.2.3-.3.4-.1.1-.2.3-.3.4-.1.1-.2.3 0 .5.2.2.8 1.3 2 1.8 1.5.7 1.5.5 1.8.5.2 0 .8-.3.9-.6.1-.3.1-.6 0-.6-.1-.1-.2-.1-.5-.3-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1-.1.2-.6.7-.7.8-.1.1-.3.1-.5 0-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4.1-.1.2-.2.3-.3.1-.1.2-.2.2-.3.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.7z" />
+                        </svg>
+                    </span>
+                    <span class="navbar-action-text">WhatsApp</span>
+                </a>
+                <a class="navbar-mobile-action navbar-mobile-action-instagram is-selected"
+                    href="https://www.instagram.com/vinnx_oficial/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Instagram VINNX">
+                    <span class="navbar-action-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="5" />
+                            <circle cx="12" cy="12" r="4.2" />
+                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                        </svg>
+                    </span>
+                    <span class="navbar-action-text">Nos siga</span>
+                </a>
+            </div>
+        </div>
     </div>
 
     <!-- MAIN -->
@@ -1481,6 +1506,116 @@
             </div>
         </section>
 
+        <!-- FAQ SECTION -->
+        <section class="faq-section reveal" id="faq">
+            <div class="faq-shell">
+                <div class="offer-header faq-header section-heading-block">
+                    <span class="offer-kicker">
+                        <span class="offer-kicker-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M9.5 9.4a2.8 2.8 0 0 1 5.2 1.4c0 2-2.7 2.2-2.7 4" />
+                                <circle cx="12" cy="17.2" r="0.8" fill="currentColor" stroke="none" />
+                            </svg>
+                        </span>
+                        <span>FAQ</span>
+                    </span>
+                    <h2>Perguntas frequentes para tirar dúvidas <span class="title-accent">antes de começar</span></h2>
+                    <p>Respostas rápidas sobre prazo, integrações, suporte e formato de contratação para você avançar
+                        com segurança.</p>
+                </div>
+
+                <div class="faq-grid" id="faqGrid">
+                    <article class="faq-item is-open">
+                        <button class="faq-question" type="button" id="faq-q-1" aria-expanded="true"
+                            aria-controls="faq-a-1">
+                            <span class="faq-question-text">Em quanto tempo o projeto entra no ar?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer-wrap" id="faq-a-1" role="region" aria-labelledby="faq-q-1">
+                            <div class="faq-answer">
+                                O prazo depende do escopo, mas a maioria das entregas iniciais acontece entre 7 e 21
+                                dias. Projetos com integrações avançadas ou múltiplos fluxos podem levar mais tempo.
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="faq-item">
+                        <button class="faq-question" type="button" id="faq-q-2" aria-expanded="false"
+                            aria-controls="faq-a-2">
+                            <span class="faq-question-text">Vocês atendem apenas empresas grandes?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer-wrap" id="faq-a-2" role="region" aria-labelledby="faq-q-2" hidden>
+                            <div class="faq-answer">
+                                Não. Estruturamos soluções para negócios em fase inicial, operação em crescimento e
+                                empresas mais maduras. O plano e o nível de complexidade são ajustados ao momento da
+                                empresa.
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="faq-item">
+                        <button class="faq-question" type="button" id="faq-q-3" aria-expanded="false"
+                            aria-controls="faq-a-3">
+                            <span class="faq-question-text">Preciso trocar meu sistema atual para usar IA?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer-wrap" id="faq-a-3" role="region" aria-labelledby="faq-q-3" hidden>
+                            <div class="faq-answer">
+                                Na maioria dos casos, não. O caminho mais comum é integrar a camada de IA ao stack que
+                                você já usa (CRM, ERP, WhatsApp, site e ferramentas de atendimento), preservando sua
+                                operação atual.
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="faq-item">
+                        <button class="faq-question" type="button" id="faq-q-4" aria-expanded="false"
+                            aria-controls="faq-a-4">
+                            <span class="faq-question-text">Como funcionam as alterações mensais dos planos?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer-wrap" id="faq-a-4" role="region" aria-labelledby="faq-q-4" hidden>
+                            <div class="faq-answer">
+                                Cada plano inclui um número de ajustes por mês. Essas alterações podem ser melhorias de
+                                fluxo, ajustes de conteúdo, otimizações de automações e refinamentos de interface.
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="faq-item">
+                        <button class="faq-question" type="button" id="faq-q-5" aria-expanded="false"
+                            aria-controls="faq-a-5">
+                            <span class="faq-question-text">Vocês integram com WhatsApp, CRM e meios de pagamento?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer-wrap" id="faq-a-5" role="region" aria-labelledby="faq-q-5" hidden>
+                            <div class="faq-answer">
+                                Sim. Trabalhamos com integrações dos principais canais e sistemas do mercado. No
+                                diagnóstico inicial mapeamos o cenário técnico e definimos a arquitetura mais estável
+                                para a sua operação.
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="faq-item">
+                        <button class="faq-question" type="button" id="faq-q-6" aria-expanded="false"
+                            aria-controls="faq-a-6">
+                            <span class="faq-question-text">Existe contrato mínimo ou posso escalar aos poucos?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer-wrap" id="faq-a-6" role="region" aria-labelledby="faq-q-6" hidden>
+                            <div class="faq-answer">
+                                Você pode começar enxuto e expandir conforme os resultados aparecem. A evolução pode
+                                ser feita por fases, adicionando novos módulos, canais e automações sem refazer tudo.
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- FINAL CTA -->
@@ -1495,11 +1630,19 @@
                         <span>Falar com especialista</span>
                         <span>Agendar diagnóstico estratégico</span>
                         <span>Quero escalar com IA</span>
-                        <span>Falar com especialista</span>
                     </span>
                 </span>
                 <span class="btn-cta-arrow" aria-hidden="true">→</span>
             </a>
+        </div>
+    </section>
+
+    <section class="spline-section" id="splineExperience" aria-labelledby="splineExperienceTitle">
+        <div class="spline-section-shell">
+            <div class="spline-stage" id="splineStage">
+                <div class="spline-stage-viewer" id="splineViewerMount"></div>
+                <div class="spline-watermark-patch" aria-hidden="true"></div>
+            </div>
         </div>
     </section>
 
@@ -1566,6 +1709,12 @@
             </div>
         </div>
     </footer>
+
+    <section class="site-endmark" aria-hidden="true">
+        <div class="site-endmark-inner">
+            <img src="/end.png" alt="" loading="lazy" decoding="async">
+        </div>
+    </section>
 
     <!-- Vite entry point -->
     <script type="module" src="/src/main.js"></script>

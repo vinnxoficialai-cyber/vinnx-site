@@ -9,7 +9,7 @@ const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: r
 /* --- Staggered Reveal --- */
 function initStaggeredReveal() {
     const containers = document.querySelectorAll(
-        '.services-grid, .offer-grid, .feature-grid-v2, .pricing-grid, .addons-grid, .testimonials-grid, .shield-metrics, .why-v2-cards, .bento-grid-solutions'
+        '.services-grid, .offer-grid, .feature-grid-v2, .pricing-grid, .addons-grid, .faq-grid, .testimonials-grid, .shield-metrics, .why-v2-cards, .bento-grid-solutions'
     );
 
     if (!containers.length) return;
@@ -20,7 +20,7 @@ function initStaggeredReveal() {
                 if (!entry.isIntersecting) return;
 
                 const children = entry.target.querySelectorAll(
-                    '.service-card, .offer-card, .feature-card-v2, .pricing-card, .addon-card, .testimonial-card, .shield-metric-card, .why-adv-card, .sol-card'
+                    '.service-card, .offer-card, .feature-card-v2, .pricing-card, .addon-card, .faq-item, .testimonial-card, .shield-metric-card, .why-adv-card, .sol-card'
                 );
 
                 const baseDelay = isMobile() ? 60 : 80;
@@ -357,8 +357,122 @@ function initServiceCardExpand() {
     });
 }
 
+/* --- Mobile pricing/addons icon focus by scroll --- */
+function initMobileCardIconFocus() {
+    const groups = [
+        Array.from(document.querySelectorAll('.pricing-grid .pricing-card')),
+        Array.from(document.querySelectorAll('.addons-grid .addon-card'))
+    ].filter((cards) => cards.length > 0);
+
+    if (!groups.length) return;
+
+    const groupState = groups.map((cards) => ({
+        cards,
+        visibleCards: new Set()
+    }));
+
+    let focusTarget = window.innerHeight * 0.64;
+    let tickScheduled = false;
+
+    function clearAllFocus() {
+        groupState.forEach(({ cards }) => {
+            cards.forEach((card) => card.classList.remove('is-scroll-focus'));
+        });
+    }
+
+    function applyGroupFocus(cards, focusCard) {
+        cards.forEach((card) => {
+            card.classList.toggle('is-scroll-focus', Boolean(focusCard) && card === focusCard);
+        });
+    }
+
+    function pickFocus() {
+        if (!isMobile()) {
+            clearAllFocus();
+            return;
+        }
+
+        groupState.forEach(({ cards, visibleCards }) => {
+            if (visibleCards.size === 0) {
+                applyGroupFocus(cards, null);
+                return;
+            }
+
+            let bestCard = null;
+            let bestDistance = Infinity;
+
+            visibleCards.forEach((card) => {
+                const rect = card.getBoundingClientRect();
+                const center = rect.top + rect.height * 0.5;
+                const distance = Math.abs(center - focusTarget);
+
+                if (distance < bestDistance) {
+                    bestDistance = distance;
+                    bestCard = card;
+                }
+            });
+
+            applyGroupFocus(cards, bestCard);
+        });
+    }
+
+    function requestPick() {
+        if (tickScheduled) return;
+        tickScheduled = true;
+        requestAnimationFrame(() => {
+            pickFocus();
+            tickScheduled = false;
+        });
+    }
+
+    const observers = groupState.map((state) => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        state.visibleCards.add(entry.target);
+                    } else {
+                        state.visibleCards.delete(entry.target);
+                    }
+                });
+
+                requestPick();
+            },
+            { threshold: 0.18 }
+        );
+
+        state.cards.forEach((card) => observer.observe(card));
+        return observer;
+    });
+
+    window.addEventListener(
+        'scroll',
+        () => {
+            requestPick();
+        },
+        { passive: true }
+    );
+
+    window.addEventListener(
+        'resize',
+        () => {
+            focusTarget = window.innerHeight * 0.64;
+            requestPick();
+        },
+        { passive: true }
+    );
+
+    requestAnimationFrame(requestPick);
+
+    return () => {
+        observers.forEach((observer) => observer.disconnect());
+    };
+}
+
 /* --- Main init --- */
 export function initScrollReveal() {
+    initMobileCardIconFocus();
+
     if (prefersReducedMotion()) {
         // Just show everything immediately
         document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));

@@ -1,4 +1,4 @@
-﻿/* =============================================
+/* =============================================
    Base Styles - Reset & Global
    ============================================= */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -11,8 +11,13 @@
     padding: 0;
 }
 
+:root {
+    --nav-anchor-offset: 96px;
+}
+
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-anchor-offset);
     -webkit-text-size-adjust: 100%;
     font-size: 75%;
     /* Escala tudo proporcionalmente (12px base em vez de 16px) */
@@ -104,5 +109,20 @@ button:focus-visible,
 .navbar-mobile-close:focus-visible {
     outline: none;
     box-shadow: none;
+}
+
+section[id] {
+    scroll-margin-top: var(--nav-anchor-offset);
+}
+
+/* Oculta globalmente a marca d'água do Spline Viewer (todas as versões) */
+spline-viewer::part(logo) {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+spline-viewer::part(watermark) {
+    display: none !important;
+    opacity: 0 !important;
 }
 
