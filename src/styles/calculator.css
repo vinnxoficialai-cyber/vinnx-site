@@ -1,0 +1,646 @@
+/* =============================================
+   Plan Assessment - Premium Accordion
+   ============================================= */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.plan-quiz {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.plan-quiz-assessment {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.plan-quiz-accordion {
+    display: grid;
+    gap: 14px;
+}
+
+.plan-step {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 1;
+    filter: none;
+    transform: none;
+}
+
+.plan-step-heading {
+    margin: 0;
+}
+
+.plan-step-trigger {
+    align-items: flex-start;
+}
+
+.plan-step-trigger-copy {
+    display: flex;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.plan-step-trigger-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.plan-step-question {
+    color: #f5f8fd;
+    font-size: 17px;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+}
+
+.plan-step-answer {
+    color: rgba(228, 234, 245, 0.44);
+    font-size: 12px;
+    line-height: 1.45;
+    transition: color 0.28s var(--ease-standard), transform 0.28s var(--ease-standard);
+}
+
+.plan-step-answer.is-placeholder {
+    color: rgba(228, 234, 245, 0.38);
+}
+
+.plan-step.is-answered .plan-step-answer {
+    color: rgba(228, 234, 245, 0.72);
+}
+
+.plan-step.is-open .plan-step-answer {
+    color: rgba(228, 234, 245, 0.68);
+}
+
+.plan-step.faq-item.is-open {
+    border-color: rgba(74, 222, 128, 0.18);
+    background: linear-gradient(165deg, rgba(28, 28, 28, 0.42) 0%, rgba(10, 10, 10, 0.62) 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 20px 40px -10px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(34, 197, 94, 0.04);
+}
+
+.plan-step .faq-icon {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: rgba(228, 234, 245, 0.82);
+    box-shadow: none;
+}
+
+.plan-step.faq-item.is-open .faq-icon {
+    background: rgba(12, 18, 15, 0.92);
+    border-color: rgba(34, 197, 94, 0.2);
+    color: #dffdeb;
+    box-shadow: none;
+}
+
+.plan-step-panel .faq-answer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 0;
+}
+
+.plan-step-help {
+    margin: 0;
+    color: rgba(228, 234, 245, 0.66);
+    font-size: 14px;
+    line-height: 1.72;
+    max-width: 54ch;
+}
+
+.plan-step-options {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.plan-step-option {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.plan-step-radio {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.plan-step-option span {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 0 52px 0 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(165deg, rgba(20, 20, 20, 0.9) 0%, rgba(5, 5, 5, 0.95) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    color: rgba(240, 244, 250, 0.82);
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.4;
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.plan-step-option span::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: inset 0 0 0 4px transparent;
+    transform: translateY(-50%) scale(0.96);
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.plan-step-option:hover span {
+    border-color: rgba(34, 197, 94, 0.2);
+    background: linear-gradient(165deg, rgba(24, 24, 24, 0.92) 0%, rgba(7, 7, 7, 0.96) 100%);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.plan-step-option .plan-step-radio:focus-visible+span {
+    outline: 2px solid rgba(34, 197, 94, 0.34);
+    outline-offset: 2px;
+}
+
+.plan-step-option .plan-step-radio:checked+span {
+    border-color: rgba(74, 222, 128, 0.18);
+    background: linear-gradient(165deg, rgba(26, 26, 26, 0.9) 0%, rgba(10, 10, 10, 0.96) 100%);
+    color: #f0f5fa;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 0 0 1px rgba(34, 197, 94, 0.04),
+        0 16px 28px -20px rgba(0, 0, 0, 0.68);
+}
+
+.plan-step-option .plan-step-radio:checked+span::after {
+    border-color: rgba(74, 222, 128, 0.2);
+    background: radial-gradient(circle at center, rgba(246, 250, 255, 0.95) 0 20%, rgba(152, 255, 194, 0.1) 21%, rgba(255, 255, 255, 0.02) 100%);
+    box-shadow: none;
+    transform: translateY(-50%) scale(1);
+}
+
+.plan-step.is-selecting .plan-step-option .plan-step-radio:checked+span {
+    transform: scale(0.985);
+}
+
+.plan-match-rail {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    padding: 12px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: linear-gradient(165deg, rgba(20, 20, 20, 0.9) 0%, rgba(5, 5, 5, 0.95) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+}
+
+.plan-match-chip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 14px;
+    border-radius: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(20, 20, 20, 0.78);
+    color: rgba(228, 234, 245, 0.72);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition:
+        color 0.26s var(--ease-standard),
+        background 0.26s var(--ease-standard),
+        border-color 0.26s var(--ease-standard),
+        transform 0.26s var(--ease-standard),
+        box-shadow 0.26s var(--ease-standard);
+}
+
+.plan-match-chip::before {
+    content: none;
+}
+
+.plan-match-chip::after {
+    content: none;
+}
+
+.plan-match-chip.is-active {
+    border-color: rgba(74, 222, 128, 0.26);
+    background: linear-gradient(165deg, rgba(18, 24, 21, 0.92) 0%, rgba(6, 10, 8, 0.96) 100%);
+    color: #edf9f1;
+    transform: translateY(-1px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 0 0 1px rgba(34, 197, 94, 0.08),
+        0 14px 24px -20px rgba(0, 0, 0, 0.64);
+}
+
+.plan-match-chip.is-locked {
+    border-color: rgba(74, 222, 128, 0.34);
+    background: linear-gradient(165deg, rgba(18, 24, 21, 0.94) 0%, rgba(6, 10, 8, 0.98) 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 0 0 1px rgba(34, 197, 94, 0.1);
+}
+
+.pricing-results-shell {
+    position: relative;
+    display: grid;
+    gap: 22px;
+    margin-top: 28px;
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(22px) scale(0.985);
+    pointer-events: none;
+    transition:
+        opacity 0.82s var(--ease-smooth),
+        filter 0.82s var(--ease-smooth),
+        transform 0.82s var(--ease-smooth);
+}
+
+.pricing-results-shell[hidden] {
+    display: none;
+}
+
+.pricing-results-shell.is-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.plan-result-spotlight {
+    position: relative;
+    overflow: hidden;
+    padding: 24px 24px 22px;
+    border-radius: 22px;
+    border: 1px solid rgba(74, 222, 128, 0.16);
+    background: linear-gradient(165deg, rgba(30, 30, 30, 0.4) 0%, rgba(10, 10, 10, 0.6) 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 22px 46px -18px rgba(0, 0, 0, 0.74),
+        0 0 0 1px rgba(34, 197, 94, 0.04);
+}
+
+.plan-result-kicker {
+    display: inline-flex;
+    margin-bottom: 12px;
+    color: rgba(170, 245, 200, 0.88);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.plan-result-title {
+    margin: 0 0 8px;
+    color: #f5f8fd;
+    font-size: 31px;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+}
+
+.plan-result-text {
+    margin: 0;
+    max-width: 58ch;
+    color: rgba(228, 234, 245, 0.72);
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.pricing-results {
+    margin-top: 0;
+}
+
+.pricing-results .pricing-card {
+    transition-delay: 0ms !important;
+}
+
+.pricing-card.plan-card-reveal {
+    animation: pricingCardReveal 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--plan-card-delay, 0ms);
+}
+
+.pricing-card.recommended {
+    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(34, 197, 94, 0.08);
+}
+
+.pricing-card:not(.recommended).dimmed {
+    opacity: 0.76;
+}
+
+.plan-badge {
+    display: none;
+    align-items: center;
+    gap: 7px;
+    width: fit-content;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(228, 234, 245, 0.82);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.plan-badge svg {
+    width: 12px;
+    height: 12px;
+}
+
+.pricing-card.recommended .plan-badge {
+    display: none;
+}
+
+.pricing-descriptor {
+    margin: 0;
+    color: rgba(228, 234, 245, 0.62);
+    font-size: 14px;
+    line-height: 1.62;
+}
+
+.plan-diagnostic {
+    max-width: 980px;
+    margin: 18px auto 0;
+    padding: 18px 20px 0;
+    border-top: 1px solid rgba(78, 245, 170, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.38s ease, transform 0.38s ease;
+    pointer-events: none;
+}
+
+.plan-diagnostic[hidden] {
+    display: none;
+}
+
+.plan-diagnostic.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.plan-diagnostic-text h4 {
+    margin: 0 0 6px;
+    color: #f4fff8;
+    font-size: 20px;
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+}
+
+.plan-diagnostic-text p {
+    margin: 0;
+    max-width: 56ch;
+    color: rgba(228, 234, 245, 0.64);
+    font-size: 14px;
+    line-height: 1.72;
+}
+
+.plan-diagnostic-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.plan-diagnostic-input,
+.plan-diagnostic-btn {
+    min-height: 48px;
+    border-radius: 999px;
+    font-family: inherit;
+}
+
+.plan-diagnostic-input {
+    width: 100%;
+    padding: 0 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(18, 18, 18, 0.92);
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.plan-diagnostic-input::placeholder {
+    color: rgba(255, 255, 255, 0.34);
+}
+
+.plan-diagnostic-input:focus {
+    border-color: rgba(74, 222, 128, 0.44);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+}
+
+.plan-diagnostic-btn {
+    border: none;
+    background: #22c55e;
+    color: #071d11;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.plan-diagnostic-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+}
+
+.plan-diagnostic-btn:focus-visible,
+.plan-diagnostic-input:focus-visible {
+    outline: 2px solid rgba(134, 239, 172, 0.45);
+    outline-offset: 2px;
+}
+
+@keyframes pricingCardReveal {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(22px) scale(0.965);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (min-width: 900px) {
+    .plan-quiz {
+        max-width: 980px;
+    }
+
+    .plan-quiz-accordion {
+        gap: 16px;
+    }
+
+    .plan-step-question {
+        font-size: 18px;
+    }
+
+    .plan-match-rail {
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    .plan-result-spotlight {
+        padding: 30px 32px 28px;
+    }
+
+    .plan-result-title {
+        font-size: 38px;
+    }
+
+    .plan-diagnostic {
+        padding-left: 0;
+        padding-right: 0;
+        gap: 18px;
+    }
+
+    .plan-diagnostic-form {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .plan-diagnostic-input {
+        width: 230px;
+    }
+
+    .plan-diagnostic-btn {
+        padding: 0 18px;
+    }
+}
+
+@media (max-width: 767px) {
+    .plan-quiz-accordion {
+        gap: 12px;
+    }
+
+    .plan-step .faq-question {
+        padding: 18px 18px;
+        gap: 12px;
+    }
+
+    .plan-step-question {
+        font-size: 15px;
+    }
+
+    .plan-step-answer {
+        font-size: 11.5px;
+    }
+
+    .plan-step-panel .faq-answer {
+        padding: 0 18px 18px;
+        gap: 14px;
+    }
+
+    .plan-step-help {
+        font-size: 13px;
+        line-height: 1.68;
+    }
+
+    .plan-step-option span {
+        min-height: 52px;
+        padding: 0 16px;
+        font-size: 13px;
+    }
+
+    .plan-match-rail {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .plan-match-chip {
+        min-height: 44px;
+        padding: 0 8px;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+    }
+
+    .plan-result-spotlight {
+        padding: 22px 18px 20px;
+        border-radius: 20px;
+    }
+
+    .plan-result-title {
+        font-size: 28px;
+    }
+
+    .plan-result-text {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .pricing-results-shell {
+        gap: 18px;
+        margin-top: 24px;
+    }
+
+    .pricing-results {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-card.is-mobile-priority {
+        order: -1;
+    }
+
+    .plan-diagnostic {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .plan-step-option span,
+    .plan-match-chip,
+    .pricing-results-shell,
+    .pricing-card.plan-card-reveal,
+    .plan-diagnostic,
+    .plan-diagnostic-btn {
+        animation: none !important;
+        transition: none !important;
+    }
+}

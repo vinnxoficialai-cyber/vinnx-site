@@ -1,22 +1,9 @@
 ﻿/**
- * Solution Animations - Stats countUp, Service cards stagger, Feature grid stagger,
+ * Solution Animations - Service cards stagger, Feature grid stagger,
  * Benefits stagger, Process steps sequential, Testimonials stagger, Final CTA reveal
  */
 export function initSolutionAnims() {
     if (!('IntersectionObserver' in window)) return;
-
-    // ---- Stats bar countUp + stagger ----
-    const statsBar = document.getElementById('statsBar');
-    if (statsBar) {
-        observeOnce(statsBar, 0.3, () => {
-            statsBar.classList.add('in');
-            statsBar.querySelectorAll('.stat-number').forEach((el) => {
-                const target = parseFloat(el.dataset.target) || 0;
-                const isDecimal = el.dataset.decimal === 'true';
-                countUp(el, target, 1600, isDecimal);
-            });
-        });
-    }
 
     // ---- Feature cards stagger reveal ----
     staggerReveal('#featureGrid', '.feature-card-v2', 100, 'in-view');
@@ -75,24 +62,5 @@ function staggerReveal(containerSelector, childSelector, delayMs, className) {
             setTimeout(() => child.classList.add(className), i * delayMs);
         });
     });
-}
-
-/* ---------- CountUp ---------- */
-function countUp(el, target, duration, isDecimal = false) {
-    const start = performance.now();
-    const format = (n) => {
-        if (isDecimal) return n.toFixed(1).replace('.', ',');
-        return n.toLocaleString('pt-BR');
-    };
-
-    function tick(now) {
-        const t = Math.min((now - start) / duration, 1);
-        // ease-out quad
-        const ease = 1 - (1 - t) * (1 - t);
-        const current = isDecimal ? ease * target : Math.round(ease * target);
-        el.textContent = format(current);
-        if (t < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
 }
 

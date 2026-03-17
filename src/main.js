@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Main entry point - imports styles and initializes all modules
  */
 
@@ -15,6 +15,7 @@ import { initProcessCinematic } from './animations/process-cinematic.js';
 import { initCtaRotator } from './animations/cta-rotator.js';
 import { initFaqAccordion } from './animations/faq-accordion.js';
 import { initButtonOpenFeedback } from './animations/button-open-feedback.js';
+import { initPlanQuiz } from './animations/plan-quiz.js';
 
 const STARTUP_DELAY_MS = 500;
 
@@ -35,6 +36,7 @@ function bootstrap() {
     runInit('cta rotator', initCtaRotator);
     runInit('faq accordion', initFaqAccordion);
     runInit('button open feedback', initButtonOpenFeedback);
+    runInit('plan quiz', initPlanQuiz);
 
     // Keep the original stagger so hero animation starts first.
     window.setTimeout(() => {
@@ -44,6 +46,17 @@ function bootstrap() {
         runInit('ai chat anim', initAiChatAnim);
         runInit('process cinematic', initProcessCinematic);
     }, STARTUP_DELAY_MS);
+
+    // Live clock in phone mockups
+    function updatePhoneClocks() {
+        const now = new Date();
+        const h = now.getHours();
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const timeStr = `${h}:${m}`;
+        document.querySelectorAll('.status-time').forEach(el => { el.textContent = timeStr; });
+    }
+    updatePhoneClocks();
+    setInterval(updatePhoneClocks, 30_000);
 }
 
 // Handle both normal page load and delayed script execution.
