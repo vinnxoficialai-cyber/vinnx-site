@@ -2696,7 +2696,7 @@
 
 .phone-vinnx {
     border-color: transparent;
-    box-shadow: 0 34px 72px -24px rgba(0, 0, 0, 0.56);
+    box-shadow: none;
     filter: none;
 }
 
@@ -2720,7 +2720,6 @@
     z-index: 10;
     pointer-events: none;
     object-fit: fill;
-    filter: brightness(0.12);
 }
 
 .phone-screen-v2 {
@@ -5616,7 +5615,7 @@
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    padding: 8px 0;
+    padding: 20px 24px;
     opacity: 0;
     transform: translateY(30px);
     transition:
