@@ -2720,6 +2720,7 @@
     z-index: 10;
     pointer-events: none;
     object-fit: fill;
+    filter: brightness(0.12);
 }
 
 .phone-screen-v2 {
