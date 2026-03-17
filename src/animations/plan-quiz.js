@@ -2,7 +2,7 @@
  * Plan assessment accordion with live plan preview and staged result reveal.
  */
 
-const WHATSAPP_BASE_URL = 'https://wa.me/553799417496';
+const WHATSAPP_BASE_URL = 'https://wa.me/5537999996681';
 const AUTO_ADVANCE_DELAY_MS = 180;
 
 const PLAN_META = {
@@ -98,13 +98,14 @@ export function initPlanQuiz() {
                         });
 
                         if (!wasComplete) {
-                            const recommendedCard = cards.find((c) => c.classList.contains('recommended'));
-                            const scrollTarget = recommendedCard || resultsShellEl;
-
                             window.setTimeout(() => {
-                                scrollTarget.scrollIntoView({
+                                const navbarEl = document.querySelector('.navbar');
+                                const navbarBottom = navbarEl ? navbarEl.getBoundingClientRect().bottom : 70;
+                                const rect = resultsShellEl.getBoundingClientRect();
+                                const targetTop = window.scrollY + rect.top - navbarBottom - 16;
+                                window.scrollTo({
+                                    top: targetTop,
                                     behavior: motionQuery.matches ? 'auto' : 'smooth',
-                                    block: 'center',
                                 });
                             }, 350);
                         }
@@ -148,6 +149,14 @@ export function initPlanQuiz() {
         matchChips,
         quizEl,
         reduceMotion: motionQuery.matches,
+    });
+
+    document.querySelectorAll('.pricing-card .btn-addon-cta').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (btn.dataset.counting === 'true') return;
+            startCountdown(btn, btn.href);
+        });
     });
 }
 
@@ -470,6 +479,44 @@ function sendDiagnostic(cards, inputEl) {
     );
 
     window.open(`${WHATSAPP_BASE_URL}?text=${message}`, '_blank', 'noopener');
+}
+
+function startCountdown(btn, url) {
+    btn.dataset.counting = 'true';
+    const originalText = btn.textContent;
+    let count = 3;
+
+    const span = document.createElement('span');
+    span.style.cssText = 'transition: opacity 0.45s ease; display: inline-block; font: inherit;';
+    span.textContent = originalText;
+    btn.textContent = '';
+    btn.appendChild(span);
+    btn.style.pointerEvents = 'none';
+
+    function tick() {
+        span.style.opacity = '0';
+
+        setTimeout(() => {
+            span.textContent = `Abrindo em ${count}`;
+            span.style.opacity = '1';
+
+            if (count <= 0) {
+                span.style.opacity = '0';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.removeProperty('pointer-events');
+                    btn.dataset.counting = '';
+                    window.open(url, '_blank', 'noopener');
+                }, 450);
+                return;
+            }
+
+            count--;
+            setTimeout(tick, 1200);
+        }, 450);
+    }
+
+    tick();
 }
 
 function formatPhoneNumber(value) {
